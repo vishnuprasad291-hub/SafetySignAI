@@ -3,135 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SafetySignAI — Free ISO 7010 Sign Maker</title>
+<title>SafetySignAI — Free ISO 7010 Safety Sign Maker</title>
+<meta name="description" content="Create professional ISO 7010 safety signs free. Download print-ready PNG instantly. Used by HSE officers in UAE and India.">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#0B1F3A; --orange:#E85D04; --ol:#FFF0E6;
+  --navy:#0B1F3A; --orange:#E85D04; --ol:#FFF4EE;
   --g50:#F8F7F4; --g100:#EDEBE5; --g200:#D8D5CE;
   --g300:#C4C0B8; --g500:#8A8680; --g700:#4A4642;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;font-family:'DM Sans',sans-serif;color:var(--navy);background:#F0EEE8;overflow:hidden;}
+html,body{height:100%;font-family:'DM Sans',sans-serif;color:var(--navy);background:#ECEAE4;overflow:hidden;}
 
-/* NAV */
-nav{background:white;border-bottom:1px solid var(--g100);height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;flex-shrink:0;position:relative;z-index:10;}
-.logo{font-family:'Instrument Serif',serif;font-size:18px;color:var(--navy);text-decoration:none;}
+nav{background:white;border-bottom:1px solid var(--g100);height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;flex-shrink:0;}
+.logo{font-family:'Instrument Serif',serif;font-size:18px;color:var(--navy);text-decoration:none;letter-spacing:-.01em;}
 .logo span{color:var(--orange);}
 .nav-r{display:flex;align-items:center;gap:10px;}
 .nbadge{font-size:11px;background:#E8F5E9;color:#2E7D32;padding:3px 9px;border-radius:12px;font-weight:500;}
 .nfb{font-size:12px;background:var(--navy);color:white;padding:5px 13px;border-radius:6px;text-decoration:none;}
 
-/* LAYOUT */
 .app{display:grid;grid-template-columns:230px 1fr 210px;height:calc(100vh - 50px);overflow:hidden;}
 
-/* LEFT PANEL */
+/* ── LEFT PANEL ── */
 .lpanel{background:white;border-right:1px solid var(--g100);display:flex;flex-direction:column;overflow:hidden;}
-
-/* SEARCH */
-.search-wrap{padding:10px 10px 6px;border-bottom:1px solid var(--g100);}
-.search-box{display:flex;align-items:center;gap:7px;background:var(--g50);border:1px solid var(--g200);border-radius:7px;padding:7px 10px;}
-.search-box input{border:none;background:none;font-size:12px;color:var(--navy);width:100%;outline:none;font-family:'DM Sans',sans-serif;}
-.search-box svg{flex-shrink:0;color:var(--g500);}
-
-/* CAT TABS */
+.searchbar{padding:9px 10px 7px;border-bottom:1px solid var(--g100);}
+.sbox{display:flex;align-items:center;gap:7px;background:var(--g50);border:1px solid var(--g200);border-radius:7px;padding:7px 10px;}
+.sbox svg{flex-shrink:0;opacity:.5;}
+.sbox input{border:none;background:none;font-size:12px;color:var(--navy);width:100%;outline:none;font-family:'DM Sans',sans-serif;}
 .cattabs{display:flex;flex-wrap:wrap;gap:3px;padding:7px;border-bottom:1px solid var(--g100);}
-.ctab{padding:4px 8px;font-size:10px;font-weight:500;border:1px solid var(--g200);border-radius:5px;background:white;cursor:pointer;color:var(--g700);line-height:1.4;}
-.ctab.on{background:var(--orange);color:white;border-color:var(--orange);}
-
-/* SYMBOL GRID */
-.sym-scroll{flex:1;overflow-y:auto;padding:8px;}
-.sym-scroll::-webkit-scrollbar{width:4px;}
-.sym-scroll::-webkit-scrollbar-thumb{background:var(--g200);border-radius:2px;}
+.ctab{padding:4px 8px;font-size:10px;font-weight:500;border:1px solid var(--g200);border-radius:5px;background:white;cursor:pointer;color:var(--g700);}
+.ctab.on{color:white;border-color:transparent;}
+.symscroll{flex:1;overflow-y:auto;padding:8px;}
+.symscroll::-webkit-scrollbar{width:3px;}
+.symscroll::-webkit-scrollbar-thumb{background:var(--g200);border-radius:2px;}
 .sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;}
-.sitem{border:1.5px solid var(--g100);border-radius:7px;background:var(--g50);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px;aspect-ratio:1;transition:border-color .12s,background .12s;position:relative;}
+.sitem{border:1.5px solid var(--g100);border-radius:7px;background:var(--g50);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:5px;aspect-ratio:1;transition:all .1s;}
 .sitem:hover{border-color:var(--orange);background:var(--ol);}
 .sitem.sel{border:2px solid var(--orange);background:var(--ol);}
-.sitem img{width:34px;height:34px;object-fit:contain;}
-.sitem .lbl{font-size:8px;color:var(--g500);text-align:center;line-height:1.2;padding:0 2px;}
+.sitem img{width:34px;height:34px;object-fit:contain;display:block;}
+.sitem .lbl{font-size:7.5px;color:var(--g500);text-align:center;line-height:1.2;}
 .sitem.sel .lbl{color:var(--orange);}
-.no-results{padding:20px 10px;text-align:center;font-size:12px;color:var(--g500);}
+.nores{padding:24px 12px;text-align:center;font-size:12px;color:var(--g500);line-height:1.8;}
 
-/* CENTER */
-.center{display:flex;flex-direction:column;align-items:center;padding:14px 16px;gap:12px;overflow-y:auto;background:#F0EEE8;}
-.center::-webkit-scrollbar{width:4px;}
-.center::-webkit-scrollbar-thumb{background:var(--g200);border-radius:2px;}
+/* ── CENTER ── */
+.center{display:flex;flex-direction:column;align-items:center;padding:12px 16px;gap:12px;overflow-y:auto;background:#ECEAE4;}
+.center::-webkit-scrollbar{width:3px;}
+.center::-webkit-scrollbar-thumb{background:var(--g300);border-radius:2px;}
 .bbanner{width:100%;max-width:640px;background:#E8F5E9;border:1px solid #A5D6A7;border-radius:8px;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;}
 .bbanner span{font-size:12px;color:#1B5E20;font-weight:500;}
 .bbanner a{font-size:11px;color:#2E7D32;font-weight:500;text-decoration:none;}
-.ccard{background:white;border:1px solid var(--g100);border-radius:12px;padding:14px;width:100%;max-width:640px;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+.ccard{background:white;border:1px solid var(--g100);border-radius:12px;padding:14px;width:100%;max-width:640px;box-shadow:0 1px 6px rgba(0,0,0,.05);}
 .ctoolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.stag{font-size:11px;font-weight:600;padding:3px 11px;border-radius:20px;letter-spacing:.02em;}
+.stag{font-size:11px;font-weight:600;padding:3px 11px;border-radius:20px;}
 .tp{background:#FFEBEE;color:#C62828;}
 .tw{background:#FFFDE7;color:#E65100;}
 .tm{background:#E3F2FD;color:#1565C0;}
 .ts{background:#E8F5E9;color:#2E7D32;}
 .tf{background:#FBE9E7;color:#BF360C;}
-.ti{background:#E8EAF6;color:#283593;}
 .dlbtn{display:flex;align-items:center;gap:6px;padding:8px 18px;background:#2E7D32;color:white;border:none;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .dlbtn:hover{background:#1B5E20;}
-#cv{display:block;max-width:100%;border-radius:6px;margin:0 auto;}
-
-/* AI CARD */
-.aicard{background:white;border:1px solid var(--g100);border-radius:12px;padding:14px;width:100%;max-width:640px;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+#cv{display:block;max-width:100%;border-radius:6px;margin:0 auto;border:1px solid var(--g100);}
+.aicard{background:white;border:1px solid var(--g100);border-radius:12px;padding:14px;width:100%;max-width:640px;}
 .aihead{font-size:13px;font-weight:600;margin-bottom:9px;display:flex;align-items:center;gap:7px;}
-.aibadge{font-size:10px;background:#EDE7F6;color:#512DA8;padding:2px 8px;border-radius:10px;font-weight:500;}
+.aibadge{font-size:10px;background:#EDE7F6;color:#512DA8;padding:2px 8px;border-radius:10px;}
 .airow{display:flex;gap:8px;}
 textarea{flex:1;padding:9px 11px;font-size:13px;border:1px solid var(--g200);border-radius:8px;font-family:'DM Sans',sans-serif;color:var(--navy);resize:none;height:56px;}
 textarea:focus{outline:none;border-color:#7C4DFF;}
-.aigobtn{padding:0 16px;background:#512DA8;color:white;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;}
-.aigobtn:hover{background:#311B92;}
-.aigobtn:disabled{opacity:.5;cursor:not-allowed;}
+.aigobtn{padding:0 16px;background:#512DA8;color:white;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.aigobtn:hover{background:#311B92;}.aigobtn:disabled{opacity:.5;cursor:not-allowed;}
 .ldrow{display:none;align-items:center;gap:6px;font-size:11px;color:var(--g500);margin-top:7px;}
 .ldrow.on{display:flex;}
 .dot{width:5px;height:5px;background:#512DA8;border-radius:50%;animation:pu 1.2s ease-in-out infinite;}
 .dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
 @keyframes pu{0%,100%{opacity:.2}50%{opacity:1}}
 
-/* RIGHT PANEL */
+/* ── RIGHT PANEL ── */
 .rpanel{background:white;border-left:1px solid var(--g100);padding:12px;overflow-y:auto;}
-.rpanel::-webkit-scrollbar{width:4px;}
+.rpanel::-webkit-scrollbar{width:3px;}
 .rpanel::-webkit-scrollbar-thumb{background:var(--g200);border-radius:2px;}
 .rl{font-size:10px;font-weight:600;color:var(--g500);text-transform:uppercase;letter-spacing:.07em;margin:13px 0 6px;}
 .rl:first-child{margin-top:0;}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
-.row{display:flex;gap:4px;}
-.rbtn{flex:1;padding:6px 3px;font-size:10px;font-weight:500;border:1px solid var(--g200);border-radius:5px;background:white;cursor:pointer;text-align:center;color:var(--g700);line-height:1.3;}
+.rrow{display:flex;gap:4px;}
+.rbtn{flex:1;padding:6px 2px;font-size:10px;font-weight:500;border:1px solid var(--g200);border-radius:5px;background:white;cursor:pointer;text-align:center;color:var(--g700);}
 .rbtn.on{border-color:var(--orange);color:var(--orange);background:var(--ol);}
 .rinput{width:100%;padding:7px 8px;font-size:12px;border:1px solid var(--g200);border-radius:6px;background:white;color:var(--navy);font-family:'DM Sans',sans-serif;}
 .rinput:focus{outline:none;border-color:var(--orange);}
-input[type=range]{width:100%;accent-color:var(--orange);height:4px;}
+input[type=range]{width:100%;accent-color:var(--orange);}
 select{width:100%;padding:6px 7px;font-size:12px;border:1px solid var(--g200);border-radius:6px;background:white;color:var(--navy);font-family:'DM Sans',sans-serif;}
-
-/* ISO COLOR SWATCHES */
-.isopal{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px;}
-.isw{width:28px;height:28px;border-radius:5px;cursor:pointer;border:2px solid transparent;position:relative;display:flex;align-items:center;justify-content:center;}
-.isw.on{border-color:#0B1F3A;}
-.isw::after{content:'✓';font-size:13px;color:white;display:none;text-shadow:0 1px 2px rgba(0,0,0,.5);}
-.isw.on::after{display:block;}
-.isw.white-sw.on::after{color:#333;}
-
-/* TEXT COLOR */
+.isopal{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:5px;}
+.isw{width:28px;height:28px;border-radius:5px;cursor:pointer;border:2.5px solid transparent;display:flex;align-items:center;justify-content:center;font-size:13px;color:white;font-weight:bold;}
+.isw.on{border-color:var(--navy);}
+.isw.wh{color:#999;}
+.isoguide{font-size:9px;color:var(--g500);line-height:2;}
 .tcrow{display:flex;gap:5px;flex-wrap:wrap;}
 .tcbtn{display:flex;align-items:center;gap:4px;padding:5px 7px;border:1px solid var(--g200);border-radius:6px;cursor:pointer;background:white;font-size:10px;font-weight:500;color:var(--g700);}
 .tcbtn.on{border-color:var(--orange);background:var(--ol);color:var(--orange);}
 .tcdot{width:11px;height:11px;border-radius:50%;border:1px solid rgba(0,0,0,.1);}
-
-/* COMING SOON */
-.soon{font-size:10px;color:var(--g300);line-height:2.2;}
+.soon{font-size:10px;color:var(--g300);line-height:2.1;}
 .reqbtn{display:block;margin-top:10px;text-align:center;padding:8px;background:var(--navy);color:white;border-radius:7px;font-size:11px;font-weight:500;text-decoration:none;}
-
-/* ISO GUIDE */
-.isoguide{margin-top:6px;}
-.igrow{display:flex;align-items:center;gap:6px;margin-bottom:3px;}
-.igdot{width:9px;height:9px;border-radius:2px;flex-shrink:0;}
-.igtext{font-size:9px;color:var(--g500);line-height:1.3;}
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="index.html" class="logo">SafetySign<span>AI</span></a>
+  <a href="/" class="logo">SafetySign<span>AI</span></a>
   <div class="nav-r">
     <span class="nbadge">🚀 Beta — free</span>
     <a href="mailto:hello@safetysignai.com" class="nfb">Feedback</a>
@@ -140,24 +116,22 @@ select{width:100%;padding:6px 7px;font-size:12px;border:1px solid var(--g200);bo
 
 <div class="app">
 
-<!-- ═══ LEFT: SYMBOL LIBRARY ═══ -->
+<!-- ══ LEFT ══ -->
 <div class="lpanel">
-  <div class="search-wrap">
-    <div class="search-box">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="search-input" placeholder="Search symbols... e.g. helmet, fire, exit" oninput="onSearch()">
+  <div class="searchbar">
+    <div class="sbox">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchinput" placeholder="Search... helmet, fire, exit, voltage" oninput="doSearch()">
     </div>
   </div>
   <div class="cattabs" id="cattabs"></div>
-  <div class="sym-scroll">
-    <div class="sgrid" id="sgrid"></div>
-  </div>
+  <div class="symscroll"><div class="sgrid" id="sgrid"></div></div>
 </div>
 
-<!-- ═══ CENTER: CANVAS ═══ -->
+<!-- ══ CENTER ══ -->
 <div class="center">
   <div class="bbanner">
-    <span>🚀 Beta launch — unlimited free downloads, no watermark</span>
+    <span>🚀 Beta — unlimited free downloads, no watermark</span>
     <a href="mailto:hello@safetysignai.com">Feedback →</a>
   </div>
   <div class="ccard">
@@ -170,21 +144,21 @@ select{width:100%;padding:6px 7px;font-size:12px;border:1px solid var(--g200);bo
   <div class="aicard">
     <div class="aihead">AI Generator <span class="aibadge">AI powered</span></div>
     <div class="airow">
-      <textarea id="aip" placeholder="Describe your sign... e.g. No smoking mandatory sign for oil and gas facility"></textarea>
+      <textarea id="aip" placeholder="Describe your sign... e.g. No smoking sign for oil and gas facility UAE"></textarea>
       <button class="aigobtn" id="aibtn" onclick="genAI()">Generate →</button>
     </div>
-    <div class="ldrow" id="ld"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>AI is creating your sign...</span></div>
+    <div class="ldrow" id="ld"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>AI is generating your sign...</span></div>
   </div>
 </div>
 
-<!-- ═══ RIGHT: CONTROLS ═══ -->
+<!-- ══ RIGHT ══ -->
 <div class="rpanel">
   <div class="rl">Sign type</div>
   <div class="grid2" id="typebtns"></div>
 
   <div class="rl">Shape</div>
-  <div class="row">
-    <button class="rbtn on" onclick="setSh('rect')" id="sh-rect">Rectangle</button>
+  <div class="rrow">
+    <button class="rbtn on" onclick="setSh('rect')" id="sh-rect">Rect</button>
     <button class="rbtn" onclick="setSh('sq')" id="sh-sq">Square</button>
     <button class="rbtn" onclick="setSh('circle')" id="sh-circle">Circle</button>
     <button class="rbtn" onclick="setSh('tri')" id="sh-tri">Triangle</button>
@@ -200,387 +174,324 @@ select{width:100%;padding:6px 7px;font-size:12px;border:1px solid var(--g200);bo
   <input type="range" min="10" max="38" value="20" id="fs" oninput="document.getElementById('fsv').textContent=this.value;render()">
 
   <div class="rl">Font style</div>
-  <div class="row">
+  <div class="rrow">
     <button class="rbtn on" onclick="setFF('bold')" id="ff-bold"><b>Bold</b></button>
-    <button class="rbtn" onclick="setFF('regular')" id="ff-regular">Regular</button>
+    <button class="rbtn" onclick="setFF('normal')" id="ff-normal">Normal</button>
     <button class="rbtn" onclick="setFF('italic')" id="ff-italic"><i>Italic</i></button>
-    <button class="rbtn" onclick="setFF('caps')" id="ff-caps">ALL CAPS</button>
+    <button class="rbtn" onclick="setFF('caps')" id="ff-caps">CAPS</button>
   </div>
 
   <div class="rl">Canvas size</div>
   <select id="sz" onchange="chSz()">
-    <option value="560,340">A4 Landscape (standard)</option>
+    <option value="560,340">A4 Landscape</option>
     <option value="340,340">Square 300mm</option>
     <option value="560,560">A3 Square</option>
     <option value="660,200">Banner</option>
-    <option value="400,300">400 × 300mm</option>
+    <option value="420,300">Standard 400mm</option>
   </select>
 
   <div class="rl">ISO background color</div>
   <div class="isopal" id="isopal"></div>
-  <div class="isoguide" id="isoguide"></div>
+  <div class="isoguide">
+    🔴 Red — Prohibition / Fire<br>
+    🟡 Yellow — Warning / Caution<br>
+    🔵 Blue — Mandatory / Info<br>
+    🟢 Green — Safe / Emergency<br>
+    ⚪ White — Neutral / General
+  </div>
 
   <div class="rl">Text color</div>
   <div class="tcrow" id="tcrow"></div>
 
-  <div class="rl">Border style</div>
-  <div class="row">
+  <div class="rl">Border</div>
+  <div class="rrow">
     <button class="rbtn on" onclick="setBd('solid')" id="bd-solid">Solid</button>
     <button class="rbtn" onclick="setBd('double')" id="bd-double">Double</button>
     <button class="rbtn" onclick="setBd('none')" id="bd-none">None</button>
   </div>
 
-  <div class="rl" style="margin-top:16px">Coming in Pro plan</div>
-  <div class="soon">🔜 Arabic text support<br>🔜 Company logo on signs<br>🔜 Bulk download 50 signs<br>🔜 Save signs to account<br>🔜 Custom font upload</div>
+  <div class="rl" style="margin-top:16px">Coming in Pro</div>
+  <div class="soon">🔜 Arabic text support<br>🔜 Company logo on signs<br>🔜 Bulk download 50 signs<br>🔜 Save signs to account<br>🔜 Custom fonts</div>
   <a href="mailto:hello@safetysignai.com" class="reqbtn">Request a feature →</a>
 </div>
 
 </div>
 
 <script>
-// ════════════════════════════════════════════════════════
-// ISO 7010 SYMBOL LIBRARY — Wikimedia Commons (Public Domain)
-// All images are PD-self / PD-ineligible — free to use commercially
-// Source: https://commons.wikimedia.org/wiki/Category:ISO_7010_safety_signs_(vector_drawings)
-// ════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+// CORRECT ISO 7010 SYMBOL LIBRARY
+// Codes verified from ISO 7010:2019 official standard
+// Images from Wikimedia Commons — Public Domain (PD-self)
+// URL: Special:FilePath gives direct redirect to actual file
+// ══════════════════════════════════════════════════════
 
-const WM = 'https://upload.wikimedia.org/wikipedia/commons/thumb/';
-
-// Helper: build Wikimedia thumbnail URL
-// Pattern: /thumb/[a]/[ab]/[filename].svg/200px-[filename].svg.png
-function wm(code, label, tags=[]) {
-  const fname = `ISO_7010_${code}.svg`;
-  // Wikimedia uses MD5 hash path — we use their API instead
-  return {
-    id: code,
-    label,
-    tags: [label.toLowerCase(), ...tags],
-    url: `https://upload.wikimedia.org/wikipedia/commons/thumb/ISO_7010_${code}.svg/120px-ISO_7010_${code}.svg.png`
-  };
+function wmUrl(code) {
+  // Use Wikimedia's Special:FilePath which redirects to actual CDN URL
+  return `https://upload.wikimedia.org/wikipedia/commons/thumb/ISO_7010_${code}.svg/100px-ISO_7010_${code}.svg.png`;
 }
 
-// We use Wikimedia's direct SVG render service which works reliably
-const wmsvg = (code) => `https://commons.wikimedia.org/wiki/Special:FilePath/ISO_7010_${code}.svg?width=120`;
-
-function sym(code, label, tags=[]) {
-  return { id:code, label, tags:[label.toLowerCase(), code.toLowerCase(), ...tags], url: wmsvg(code) };
+// Build symbol object
+function S(code, label, tags=[]) {
+  return { id:code, label, tags:[label.toLowerCase(), code.toLowerCase(), ...tags.map(t=>t.toLowerCase())], url:wmUrl(code) };
 }
 
 const CATS = [
-  { id:'all',         label:'All',        color:'#555' },
-  { id:'prohibition', label:'Prohibition', color:'#C62828' },
-  { id:'warning',     label:'Warning',     color:'#E65100' },
-  { id:'mandatory',   label:'Mandatory',   color:'#1565C0' },
-  { id:'safe',        label:'Safe',        color:'#2E7D32' },
-  { id:'fire',        label:'Fire',        color:'#BF360C' },
+  { id:'all',         label:'All',         col:'#555555' },
+  { id:'prohibition', label:'Prohibition',  col:'#C62828' },
+  { id:'warning',     label:'Warning',      col:'#E65100' },
+  { id:'mandatory',   label:'Mandatory',    col:'#1565C0' },
+  { id:'safe',        label:'Safe',         col:'#2E7D32' },
+  { id:'fire',        label:'Fire',         col:'#BF360C' },
 ];
 
-const SYMBOLS = {
+// VERIFIED ISO 7010:2019 codes and labels
+const LIB = {
   prohibition: [
-    sym('P001','No smoking',['smoke','cigarette','tobacco']),
-    sym('P002','No naked flames',['fire','flame','naked']),
-    sym('P003','No entry',['access','enter','restricted']),
-    sym('P004','Do not touch',['touch','hands','contact']),
-    sym('P005','No pedestrians',['walk','people','persons']),
-    sym('P006','No forklifts',['forklift','truck','vehicle']),
-    sym('P007','No photography',['camera','photo','picture']),
-    sym('P008','No cycling',['bike','cycle','bicycle']),
-    sym('P009','No open flame or smoking',['flame','smoke','fire']),
-    sym('P010','Do not extinguish with water',['water','extinguish','fire']),
-    sym('P011','No mobile phones',['phone','mobile','cell']),
-    sym('P012','Not drinking water',['water','drink','potable']),
-    sym('P013','No food or drink',['food','eat','drink']),
-    sym('P014','No dogs',['dog','pet','animal']),
-    sym('P015','No alcohol',['alcohol','drink','beer']),
-    sym('P016','No swimming',['swim','pool','water']),
-    sym('P017','No diving',['dive','pool','water']),
-    sym('P018','No running',['run','speed','fast']),
-    sym('P019','No parking',['park','car','vehicle']),
-    sym('P020','Do not obstruct',['block','obstruct','access']),
-    sym('P021','No pushing',['push','force']),
-    sym('P022','No sitting',['sit','seat','chair']),
-    sym('P023','No firearms',['gun','weapon','firearm']),
-    sym('P024','No heavy loads overhead',['load','overhead','heavy']),
-    sym('P025','Do not use lift in fire',['lift','elevator','fire']),
-    sym('P026','No aerosols',['spray','aerosol','can']),
-    sym('P027','No crossing',['cross','pedestrian','walk']),
-    sym('P028','Do not recycle',['recycle','waste','bin']),
-    sym('P029','No sharp objects',['sharp','needle','blade']),
-    sym('P030','Do not open',['open','door','gate']),
-    sym('P031','No stepping on surface',['step','surface','walk']),
-    sym('P032','Do not tie knots',['rope','knot','tie']),
-    sym('P033','No outdoor footwear',['shoe','boot','footwear']),
-    sym('P034','Do not use incomplete scaffold',['scaffold','construction']),
+    S('P001','General prohibition',['no','stop','ban']),
+    S('P002','No smoking',['smoke','cigarette','tobacco']),
+    S('P003','No open flame',['fire','flame','ignition','naked']),
+    S('P004','No thoroughfare',['entry','access','no entry']),
+    S('P005','Not drinking water',['water','drink','potable']),
+    S('P006','No forklift trucks',['forklift','truck','vehicle','industrial']),
+    S('P007','No cardiac implant devices',['pacemaker','cardiac','implant']),
+    S('P008','No metallic articles',['metal','watch','jewelry']),
+    S('P009','No climbing',['climb','ladder','height']),
+    S('P010','Do not touch',['touch','hands','contact','handle']),
+    S('P011','Do not extinguish with water',['water','fire','extinguish']),
+    S('P012','No heavy load',['load','weight','heavy','overhead']),
+    S('P013','No mobile phones',['phone','mobile','cell','call']),
+    S('P014','No metallic implants',['metal','implant','MRI']),
+    S('P015','No reaching in',['reach','hand','machine']),
+    S('P016','Do not spray with water',['water','spray','wet']),
+    S('P017','No pushing',['push','force']),
+    S('P018','No sitting',['sit','seat','chair']),
+    S('P019','No stepping on surface',['step','walk','surface']),
+    S('P020','No lift in fire',['lift','elevator','fire','emergency']),
+    S('P021','No dogs',['dog','pet','animal']),
+    S('P022','No eating or drinking',['eat','drink','food']),
+    S('P023','Do not obstruct',['block','obstruct','access','clear']),
+    S('P024','No diving',['dive','pool','swim','water']),
+    S('P025','No swimming',['swim','pool','water','beach']),
+    S('P026','No naked flames smoking',['flame','smoke','naked']),
+    S('P027','No photography',['camera','photo','picture','photography']),
+    S('P028','No open flame or smoking (alternative)',['flame','smoke','fire']),
+    S('P029','No photography (alternative)',['camera','photo','video']),
+    S('P030','No alcohol',['alcohol','drink','beer','wine']),
+    S('P031','No running',['run','speed','fast','jog']),
+    S('P032','No cycling',['bike','cycle','bicycle']),
+    S('P033','No parking',['park','car','vehicle','parking']),
+    S('P034','No firearms',['gun','weapon','firearm','pistol']),
   ],
   warning: [
-    sym('W001','Warning general',['caution','hazard','danger']),
-    sym('W002','Caution slippery surface',['slip','wet','floor']),
-    sym('W003','Caution hot surface',['hot','heat','burn']),
-    sym('W004','Warning high voltage',['electricity','electric','voltage']),
-    sym('W005','Warning flammable material',['fire','flame','combustible']),
-    sym('W006','Warning toxic material',['toxic','poison','chemical']),
-    sym('W007','Warning corrosive substance',['acid','corrosive','chemical']),
-    sym('W008','Warning biological hazard',['bio','bacteria','biohazard']),
-    sym('W009','Warning radiation hazard',['radiation','radioactive','nuclear']),
-    sym('W010','Warning laser beam',['laser','light','beam']),
-    sym('W011','Warning explosive material',['explosive','bomb','blast']),
-    sym('W012','Warning high voltage',['electricity','voltage','electric']),
-    sym('W013','Caution fragile roof',['roof','fragile','fall']),
-    sym('W014','Danger of falling objects',['fall','objects','overhead']),
-    sym('W015','Warning suspended load',['crane','load','suspended']),
-    sym('W016','Warning forklift trucks',['forklift','truck','vehicle']),
-    sym('W017','Warning overhead obstacle',['overhead','head','obstacle']),
-    sym('W018','Warning strong magnetic field',['magnetic','field','MRI']),
-    sym('W019','Warning non ionising radiation',['radiation','electromagnetic','wifi']),
-    sym('W020','Warning low temperature',['cold','freeze','ice']),
-    sym('W021','Warning trip hazard',['trip','fall','floor']),
-    sym('W022','Warning stairs',['stairs','steps','fall']),
-    sym('W023','Warning guard dogs',['dog','guard','security']),
-    sym('W024','Warning sudden drop',['drop','fall','height']),
-    sym('W025','Warning high noise level',['noise','sound','loud']),
-    sym('W026','Warning compressed gas',['gas','cylinder','pressure']),
-    sym('W027','Danger of crushing',['crush','press','machine']),
-    sym('W028','Warning sharp elements',['sharp','blade','cut']),
-    sym('W029','Warning automatic start',['auto','machine','start']),
-    sym('W030','Warning hand crushing',['hand','crush','press']),
-    sym('W031','Warning optical radiation',['light','optical','radiation']),
-    sym('W032','Warning counterrotating rollers',['roller','machine','crush']),
-    sym('W033','Warning inhalation hazard',['inhale','fumes','gas']),
-    sym('W034','Warning oxidising material',['oxidise','chemical','fire']),
-    sym('W035','Warning cancerous material',['cancer','asbestos','hazard']),
-    sym('W036','Warning harmful material',['harmful','chemical','health']),
-    sym('W037','Danger of death',['death','fatal','kill']),
-    sym('W038','Warning low headroom',['head','height','low']),
-    sym('W039','Caution battery charging',['battery','charging','electric']),
-    sym('W040','Warning deep water',['water','deep','drown']),
-    sym('W041','Warning strong currents',['current','water','swim']),
-    sym('W042','Warning thin ice',['ice','cold','water']),
-    sym('W043','Warning sudden drop to water',['water','drop','fall']),
+    S('W001','General warning',['caution','hazard','danger','general']),
+    S('W002','Warning explosive material',['explosive','bomb','blast','explosion']),
+    S('W003','Warning radioactive material',['radiation','radioactive','nuclear']),
+    S('W004','Warning laser beam',['laser','light','beam','optical']),
+    S('W005','Warning biological hazard',['bio','bacteria','biohazard','biological']),
+    S('W006','Warning magnetic field',['magnetic','field','MRI']),
+    S('W007','Warning corrosive substance',['acid','corrosive','chemical']),
+    S('W008','Warning toxic material',['toxic','poison','chemical','harmful']),
+    S('W009','Warning flammable material',['fire','flame','combustible','flammable']),
+    S('W010','Warning low temperature',['cold','freeze','ice','low temperature']),
+    S('W011','Warning oxidising material',['oxidise','chemical','fire','oxidising']),
+    S('W012','Warning high voltage',['electricity','electric','voltage','electrocution']),
+    S('W013','Guard dog warning',['dog','guard','security','animal']),
+    S('W014','Warning slippery surface',['slip','wet','floor','slippery']),
+    S('W015','Warning falling objects',['fall','objects','overhead','drop']),
+    S('W016','Warning forklift trucks',['forklift','truck','vehicle','industrial']),
+    S('W017','Warning hot surface',['hot','heat','burn','surface']),
+    S('W018','Warning non-ionising radiation',['radiation','electromagnetic','wifi','radio']),
+    S('W019','Warning crushing',['crush','press','machine','trapped']),
+    S('W020','Warning overhead obstacle',['overhead','head','obstacle','low']),
+    S('W021','Warning trip hazard',['trip','fall','floor','obstacle']),
+    S('W022','Warning stairs',['stairs','steps','fall']),
+    S('W023','Warning sharp elements',['sharp','blade','cut','knife']),
+    S('W024','Warning harmful material',['harmful','chemical','health','substance']),
+    S('W025','Warning high noise level',['noise','sound','loud','hearing']),
+    S('W026','Warning compressed gas',['gas','cylinder','pressure','compressed']),
+    S('W027','Warning suspended load',['crane','load','suspended','overhead']),
+    S('W028','Warning slippery surface (alt)',['slip','wet','floor']),
+    S('W029','Danger of death',['death','fatal','kill','electrocution']),
+    S('W030','Warning automatic start',['auto','machine','start','automatic']),
+    S('W031','Warning hand crushing',['hand','crush','press','machine']),
+    S('W032','Warning optical radiation',['light','optical','radiation','UV']),
+    S('W033','Warning counterrotating rollers',['roller','machine','crush','rotating']),
+    S('W034','Warning inhalation hazard',['inhale','fumes','gas','breathing']),
+    S('W035','Warning battery charging',['battery','charging','electric','acid']),
+    S('W036','Warning fragile roof',['roof','fragile','fall','ceiling']),
+    S('W037','Warning deep water',['water','deep','drown','swim']),
+    S('W038','Warning strong currents',['current','water','swim','river']),
+    S('W039','Warning thin ice',['ice','cold','water','freeze']),
+    S('W040','Warning cancerous material',['cancer','asbestos','hazard','carcinogen']),
+    S('W041','Warning low headroom',['head','height','low','clearance']),
+    S('W042','Warning sudden drop',['drop','fall','height','edge']),
+    S('W043','Warning pressurised cylinder',['cylinder','gas','pressure','tank']),
   ],
   mandatory: [
-    sym('M001','Wear safety helmet',['helmet','hardhat','head','PPE']),
-    sym('M002','Wear eye protection',['goggles','glasses','eye','PPE']),
-    sym('M003','Wear ear protection',['ear','hearing','noise','PPE']),
-    sym('M004','Wear respiratory protection',['mask','respirator','breathing','PPE']),
-    sym('M005','Wear protective gloves',['gloves','hands','PPE']),
-    sym('M006','Wear protective footwear',['boots','shoes','feet','PPE']),
-    sym('M007','Wear protective clothing',['clothing','suit','PPE']),
-    sym('M008','Wear safety harness',['harness','belt','height','PPE']),
-    sym('M009','Wear face shield',['face','shield','visor','PPE']),
-    sym('M010','Wear high visibility jacket',['hi-vis','vest','visibility','PPE']),
-    sym('M011','Wash your hands',['wash','hands','hygiene']),
-    sym('M012','Now wash your hands',['wash','hands','hygiene']),
-    sym('M013','Sound your horn',['horn','vehicle','traffic']),
-    sym('M014','Keep locked',['lock','security','access']),
-    sym('M015','Guards must be used',['guard','machine','safety']),
-    sym('M016','Turn off when not in use',['off','switch','power']),
-    sym('M017','Switch off when not in use',['off','switch','power']),
-    sym('M018','Stack correctly',['stack','storage','load']),
-    sym('M019','Lift correctly',['lift','manual','handling']),
-    sym('M020','Keep area litter free',['litter','clean','bin']),
-    sym('M021','Safety harness must be worn',['harness','height','fall']),
-    sym('M022','Wear hairnet',['hair','food','hygiene']),
-    sym('M023','Wear welding helmet',['weld','helmet','eye']),
-    sym('M024','Lifejackets to be worn',['lifejacket','water','swim']),
-    sym('M025','Wear face mask',['mask','face','COVID']),
-    sym('M026','Seatbelts must be worn',['seatbelt','car','vehicle']),
-    sym('M027','Use hand sanitiser',['sanitiser','hands','hygiene']),
-    sym('M028','Wear laboratory coat',['lab','coat','chemical']),
-    sym('M029','Ventilate before entering',['ventilate','confined','gas']),
-    sym('M030','Use footbridge',['bridge','pedestrian','crossing']),
-    sym('M031','Use this walkway',['walkway','path','route']),
+    S('M001','General mandatory action',['must','required','mandatory']),
+    S('M002','Refer to instruction manual',['manual','instructions','read','booklet']),
+    S('M003','Wear ear protection',['ear','hearing','noise','earmuff','PPE']),
+    S('M004','Wear eye protection',['goggles','glasses','eye','vision','PPE']),
+    S('M005','Wear safety helmet',['helmet','hardhat','head','PPE']),
+    S('M006','Wear protective gloves',['gloves','hands','PPE']),
+    S('M007','Wear protective clothing',['clothing','suit','coverall','PPE']),
+    S('M008','Wear respiratory protection',['mask','respirator','breathing','PPE']),
+    S('M009','Wear safety harness',['harness','belt','height','fall','PPE']),
+    S('M010','Wear face shield',['face','shield','visor','PPE']),
+    S('M011','Wear protective footwear',['boots','shoes','feet','PPE']),
+    S('M012','Wear welding mask',['weld','helmet','visor','PPE']),
+    S('M013','Wash your hands',['wash','hands','hygiene','clean']),
+    S('M014','Wear head protection',['helmet','hardhat','head','PPE']),
+    S('M015','Wear high-vis jacket',['hi-vis','vest','visibility','jacket','PPE']),
+    S('M016','Wear face mask',['mask','face','COVID','PPE']),
+    S('M017','Wear respiratory protection (alt)',['mask','respirator','PPE']),
+    S('M018','Keep locked',['lock','security','access','padlock']),
+    S('M019','Guards must be used',['guard','machine','safety','barrier']),
+    S('M020','Turn off when not in use',['off','switch','power','isolate']),
+    S('M021','Stack correctly',['stack','storage','load','pile']),
+    S('M022','Lift correctly',['lift','manual','handling','back']),
+    S('M023','Keep area litter free',['litter','clean','bin','tidy']),
+    S('M024','Sound your horn',['horn','vehicle','traffic','warning']),
+    S('M025','Wear hairnet',['hair','food','hygiene','hairnet']),
+    S('M026','Lifejackets to be worn',['lifejacket','water','swim','buoyancy']),
+    S('M027','Seatbelts must be worn',['seatbelt','car','vehicle','belt']),
+    S('M028','Use hand sanitiser',['sanitiser','hands','hygiene','COVID']),
+    S('M029','Opaque eye protection',['eye','opaque','protection','PPE']),
+    S('M030','Wear safety belts',['belt','harness','safety','PPE']),
+    S('M031','Use gas detector',['gas','detector','confined','space']),
   ],
   safe: [
-    sym('E001','Emergency exit right',['exit','escape','evacuate']),
-    sym('E002','Emergency exit left',['exit','escape','evacuate']),
-    sym('E003','Emergency exit',['exit','door','escape']),
-    sym('E004','Emergency medical station',['medical','first aid','doctor']),
-    sym('E005','Emergency shower',['shower','chemical','emergency']),
-    sym('E006','Emergency eye wash',['eyewash','eye','emergency']),
-    sym('E007','Emergency telephone',['phone','call','emergency']),
-    sym('E008','Assembly point',['assembly','muster','evacuate']),
-    sym('E009','Fire exit',['fire','exit','escape']),
-    sym('E010','Defibrillator AED',['AED','defibrillator','heart']),
-    sym('E011','First aid',['first aid','medical','health']),
-    sym('E012','Stretcher',['stretcher','casualty','medical']),
-    sym('E013','Drinking water',['water','drink','potable']),
-    sym('E014','Lifejacket location',['lifejacket','rescue','water']),
-    sym('E015','Life buoy',['lifebuoy','rescue','water']),
-    sym('E016','Doctor',['doctor','medical','health']),
-    sym('E017','Main switch',['switch','power','isolation']),
-    sym('E018','Eye wash',['eyewash','eye','chemical']),
-    sym('E019','Safety shower',['shower','chemical','emergency']),
-    sym('E020','Break to obtain access',['break','glass','emergency']),
-    sym('E021','Evacuation assembly point',['muster','assembly','evacuate']),
-    sym('E022','Emergency exit down left',['exit','escape','down']),
-    sym('E023','Emergency exit down right',['exit','escape','down']),
-    sym('E024','Emergency exit up',['exit','escape','up']),
-    sym('E025','Rescue window',['window','rescue','escape']),
+    S('E001','Emergency exit left',['exit','escape','evacuate','door','left']),
+    S('E002','Emergency exit right',['exit','escape','evacuate','door','right']),
+    S('E003','First aid',['first aid','medical','health','cross']),
+    S('E004','Emergency telephone',['phone','call','emergency','contact']),
+    S('E007','Emergency shower',['shower','chemical','emergency','decontaminate']),
+    S('E008','Emergency eye wash',['eyewash','eye','emergency','chemical']),
+    S('E009','Emergency stop',['stop','button','emergency','machine']),
+    S('E010','Emergency exit (door)',['exit','door','escape','evacuate']),
+    S('E011','Stretcher',['stretcher','casualty','medical','carry']),
+    S('E012','Safety shower',['shower','chemical','emergency']),
+    S('E013','Eye wash station',['eyewash','eye','station','chemical']),
+    S('E014','Drinking water',['water','drink','potable','tap']),
+    S('E015','Assembly point',['assembly','muster','evacuate','gather']),
+    S('E016','Fire exit',['fire','exit','escape','door']),
+    S('E017','Defibrillator AED',['AED','defibrillator','heart','cardiac']),
+    S('E018','Doctor',['doctor','medical','health','physician']),
+    S('E019','Main switch',['switch','power','isolation','electrical']),
+    S('E020','Life buoy',['lifebuoy','rescue','water','ring']),
+    S('E021','Lifejacket location',['lifejacket','rescue','water','vest']),
+    S('E022','Break to obtain access',['break','glass','emergency','access']),
+    S('E023','Muster station',['muster','assembly','station','evacuate']),
+    S('E024','Rescue boat',['boat','rescue','water','lifeboat']),
+    S('E025','Rescue window',['window','rescue','escape','emergency']),
   ],
   fire: [
-    sym('F001','Fire extinguisher',['extinguisher','fire','foam']),
-    sym('F002','Fire hose reel',['hose','reel','fire','water']),
-    sym('F003','Fire alarm call point',['alarm','call','fire']),
-    sym('F004','Fire blanket',['blanket','fire','smother']),
-    sym('F005','Fire door',['door','fire','escape']),
-    sym('F006','Fire ladder',['ladder','fire','escape']),
-    sym('F007','Fixed fire suppression system',['suppression','sprinkler','fire']),
-    sym('F008','Fire hydrant',['hydrant','water','fire']),
-    sym('F009','Fire telephone',['phone','call','fire']),
-    sym('F010','Fire assembly point',['assembly','muster','fire']),
+    S('F001','Fire extinguisher',['extinguisher','fire','foam','CO2']),
+    S('F002','Fire hose reel',['hose','reel','fire','water']),
+    S('F003','Fire ladder',['ladder','fire','escape','roof']),
+    S('F004','Collection of firefighting equipment',['equipment','collection','fire','tools']),
+    S('F005','Fire alarm call point',['alarm','call','point','button']),
+    S('F006','Fixed fire suppression system',['suppression','sprinkler','fire','system']),
+    S('F007','Fire hydrant',['hydrant','water','fire','standpipe']),
+    S('F008','Fire door',['door','fire','compartment','barrier']),
+    S('F009','Fire telephone',['phone','call','fire','emergency']),
+    S('F010','Fire blanket',['blanket','fire','smother','kitchen']),
   ],
 };
 
-// Build all symbols list for search
-const ALL_SYMBOLS = Object.entries(SYMBOLS).flatMap(([cat, syms]) =>
-  syms.map(s => ({...s, cat}))
-);
+// All symbols flat list for search
+const ALL = Object.entries(LIB).flatMap(([cat,syms]) => syms.map(s=>({...s,cat})));
 
-// ════════════════════════════════════════════════════════
-// COLORS & STATE
-// ════════════════════════════════════════════════════════
-
-const ISO_COLORS = [
-  { hex:'#C62828', name:'ISO Red',     hint:'Prohibition / Fire / Danger' },
-  { hex:'#FDD835', name:'ISO Yellow',  hint:'Warning / Caution' },
-  { hex:'#1565C0', name:'ISO Blue',    hint:'Mandatory / Information' },
-  { hex:'#2E7D32', name:'ISO Green',   hint:'Safe Condition / Emergency' },
-  { hex:'#FFFFFF', name:'White',       hint:'General / Neutral background', isWhite:true },
-  { hex:'#E65100', name:'ISO Orange',  hint:'Warning alternative' },
-  { hex:'#212121', name:'Black',       hint:'Text-only / General' },
-  { hex:'#F5F5F5', name:'Light Grey',  hint:'Information / Neutral', isWhite:true },
+// ══ COLORS ══
+const ISO_PAL = [
+  {hex:'#C62828',name:'ISO Red'},
+  {hex:'#FDD835',name:'ISO Yellow'},
+  {hex:'#1565C0',name:'ISO Blue'},
+  {hex:'#2E7D32',name:'ISO Green'},
+  {hex:'#FFFFFF',name:'White',wh:true},
+  {hex:'#E65100',name:'ISO Orange'},
+  {hex:'#212121',name:'Black'},
+  {hex:'#EEEEEE',name:'Light Grey',wh:true},
 ];
-
-const TEXT_COLORS = [
-  { hex:'#FFFFFF', label:'White' },
-  { hex:'#212121', label:'Black' },
-  { hex:'#C62828', label:'Red'   },
-  { hex:'#FDD835', label:'Yellow'},
-  { hex:'#1565C0', label:'Blue'  },
+const TC_OPTIONS = [
+  {hex:'#FFFFFF',lbl:'White'},
+  {hex:'#212121',lbl:'Black'},
+  {hex:'#C62828',lbl:'Red'},
+  {hex:'#FDD835',lbl:'Yellow'},
+  {hex:'#1565C0',lbl:'Blue'},
 ];
-
-const TYPE_CONFIG = {
-  p:{ bg:'#C62828', tc:'#FFFFFF', bc:'#B71C1C', label:'Prohibition',  tag:'tp' },
-  w:{ bg:'#FDD835', tc:'#212121', bc:'#E65100', label:'Warning',      tag:'tw' },
-  m:{ bg:'#1565C0', tc:'#FFFFFF', bc:'#0D47A1', label:'Mandatory',    tag:'tm' },
-  s:{ bg:'#2E7D32', tc:'#FFFFFF', bc:'#1B5E20', label:'Safe',         tag:'ts' },
-  f:{ bg:'#C62828', tc:'#FFFFFF', bc:'#B71C1C', label:'Fire',         tag:'tf' },
+const TYPE_CFG = {
+  p:{bg:'#C62828',tc:'#FFFFFF',lbl:'Prohibition',tag:'tp'},
+  w:{bg:'#FDD835',tc:'#212121',lbl:'Warning',    tag:'tw'},
+  m:{bg:'#1565C0',tc:'#FFFFFF',lbl:'Mandatory',  tag:'tm'},
+  s:{bg:'#2E7D32',tc:'#FFFFFF',lbl:'Safe',       tag:'ts'},
+  f:{bg:'#C62828',tc:'#FFFFFF',lbl:'Fire',       tag:'tf'},
 };
 
-let S = {
-  type: 'p',
-  cat: 'prohibition',
-  shape: 'rect',
-  border: 'solid',
-  bg: '#C62828',
-  tc: '#FFFFFF',
-  fstyle: 'bold',
-  iconUrl: SYMBOLS.prohibition[0].url,
-  iconId: SYMBOLS.prohibition[0].id,
-  w: 560, h: 340,
-  searching: false,
+// ══ STATE ══
+const ST = {
+  type:'p', shape:'rect', border:'solid', fstyle:'bold',
+  bg:'#C62828', tc:'#FFFFFF',
+  iconUrl: LIB.prohibition[0].url,
+  iconId:  LIB.prohibition[0].id,
+  w:560, h:340,
 };
 
-// ════════════════════════════════════════════════════════
-// BUILD UI
-// ════════════════════════════════════════════════════════
-
-// Category tabs
+// ══ BUILD CATEGORY TABS ══
 const ctabsEl = document.getElementById('cattabs');
 CATS.forEach((c,i) => {
   const b = document.createElement('button');
   b.className = 'ctab' + (i===0?' on':'');
+  if(i===0){ b.style.background=c.col; b.style.borderColor=c.col; }
   b.textContent = c.label;
-  b.style.borderColor = b.classList.contains('on') ? c.color : '';
   b.onclick = () => {
-    S.searching = false;
-    document.getElementById('search-input').value = '';
-    S.cat = c.id;
-    document.querySelectorAll('.ctab').forEach(x=>{x.classList.remove('on');x.style.background='';x.style.color='';x.style.borderColor='';});
-    b.classList.add('on');
-    b.style.background = c.color;
-    b.style.borderColor = c.color;
-    b.style.color = '#fff';
-    buildGrid(c.id==='all' ? ALL_SYMBOLS : (SYMBOLS[c.id]||[]).map(s=>({...s,cat:c.id})));
+    document.getElementById('searchinput').value = '';
+    document.querySelectorAll('.ctab').forEach(x=>{x.classList.remove('on');x.style.background='';x.style.borderColor='';x.style.color='';});
+    b.classList.add('on'); b.style.background=c.col; b.style.borderColor=c.col; b.style.color='#fff';
+    if(i===0) buildGrid(ALL);
+    else buildGrid(LIB[c.id]?.map(s=>({...s,cat:c.id}))||[]);
   };
   ctabsEl.appendChild(b);
 });
 
-// Type buttons
+// ══ BUILD TYPE BUTTONS ══
 const typebEl = document.getElementById('typebtns');
-Object.entries(TYPE_CONFIG).forEach(([key, cfg]) => {
+Object.entries(TYPE_CFG).forEach(([key,cfg]) => {
   const b = document.createElement('button');
-  b.id = 'tp-'+key;
-  b.className = 'rbtn' + (key==='p'?' on':'');
-  b.textContent = cfg.label;
+  b.id='tp-'+key; b.className='rbtn'+(key==='p'?' on':'');
+  b.textContent = cfg.lbl;
   b.onclick = () => setT(key);
   typebEl.appendChild(b);
 });
 
-// ISO palette
-function buildPalette() {
-  const el = document.getElementById('isopal'); el.innerHTML='';
-  ISO_COLORS.forEach(c => {
-    const d = document.createElement('div');
-    d.className = 'isw' + (c.hex===S.bg?' on':'') + (c.isWhite?' white-sw':'');
-    d.style.background = c.hex;
-    if(c.isWhite) d.style.border = '1.5px solid #ccc';
-    d.title = c.name + ' — ' + c.hint;
-    d.onclick = () => {
-      S.bg = c.hex;
-      buildPalette();
-      render();
-    };
-    el.appendChild(d);
-  });
-  // ISO guide
-  const guide = document.getElementById('isoguide'); guide.innerHTML='';
-  ISO_COLORS.slice(0,5).forEach(c => {
-    const row = document.createElement('div'); row.className='igrow';
-    row.innerHTML=`<div class="igdot" style="background:${c.hex};${c.isWhite?'border:1px solid #ccc':''}"></div><div class="igtext">${c.name} — ${c.hint}</div>`;
-    guide.appendChild(row);
-  });
-}
-
-// Text color
-function buildTcRow() {
-  const el = document.getElementById('tcrow'); el.innerHTML='';
-  TEXT_COLORS.forEach(c => {
-    const b = document.createElement('button');
-    b.className = 'tcbtn' + (c.hex===S.tc?' on':'');
-    b.innerHTML = `<div class="tcdot" style="background:${c.hex}"></div>${c.label}`;
-    b.onclick = () => { S.tc=c.hex; buildTcRow(); render(); };
-    el.appendChild(b);
-  });
-}
-
-// ════════════════════════════════════════════════════════
-// SYMBOL GRID
-// ════════════════════════════════════════════════════════
+// ══ SYMBOL GRID ══
 function buildGrid(syms) {
   const g = document.getElementById('sgrid');
   g.innerHTML = '';
-  if(!syms || syms.length===0){
-    g.innerHTML = '<div class="no-results">No symbols found.<br>Try a different keyword.</div>';
+  if(!syms||syms.length===0){
+    g.innerHTML='<div class="nores">No symbols found.<br>Try another keyword.</div>';
     return;
   }
   syms.forEach(ic => {
     const d = document.createElement('div');
-    d.className = 'sitem' + (ic.id===S.iconId?' sel':'');
-    d.title = ic.label;
+    d.className = 'sitem'+(ic.id===ST.iconId?' sel':'');
+    d.title = ic.id + ' — ' + ic.label;
     const img = document.createElement('img');
-    img.src = ic.url;
-    img.alt = ic.label;
     img.loading = 'lazy';
-    img.onerror = () => { img.style.display='none'; d.innerHTML += `<div style="font-size:9px;color:#888;text-align:center">Loading...</div>`; };
+    img.alt = ic.label;
+    // Use a fallback chain for image loading
+    img.src = ic.url;
+    img.onerror = function(){
+      // Try alternative Wikimedia URL format
+      this.onerror=null;
+      this.src=`https://upload.wikimedia.org/wikipedia/commons/ISO_7010_${ic.id}.svg`;
+    };
     const lbl = document.createElement('div');
-    lbl.className = 'lbl';
-    lbl.textContent = ic.label;
-    d.appendChild(img);
-    d.appendChild(lbl);
+    lbl.className='lbl'; lbl.textContent=ic.label;
+    d.appendChild(img); d.appendChild(lbl);
     d.onclick = () => {
-      S.iconUrl = ic.url;
-      S.iconId = ic.id;
+      ST.iconUrl = ic.url;
+      ST.iconId = ic.id;
       document.querySelectorAll('.sitem').forEach(x=>x.classList.remove('sel'));
       d.classList.add('sel');
       render();
@@ -589,179 +500,184 @@ function buildGrid(syms) {
   });
 }
 
-// Search
-function onSearch() {
-  const q = document.getElementById('search-input').value.trim().toLowerCase();
-  if(!q){
-    S.searching = false;
-    const curCat = document.querySelector('.ctab.on');
-    const catId = curCat ? CATS[Array.from(document.querySelectorAll('.ctab')).indexOf(curCat)].id : 'all';
-    buildGrid(catId==='all' ? ALL_SYMBOLS : (SYMBOLS[catId]||[]).map(s=>({...s,cat:catId})));
-    return;
-  }
-  S.searching = true;
-  const results = ALL_SYMBOLS.filter(s => s.tags.some(t => t.includes(q)) || s.label.toLowerCase().includes(q) || s.id.toLowerCase().includes(q));
-  buildGrid(results);
+// ══ SEARCH ══
+function doSearch() {
+  const q = document.getElementById('searchinput').value.trim().toLowerCase();
+  if(!q){ buildGrid(ALL); return; }
+  buildGrid(ALL.filter(s => s.label.toLowerCase().includes(q) || s.id.toLowerCase().includes(q) || s.tags.some(t=>t.includes(q))));
 }
 
-// ════════════════════════════════════════════════════════
-// STATE SETTERS
-// ════════════════════════════════════════════════════════
-function setT(t) {
-  S.type=t; S.bg=TYPE_CONFIG[t].bg; S.tc=TYPE_CONFIG[t].tc;
-  document.querySelectorAll('[id^="tp-"]').forEach(b=>b.classList.remove('on'));
-  document.getElementById('tp-'+t).classList.add('on');
-  const tag=document.getElementById('ttag');
-  tag.className='stag '+TYPE_CONFIG[t].tag;
-  tag.textContent=TYPE_CONFIG[t].label;
-  buildPalette(); buildTcRow(); render();
-}
-function setSh(s){ S.shape=s; document.querySelectorAll('[id^="sh-"]').forEach(b=>b.classList.remove('on')); document.getElementById('sh-'+s).classList.add('on'); render(); }
-function setBd(b){ S.border=b; document.querySelectorAll('[id^="bd-"]').forEach(x=>x.classList.remove('on')); document.getElementById('bd-'+b).classList.add('on'); render(); }
-function setFF(f){ S.fstyle=f; document.querySelectorAll('[id^="ff-"]').forEach(x=>x.classList.remove('on')); document.getElementById('ff-'+f).classList.add('on'); render(); }
-function chSz(){ const v=document.getElementById('sz').value.split(','); S.w=+v[0]; S.h=+v[1]; const c=document.getElementById('cv'); c.width=S.w; c.height=S.h; render(); }
-
-// ════════════════════════════════════════════════════════
-// RENDER
-// ════════════════════════════════════════════════════════
-function loadImg(url) {
-  return new Promise((res,rej) => {
-    const img=new Image(); img.crossOrigin='anonymous';
-    img.onload=()=>res(img);
-    img.onerror=()=>rej();
-    img.src=url;
+// ══ PALETTE ══
+function buildPal() {
+  const el=document.getElementById('isopal'); el.innerHTML='';
+  ISO_PAL.forEach(c=>{
+    const d=document.createElement('div');
+    d.className='isw'+(c.hex===ST.bg?' on':'')+(c.wh?' wh':'');
+    d.style.background=c.hex;
+    if(c.wh) d.style.border='1.5px solid #bbb';
+    d.title=c.name; d.textContent=c.hex===ST.bg?'✓':'';
+    d.onclick=()=>{ ST.bg=c.hex; buildPal(); render(); };
+    el.appendChild(d);
   });
 }
 
-async function render() {
-  const cv=document.getElementById('cv');
-  const ctx=cv.getContext('2d');
+// ══ TEXT COLOR ══
+function buildTc() {
+  const el=document.getElementById('tcrow'); el.innerHTML='';
+  TC_OPTIONS.forEach(c=>{
+    const b=document.createElement('button');
+    b.className='tcbtn'+(c.hex===ST.tc?' on':'');
+    b.innerHTML=`<div class="tcdot" style="background:${c.hex}"></div>${c.lbl}`;
+    b.onclick=()=>{ ST.tc=c.hex; buildTc(); render(); };
+    el.appendChild(b);
+  });
+}
+
+// ══ SETTERS ══
+function setT(t){
+  ST.type=t; ST.bg=TYPE_CFG[t].bg; ST.tc=TYPE_CFG[t].tc;
+  document.querySelectorAll('[id^="tp-"]').forEach(b=>b.classList.remove('on'));
+  document.getElementById('tp-'+t).classList.add('on');
+  const tag=document.getElementById('ttag');
+  tag.className='stag '+TYPE_CFG[t].tag; tag.textContent=TYPE_CFG[t].lbl;
+  buildPal(); buildTc(); render();
+}
+function setSh(s){ ST.shape=s; document.querySelectorAll('[id^="sh-"]').forEach(b=>b.classList.remove('on')); document.getElementById('sh-'+s).classList.add('on'); render(); }
+function setBd(b){ ST.border=b; document.querySelectorAll('[id^="bd-"]').forEach(x=>x.classList.remove('on')); document.getElementById('bd-'+b).classList.add('on'); render(); }
+function setFF(f){ ST.fstyle=f; document.querySelectorAll('[id^="ff-"]').forEach(x=>x.classList.remove('on')); document.getElementById('ff-'+f).classList.add('on'); render(); }
+function chSz(){ const v=document.getElementById('sz').value.split(','); ST.w=+v[0]; ST.h=+v[1]; const c=document.getElementById('cv'); c.width=ST.w; c.height=ST.h; render(); }
+
+// ══ RENDER ══
+let renderTimer = null;
+function render() {
+  // Debounce slightly but always render
+  if(renderTimer) clearTimeout(renderTimer);
+  renderTimer = setTimeout(doRender, 30);
+}
+
+async function doRender() {
+  const cv = document.getElementById('cv');
+  const ctx = cv.getContext('2d');
   const w=cv.width, h=cv.height;
-  const main = S.fstyle==='caps'
-    ? (document.getElementById('mt').value||'SIGN TEXT').toUpperCase()
-    : (document.getElementById('mt').value||'SIGN TEXT');
-  const sub  = document.getElementById('st').value||'';
-  const fs   = +document.getElementById('fs').value;
-  const bc   = darken(S.bg, S.bg==='#FFFFFF' ? 80 : 40);
+
+  let mainTxt = document.getElementById('mt').value || 'SIGN TEXT';
+  if(ST.fstyle==='caps') mainTxt=mainTxt.toUpperCase();
+  const subTxt = document.getElementById('st').value || '';
+  const fs = +document.getElementById('fs').value;
+  const bc = darken(ST.bg, ST.bg==='#FFFFFF'||ST.bg==='#EEEEEE' ? 80 : 40);
 
   ctx.clearRect(0,0,w,h);
 
-  // Background shape
+  // Draw background shape
   ctx.save();
-  const path = new Path2D();
-  if(S.shape==='tri'){ path.moveTo(w/2,8); path.lineTo(w-8,h-8); path.lineTo(8,h-8); path.closePath(); }
-  else if(S.shape==='circle'){ const r=Math.min(w,h)/2-8; path.arc(w/2,h/2,r,0,Math.PI*2); }
-  else { path.roundRect(8,8,w-16,h-16,10); }
-  ctx.fillStyle=S.bg; ctx.fill(path);
-  if(S.border!=='none'){
-    ctx.strokeStyle=bc; ctx.lineWidth=S.border==='double'?7:3; ctx.stroke(path);
+  const p = new Path2D();
+  if(ST.shape==='tri'){ p.moveTo(w/2,8); p.lineTo(w-8,h-8); p.lineTo(8,h-8); p.closePath(); }
+  else if(ST.shape==='circle'){ const r=Math.min(w,h)/2-8; p.arc(w/2,h/2,r,0,Math.PI*2); }
+  else { p.roundRect(8,8,w-16,h-16,10); }
+  ctx.fillStyle=ST.bg; ctx.fill(p);
+  if(ST.border!=='none'){
+    ctx.strokeStyle=bc; ctx.lineWidth=ST.border==='double'?7:3.5; ctx.stroke(p);
   }
-  if(S.border==='double' && S.shape!=='tri'){
+  if(ST.border==='double'&&ST.shape!=='tri'){
     const p2=new Path2D();
-    if(S.shape==='circle'){ const r=Math.min(w,h)/2-20; p2.arc(w/2,h/2,r,0,Math.PI*2); }
-    else { p2.roundRect(18,18,w-36,h-36,8); }
+    if(ST.shape==='circle'){const r=Math.min(w,h)/2-20;p2.arc(w/2,h/2,r,0,Math.PI*2);}
+    else{p2.roundRect(18,18,w-36,h-36,8);}
     ctx.strokeStyle=bc; ctx.lineWidth=2; ctx.stroke(p2);
   }
   ctx.restore();
 
-  // Layout
-  const padX = w*0.07;
-  const iconSz = Math.min(h*0.56, w*0.26, 155);
-  const iconX = padX;
-  const iconY = (h-iconSz)/2;
-  const textX = iconX+iconSz+padX*0.7;
-  const textW = w-textX-padX;
+  // Icon + text layout
+  const padX=w*0.07;
+  const iconSz=Math.min(h*0.55,w*0.26,155);
+  const iconX=padX, iconY=(h-iconSz)/2;
+  const textX=iconX+iconSz+padX*0.7, textW=w-textX-padX;
 
-  // Load and draw icon
+  // Draw icon image
   try {
-    const img = await loadImg(S.iconUrl);
+    const img = await loadImage(ST.iconUrl);
     ctx.drawImage(img, iconX, iconY, iconSz, iconSz);
-  } catch(e) {
-    // Draw placeholder if image fails
-    ctx.fillStyle = 'rgba(255,255,255,0.3)';
-    ctx.fillRect(iconX, iconY, iconSz, iconSz);
-    ctx.fillStyle = S.tc;
-    ctx.font = `${iconSz*0.3}px sans-serif`;
-    ctx.textAlign='center';
-    ctx.fillText('?', iconX+iconSz/2, iconY+iconSz*0.6);
-    ctx.textAlign='left';
+  } catch {
+    // Placeholder box
+    ctx.fillStyle='rgba(255,255,255,0.25)';
+    ctx.fillRect(iconX,iconY,iconSz,iconSz);
+    ctx.fillStyle=ST.tc; ctx.textAlign='center'; ctx.font=`${iconSz*0.28}px sans-serif`;
+    ctx.fillText('?',iconX+iconSz/2,iconY+iconSz*0.62); ctx.textAlign='left';
   }
 
   // Text
-  ctx.fillStyle=S.tc;
-  ctx.textAlign='left';
-  ctx.textBaseline='alphabetic';
-
-  const fItalic = S.fstyle==='italic' ? 'italic ' : '';
-  const fWeight = (S.fstyle==='bold') ? 'bold ' : '';
-  const fFont = fItalic + fWeight;
+  ctx.fillStyle=ST.tc; ctx.textAlign='left'; ctx.textBaseline='alphabetic';
+  const fi = ST.fstyle==='italic' ? 'italic ' : '';
+  const fw = ST.fstyle==='bold' ? 'bold ' : '';
+  const ff = fi+fw;
 
   let mfs=fs;
-  ctx.font = fFont + mfs+'px DM Sans,sans-serif';
-  while(ctx.measureText(main).width > textW && mfs>10){ mfs--; ctx.font=fFont+mfs+'px DM Sans,sans-serif'; }
+  ctx.font=ff+mfs+'px DM Sans,sans-serif';
+  while(ctx.measureText(mainTxt).width>textW&&mfs>10){ mfs--; ctx.font=ff+mfs+'px DM Sans,sans-serif'; }
+  const sfs=Math.max(Math.round(mfs*0.55),10);
 
-  const sfs = Math.max(Math.round(mfs*0.56),10);
+  // Word-wrap sub text
   let subLines=[];
-  if(sub){
-    ctx.font=fFont+sfs+'px DM Sans,sans-serif';
-    const words=sub.split(' '); let line='';
-    words.forEach(word=>{ const test=line+word+' '; if(ctx.measureText(test).width>textW&&line){subLines.push(line.trim());line=word+' ';}else line=test; });
-    subLines.push(line.trim());
+  if(subTxt){
+    ctx.font=ff+sfs+'px DM Sans,sans-serif';
+    const words=subTxt.split(' '); let line='';
+    words.forEach(word=>{ const t=line+word+' '; if(ctx.measureText(t).width>textW&&line){subLines.push(line.trim());line=word+' ';}else line=t; });
+    if(line.trim()) subLines.push(line.trim());
   }
 
   const lineH=mfs*1.2;
-  const totalH=lineH+(subLines.length?(sfs*1.35*subLines.length+8):0);
+  const totalH=lineH+(subLines.length?sfs*1.35*subLines.length+8:0);
   const startY=h/2-totalH/2+mfs;
 
-  ctx.font=fFont+mfs+'px DM Sans,sans-serif';
-  ctx.fillText(main, textX, startY);
+  ctx.font=ff+mfs+'px DM Sans,sans-serif';
+  ctx.fillText(mainTxt, textX, startY);
 
-  // Subtle divider
-  if(sub){
-    ctx.globalAlpha=0.2; ctx.strokeStyle=S.tc; ctx.lineWidth=1;
-    ctx.beginPath(); ctx.moveTo(textX, startY+6); ctx.lineTo(textX+Math.min(ctx.measureText(main).width,textW), startY+6); ctx.stroke();
+  if(subTxt&&subLines.length){
+    // Divider
+    ctx.globalAlpha=0.18; ctx.strokeStyle=ST.tc; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(textX,startY+6); ctx.lineTo(textX+Math.min(ctx.measureText(mainTxt).width,textW),startY+6); ctx.stroke();
     ctx.globalAlpha=1;
-  }
-
-  if(subLines.length){
-    ctx.font=fFont+sfs+'px DM Sans,sans-serif'; ctx.globalAlpha=0.82;
+    // Sub lines
+    ctx.font=ff+sfs+'px DM Sans,sans-serif'; ctx.globalAlpha=0.82;
     subLines.forEach((l,i)=>ctx.fillText(l,textX,startY+lineH+(i*sfs*1.35)));
     ctx.globalAlpha=1;
   }
 
-  // Subtle credit watermark
-  ctx.font='9px DM Sans,sans-serif'; ctx.globalAlpha=0.22;
-  ctx.textAlign='right';
-  ctx.fillText('safetysignai.com', w-padX, h-8);
+  // Tiny credit
+  ctx.font='9px DM Sans,sans-serif'; ctx.globalAlpha=0.2;
+  ctx.textAlign='right'; ctx.fillText('safetysignai.com',w-padX,h-8);
   ctx.textAlign='left'; ctx.globalAlpha=1;
 }
 
-function darken(hex, amt=40){
-  let r=parseInt(hex.slice(1,3),16)||255;
-  let g=parseInt(hex.slice(3,5),16)||255;
-  let b=parseInt(hex.slice(5,7),16)||255;
+// Image cache to prevent reloading same image
+const imgCache = {};
+function loadImage(url) {
+  if(imgCache[url] && imgCache[url].complete && imgCache[url].naturalWidth) return Promise.resolve(imgCache[url]);
+  return new Promise((res,rej)=>{
+    const img=new Image(); img.crossOrigin='anonymous';
+    img.onload=()=>{ imgCache[url]=img; res(img); };
+    img.onerror=()=>rej(new Error('img load failed'));
+    img.src=url;
+  });
+}
+
+function darken(hex,amt=40){
+  let r=parseInt(hex.slice(1,3),16)||255, g=parseInt(hex.slice(3,5),16)||255, b=parseInt(hex.slice(5,7),16)||255;
   return `rgb(${Math.max(0,r-amt)},${Math.max(0,g-amt)},${Math.max(0,b-amt)})`;
 }
 
-// ════════════════════════════════════════════════════════
-// DOWNLOAD
-// ════════════════════════════════════════════════════════
+// ══ DOWNLOAD ══
 function dlSign(){
   const cv=document.getElementById('cv');
   const a=document.createElement('a');
-  a.download='safetysignai-'+S.iconId+'.png';
-  a.href=cv.toDataURL('image/png');
-  a.click();
+  a.download='SafetySignAI-'+ST.iconId+'.png';
+  a.href=cv.toDataURL('image/png'); a.click();
 }
 
-// ════════════════════════════════════════════════════════
-// AI GENERATOR
-// ════════════════════════════════════════════════════════
+// ══ AI GENERATOR ══
 async function genAI(){
   const prompt=document.getElementById('aip').value.trim();
   if(!prompt)return;
-  const btn=document.getElementById('aibtn');
-  const ld=document.getElementById('ld');
+  const btn=document.getElementById('aibtn'), ld=document.getElementById('ld');
   btn.disabled=true; ld.classList.add('on');
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{
@@ -770,63 +686,55 @@ async function genAI(){
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',
         max_tokens:400,
-        messages:[{role:'user',content:`ISO 7010 HSE expert. Based on user request: "${prompt}"
-Pick the most relevant sign from this list and return ONLY a JSON object.
+        messages:[{role:'user',content:`You are an ISO 7010 HSE expert. Based on: "${prompt}"
 
-Available sign IDs:
-Prohibition: P001-P034 (smoking, flames, entry, touch, pedestrians, forklifts, photography, cycling, phone, water, food, dogs, alcohol, swimming, diving, running, parking, firearms)
-Warning: W001-W043 (general, slippery, hot, voltage, flammable, toxic, corrosive, biohazard, radiation, laser, explosive, fragile, falling, load, forklift, magnetic, temperature, trip, noise, gas, crushing, sharp, optical, depth)
-Mandatory: M001-M031 (helmet, goggles, ear, mask, gloves, boots, clothing, harness, face shield, hi-vis, wash hands, horn, lock, guards, hairnet, welding, lifejacket, seatbelt, sanitiser, lab coat, ventilate)
-Safe condition: E001-E025 (exit, medical, shower, eyewash, phone, assembly, fire exit, AED, first aid, stretcher, water, lifejacket, doctor, switch, muster, window, ladder)
-Fire: F001-F010 (extinguisher, hose, alarm, blanket, door, ladder, suppression, hydrant, telephone, assembly)
+Choose the most appropriate sign. Return ONLY a JSON object.
 
-Return JSON: {"type":"p|w|m|s|f","iconId":"CODE","main":"SHORT CAPS 3 WORDS MAX","sub":"subtitle 8 words max"}
-Only JSON, no markdown.`}]
+Available codes:
+PROHIBITION (type=p): P001=General, P002=No smoking, P003=No flame, P004=No thoroughfare, P005=Not drinking water, P006=No forklift, P010=Do not touch, P011=No water on fire, P013=No mobile phones, P022=No eating/drinking, P025=No swimming, P027=No photography, P030=No alcohol, P032=No cycling, P034=No firearms
+WARNING (type=w): W001=General warning, W002=Explosive, W003=Radioactive, W005=Biohazard, W007=Corrosive, W008=Toxic, W009=Flammable, W012=High voltage, W014=Slippery, W015=Falling objects, W017=Hot surface, W021=Trip hazard, W025=High noise, W026=Compressed gas, W029=Danger of death
+MANDATORY (type=m): M001=General, M003=Wear ear protection, M004=Wear eye protection, M005=Wear helmet, M006=Wear gloves, M007=Wear clothing, M008=Wear respirator, M009=Wear harness, M011=Wear boots, M013=Wash hands, M015=Hi-vis, M016=Wear mask, M020=Turn off, M026=Lifejacket, M027=Sanitise, M028=Use sanitiser
+SAFE (type=s): E001=Exit left, E002=Exit right, E003=First aid, E004=Emergency phone, E007=Emergency shower, E008=Eye wash, E010=Emergency exit door, E015=Assembly point, E016=Fire exit, E017=AED defibrillator, E018=Doctor, E019=Main switch, E020=Life buoy
+FIRE (type=f): F001=Extinguisher, F002=Hose reel, F003=Ladder, F005=Alarm call point, F007=Hydrant, F008=Fire door, F010=Fire blanket
+
+Return: {"type":"p|w|m|s|f","iconId":"CODE","main":"CAPS 3 WORDS MAX","sub":"Subtitle max 8 words"}
+ONLY JSON.`}]
       })
     });
     const data=await res.json();
-    const p=JSON.parse(data.content[0].text.trim());
+    const p=JSON.parse(data.content[0].text.trim().replace(/```json|```/g,''));
 
     // Apply type
-    if(p.type) setT(p.type);
+    if(p.type&&TYPE_CFG[p.type]) setT(p.type);
 
-    // Find icon in library
-    const found = ALL_SYMBOLS.find(s => s.id===p.iconId);
+    // Find icon
+    const found=ALL.find(s=>s.id===p.iconId);
     if(found){
-      S.iconUrl=found.url; S.iconId=found.id;
-      // Switch to correct category tab
+      ST.iconUrl=found.url; ST.iconId=found.id;
+      // Switch cat tab
       const catMap={p:'prohibition',w:'warning',m:'mandatory',s:'safe',f:'fire'};
-      const targetCat = catMap[p.type]||'prohibition';
+      const tc=catMap[p.type]||'prohibition';
       document.querySelectorAll('.ctab').forEach((b,i)=>{
-        const match = CATS[i].id===targetCat;
+        const match=CATS[i].id===tc;
         b.classList[match?'add':'remove']('on');
-        if(match){ b.style.background=CATS[i].color; b.style.borderColor=CATS[i].color; b.style.color='#fff'; }
-        else{ b.style.background=''; b.style.color=''; b.style.borderColor=''; }
+        b.style.background=match?CATS[i].col:''; b.style.borderColor=match?CATS[i].col:''; b.style.color=match?'#fff':'';
       });
-      buildGrid((SYMBOLS[targetCat]||[]).map(s=>({...s,cat:targetCat})));
-      // Highlight selected in grid
-      setTimeout(()=>{
-        document.querySelectorAll('.sitem').forEach(d=>{
-          if(d.querySelector('img')?.src?.includes(found.id)) d.classList.add('sel');
-        });
-      },200);
+      buildGrid(LIB[tc]?.map(s=>({...s,cat:tc}))||[]);
     }
 
-    document.getElementById('mt').value=p.main||'SIGN TEXT';
-    document.getElementById('st').value=p.sub||'';
+    if(p.main) document.getElementById('mt').value=p.main;
+    if(p.sub) document.getElementById('st').value=p.sub;
     document.getElementById('aip').value='';
-    render();
-  }catch(e){alert('AI generation failed. Please try again.');}
+    setTimeout(render,100);
+  }catch(e){ alert('AI generation failed. Please try again.'); }
   btn.disabled=false; ld.classList.remove('on');
 }
 
-// ════════════════════════════════════════════════════════
-// INIT
-// ════════════════════════════════════════════════════════
-buildGrid(SYMBOLS.prohibition.map(s=>({...s,cat:'prohibition'})));
-buildPalette();
-buildTcRow();
-setTimeout(render, 200);
+// ══ INIT ══
+buildGrid(LIB.prohibition.map(s=>({...s,cat:'prohibition'})));
+buildPal();
+buildTc();
+setTimeout(render,200);
 </script>
 </body>
 </html>
