@@ -3,376 +3,451 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create Safety Sign — SafetySignAI</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>Sign Maker — SafetySignAI</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
-:root {
-  --navy: #0B1F3A; --orange: #E85D04; --orange-light: #FFF0E6;
-  --gray-50: #F8F7F4; --gray-100: #EDEBE5; --gray-200: #D8D5CE;
-  --gray-300: #C4C0B8; --gray-500: #8A8680; --gray-700: #4A4642;
-  --white: #FFFFFF;
-  --danger-bg: #C62828; --warning-bg: #FDD835; --mandatory-bg: #1565C0; --safe-bg: #2E7D32;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'DM Sans',sans-serif; background:var(--gray-50); color:var(--navy); }
-nav { background:white; border-bottom:1px solid var(--gray-100); padding:0 24px; height:56px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:50; }
-.logo { font-family:'Instrument Serif',serif; font-size:20px; color:var(--navy); text-decoration:none; }
-.logo span { color:var(--orange); }
-.nav-right { display:flex; align-items:center; gap:16px; }
-.free-badge { font-size:12px; background:var(--orange-light); color:var(--orange); padding:4px 10px; border-radius:20px; font-weight:500; }
-.btn-upgrade { background:var(--orange); color:white; padding:7px 16px; border-radius:6px; font-size:13px; font-weight:500; text-decoration:none; border:none; cursor:pointer; }
-.layout { display:grid; grid-template-columns:240px 1fr 200px; height:calc(100vh - 56px); overflow:hidden; }
-.sidebar { background:white; border-right:1px solid var(--gray-100); overflow-y:auto; padding:16px; }
-.main { overflow-y:auto; padding:24px; display:flex; flex-direction:column; align-items:center; gap:20px; }
-.rightbar { background:white; border-left:1px solid var(--gray-100); overflow-y:auto; padding:16px; }
-.slabel { font-size:10px; font-weight:600; color:var(--gray-500); text-transform:uppercase; letter-spacing:0.08em; margin:16px 0 8px; }
-.slabel:first-child { margin-top:0; }
-.type-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
-.type-btn { padding:8px 4px; font-size:11px; font-weight:500; border:1px solid var(--gray-200); border-radius:6px; background:white; cursor:pointer; text-align:center; color:var(--gray-700); }
-.type-btn.active { border-color:var(--orange); color:var(--orange); background:var(--orange-light); }
-.shape-row { display:flex; gap:5px; }
-.shape-btn { flex:1; padding:7px 2px; font-size:10px; border:1px solid var(--gray-200); border-radius:6px; background:white; cursor:pointer; color:var(--gray-500); text-align:center; }
-.shape-btn.active { border-color:var(--orange); color:var(--orange); background:var(--orange-light); }
-.sym-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; }
-.sym-btn { aspect-ratio:1; border:1px solid var(--gray-100); border-radius:6px; background:white; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:16px; }
-.sym-btn:hover { background:var(--gray-50); }
-.sym-btn.active { border:2px solid var(--orange); background:var(--orange-light); }
-input[type=text] { width:100%; padding:8px 10px; font-size:12px; border:1px solid var(--gray-200); border-radius:6px; background:white; color:var(--navy); font-family:'DM Sans',sans-serif; }
-input[type=text]:focus { outline:none; border-color:var(--orange); }
-input[type=range] { width:100%; accent-color:var(--orange); }
-.swatches { display:flex; flex-wrap:wrap; gap:5px; }
-.swatch { width:24px; height:24px; border-radius:4px; cursor:pointer; border:2px solid transparent; }
-.swatch.active { border-color:var(--navy); }
-.canvas-wrap { background:white; border-radius:12px; border:1px solid var(--gray-100); padding:20px; width:100%; max-width:600px; display:flex; flex-direction:column; align-items:center; gap:16px; }
-.canvas-header { width:100%; display:flex; justify-content:space-between; align-items:center; }
-.sign-type-tag { font-size:11px; font-weight:500; padding:3px 10px; border-radius:20px; }
-.tag-danger { background:#FFEBEE; color:#C62828; }
-.tag-warning { background:#FFFDE7; color:#F9A825; }
-.tag-mandatory { background:#E3F2FD; color:#1565C0; }
-.tag-safe { background:#E8F5E9; color:#2E7D32; }
-.dl-btn { display:flex; align-items:center; gap:6px; padding:9px 18px; background:#0F6E56; color:white; border:none; border-radius:7px; font-size:13px; font-weight:500; cursor:pointer; font-family:'DM Sans',sans-serif; }
-.dl-btn:hover { background:#085041; }
-.ai-box { width:100%; max-width:600px; background:white; border-radius:12px; border:1px solid var(--gray-100); padding:20px; }
-.ai-title { font-size:13px; font-weight:600; color:var(--navy); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
-.ai-label { font-size:11px; background:#F0EBFF; color:#533AB7; padding:2px 8px; border-radius:10px; }
-textarea { width:100%; padding:10px; font-size:13px; border:1px solid var(--gray-200); border-radius:8px; font-family:'DM Sans',sans-serif; color:var(--navy); resize:none; }
-textarea:focus { outline:none; border-color:#533AB7; }
-.ai-btn { width:100%; margin-top:10px; padding:10px; background:#533AB7; color:white; border:none; border-radius:8px; font-size:13px; font-weight:500; cursor:pointer; font-family:'DM Sans',sans-serif; }
-.ai-btn:hover { background:#3C3489; }
-.ai-btn:disabled { opacity:0.6; cursor:not-allowed; }
-.loader { display:none; align-items:center; gap:8px; font-size:12px; color:var(--gray-500); margin-top:10px; }
-.loader.show { display:flex; }
-.dot { width:5px; height:5px; background:#533AB7; border-radius:50%; animation:pulse 1.2s ease-in-out infinite; }
-.dot:nth-child(2){animation-delay:0.2s}.dot:nth-child(3){animation-delay:0.4s}
-@keyframes pulse{0%,100%{opacity:0.3}50%{opacity:1}}
-.tpl-btn { width:100%; text-align:left; padding:8px 10px; font-size:11px; border:1px solid var(--gray-100); border-radius:7px; background:white; cursor:pointer; color:var(--gray-700); margin-bottom:5px; display:flex; align-items:center; gap:8px; }
-.tpl-btn:hover { background:var(--gray-50); border-color:var(--gray-200); }
-.limit-bar { width:100%; max-width:600px; background:white; border:1px solid var(--orange-light); border-radius:10px; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
-.limit-text { font-size:12px; color:var(--gray-500); }
-.limit-text strong { color:var(--orange); }
-.limit-upgrade { font-size:12px; background:var(--orange); color:white; padding:5px 12px; border-radius:6px; text-decoration:none; white-space:nowrap; }
-select { width:100%; padding:7px 8px; font-size:12px; border:1px solid var(--gray-200); border-radius:6px; background:white; color:var(--navy); }
+:root{--navy:#0B1F3A;--orange:#E85D04;--ol:#FFF0E6;--g50:#F8F7F4;--g100:#EDEBE5;--g200:#D8D5CE;--g300:#C4C0B8;--g500:#8A8680;--g700:#4A4642;--wh:#FFFFFF;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--g50);color:var(--navy);height:100vh;display:flex;flex-direction:column;overflow:hidden;}
+nav{background:white;border-bottom:1px solid var(--g100);padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.logo{font-family:'Instrument Serif',serif;font-size:19px;color:var(--navy);text-decoration:none;}
+.logo span{color:var(--orange);}
+.nav-r{display:flex;align-items:center;gap:12px;}
+.beta-pill{font-size:11px;background:#E8F5E9;color:#2E7D32;padding:4px 10px;border-radius:20px;font-weight:500;}
+.fb-btn{font-size:12px;background:var(--navy);color:white;padding:6px 14px;border-radius:6px;text-decoration:none;}
+.workspace{display:grid;grid-template-columns:210px 1fr 195px;flex:1;overflow:hidden;}
+.lpanel{background:white;border-right:1px solid var(--g100);display:flex;flex-direction:column;overflow:hidden;}
+.cat-tabs{display:flex;flex-wrap:wrap;gap:3px;padding:8px;border-bottom:1px solid var(--g100);}
+.cat-tab{padding:5px 7px;font-size:10px;font-weight:500;border:1px solid var(--g200);border-radius:5px;background:white;cursor:pointer;color:var(--g700);}
+.cat-tab.active{background:var(--orange);color:white;border-color:var(--orange);}
+.sym-scroll{flex:1;overflow-y:auto;padding:8px;}
+.sym-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;}
+.sym-item{aspect-ratio:1;border:1px solid var(--g100);border-radius:7px;background:var(--g50);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:5px;}
+.sym-item:hover{border-color:var(--orange);background:var(--ol);}
+.sym-item.sel{border:2px solid var(--orange);background:var(--ol);}
+.sym-item svg{width:30px;height:30px;}
+.sym-item span{font-size:8px;color:var(--g500);text-align:center;line-height:1.2;}
+.center{display:flex;flex-direction:column;align-items:center;padding:14px;gap:11px;overflow-y:auto;}
+.bbar{width:100%;max-width:620px;background:#E8F5E9;border:1px solid #C8E6C9;border-radius:8px;padding:9px 14px;display:flex;align-items:center;justify-content:space-between;}
+.bbar span{font-size:12px;color:#2E7D32;font-weight:500;}
+.ccard{background:white;border:1px solid var(--g100);border-radius:12px;padding:14px;width:100%;max-width:620px;display:flex;flex-direction:column;gap:10px;}
+.ctool{display:flex;align-items:center;justify-content:space-between;}
+.stag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;}
+.tp{background:#FFEBEE;color:#C62828;}.tw{background:#FFFDE7;color:#E65100;}.tm{background:#E3F2FD;color:#1565C0;}.ts{background:#E8F5E9;color:#2E7D32;}.tf{background:#FBE9E7;color:#BF360C;}.ti{background:#E8EAF6;color:#283593;}
+.dl-btn{display:flex;align-items:center;gap:6px;padding:8px 16px;background:#2E7D32;color:white;border:none;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.dl-btn:hover{background:#1B5E20;}
+canvas{border-radius:6px;max-width:100%;display:block;}
+.aicard{background:white;border:1px solid var(--g100);border-radius:12px;padding:14px;width:100%;max-width:620px;}
+.aihead{font-size:13px;font-weight:600;margin-bottom:9px;display:flex;align-items:center;gap:7px;}
+.aibadge{font-size:10px;background:#EDE7F6;color:#512DA8;padding:2px 8px;border-radius:10px;}
+.airow{display:flex;gap:8px;}
+textarea{flex:1;padding:9px 11px;font-size:13px;border:1px solid var(--g200);border-radius:8px;font-family:'DM Sans',sans-serif;color:var(--navy);resize:none;height:58px;}
+textarea:focus{outline:none;border-color:#7C4DFF;}
+.ai-go{padding:0 16px;background:#512DA8;color:white;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.ai-go:hover{background:#311B92;}.ai-go:disabled{opacity:.5;cursor:not-allowed;}
+.ld{display:none;align-items:center;gap:6px;font-size:11px;color:var(--g500);margin-top:7px;}
+.ld.on{display:flex;}
+.dot{width:5px;height:5px;background:#512DA8;border-radius:50%;animation:pu 1.2s ease-in-out infinite;}
+.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
+@keyframes pu{0%,100%{opacity:.2}50%{opacity:1}}
+.rpanel{background:white;border-left:1px solid var(--g100);padding:12px;overflow-y:auto;}
+.rl{font-size:10px;font-weight:600;color:var(--g500);text-transform:uppercase;letter-spacing:.07em;margin:12px 0 6px;}
+.rl:first-child{margin-top:0;}
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+.tbtn{padding:6px 3px;font-size:10px;font-weight:500;border:1px solid var(--g200);border-radius:5px;background:white;cursor:pointer;text-align:center;color:var(--g700);}
+.tbtn.on{border-color:var(--orange);color:var(--orange);background:var(--ol);}
+.row3{display:flex;gap:4px;}
+.rbtn{flex:1;padding:5px 2px;font-size:10px;border:1px solid var(--g200);border-radius:5px;background:white;cursor:pointer;color:var(--g500);text-align:center;}
+.rbtn.on{border-color:var(--orange);color:var(--orange);background:var(--ol);}
+input[type=text]{width:100%;padding:7px 8px;font-size:12px;border:1px solid var(--g200);border-radius:6px;background:white;color:var(--navy);font-family:'DM Sans',sans-serif;}
+input[type=text]:focus{outline:none;border-color:var(--orange);}
+input[type=range]{width:100%;accent-color:var(--orange);}
+select{width:100%;padding:6px 7px;font-size:12px;border:1px solid var(--g200);border-radius:6px;background:white;color:var(--navy);}
+.sws{display:flex;flex-wrap:wrap;gap:5px;}
+.sw{width:22px;height:22px;border-radius:4px;cursor:pointer;border:2px solid transparent;}
+.sw.on{border-color:var(--navy);}
+.coming{font-size:10px;color:var(--g300);line-height:2.2;}
+.req-btn{display:block;margin-top:9px;text-align:center;padding:8px;background:var(--navy);color:white;border-radius:6px;font-size:11px;font-weight:500;text-decoration:none;}
 </style>
 </head>
 <body>
-
 <nav>
   <a href="index.html" class="logo">SafetySign<span>AI</span></a>
-  <div class="nav-right">
-    <span class="free-badge">🚀 Beta — everything free</span>
-    <a href="mailto:hello@safetysignai.com" style="background:var(--navy);color:white;padding:7px 16px;border-radius:6px;font-size:13px;font-weight:500;text-decoration:none;">Send feedback</a>
+  <div class="nav-r">
+    <span class="beta-pill">Beta — everything free</span>
+    <a href="mailto:hello@safetysignai.com" class="fb-btn">Feedback</a>
   </div>
 </nav>
-
-<div class="layout">
-
-<div class="sidebar">
-  <div class="slabel">Sign type</div>
-  <div class="type-grid">
-    <button class="type-btn active" onclick="setType('danger')" id="t-danger">🔴 Danger</button>
-    <button class="type-btn" onclick="setType('warning')" id="t-warning">🟡 Warning</button>
-    <button class="type-btn" onclick="setType('mandatory')" id="t-mandatory">🔵 Mandatory</button>
-    <button class="type-btn" onclick="setType('safe')" id="t-safe">🟢 Safe</button>
-  </div>
-
-  <div class="slabel">Shape</div>
-  <div class="shape-row">
-    <button class="shape-btn active" onclick="setShape('rect')" id="s-rect">Rect</button>
-    <button class="shape-btn" onclick="setShape('square')" id="s-square">Square</button>
-    <button class="shape-btn" onclick="setShape('circle')" id="s-circle">Circle</button>
-    <button class="shape-btn" onclick="setShape('tri')" id="s-tri">Triangle</button>
-  </div>
-
-  <div class="slabel">Symbol</div>
-  <div class="sym-grid" id="sym-grid"></div>
-
-  <div class="slabel">Main text</div>
-  <input type="text" id="main-text" value="DANGER" oninput="render()">
-
-  <div class="slabel">Sub text</div>
-  <input type="text" id="sub-text" value="Authorized Personnel Only" oninput="render()">
-
-  <div class="slabel">Font size — <span id="fs-val">22</span>px</div>
-  <input type="range" min="12" max="40" value="22" id="font-size" oninput="document.getElementById('fs-val').textContent=this.value;render()">
-
-  <div class="slabel">Background</div>
-  <div class="swatches" id="swatches"></div>
+<div class="workspace">
+<div class="lpanel">
+  <div class="cat-tabs" id="ctabs"></div>
+  <div class="sym-scroll"><div class="sym-grid" id="sgrid"></div></div>
 </div>
-
-<div class="main">
-  <div class="limit-bar" style="border-color:#E8F5E9;background:#F9FFF9">
-    <div class="limit-text" style="color:#2E7D32"><strong>🚀 Beta launch</strong> — everything is free, unlimited downloads, no watermark</div>
-    <a href="mailto:hello@safetysignai.com" style="font-size:12px;background:#2E7D32;color:white;padding:5px 12px;border-radius:6px;text-decoration:none;white-space:nowrap">Send feedback →</a>
+<div class="center">
+  <div class="bbar">
+    <span>Beta — unlimited free downloads, no watermark</span>
+    <a href="mailto:hello@safetysignai.com" style="font-size:11px;color:#2E7D32;font-weight:500;">Feedback</a>
   </div>
-
-  <div class="canvas-wrap">
-    <div class="canvas-header">
-      <span class="sign-type-tag tag-danger" id="type-tag">Danger</span>
-      <button class="dl-btn" onclick="download()">⬇ Download PNG</button>
+  <div class="ccard">
+    <div class="ctool">
+      <span class="stag tp" id="ttag">Prohibition</span>
+      <button class="dl-btn" onclick="dlSign()">Download PNG</button>
     </div>
-    <canvas id="c" width="500" height="320" style="border-radius:6px;max-width:100%;"></canvas>
+    <canvas id="cv" width="560" height="340"></canvas>
   </div>
-
-  <div class="ai-box">
-    <div class="ai-title">AI Generator <span class="ai-label">AI</span></div>
-    <textarea id="ai-prompt" rows="3" placeholder="Describe your sign... e.g. Warning sign for confined space, permit required, yellow background"></textarea>
-    <button class="ai-btn" id="ai-btn" onclick="generateAI()">Generate with AI →</button>
-    <div class="loader" id="loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>Generating your signage...</span></div>
+  <div class="aicard">
+    <div class="aihead">AI Generator <span class="aibadge">AI</span></div>
+    <div class="airow">
+      <textarea id="aip" placeholder="e.g. No smoking sign for oil and gas site, red prohibition style..."></textarea>
+      <button class="ai-go" id="aibtn" onclick="genAI()">Generate</button>
+    </div>
+    <div class="ld" id="ld"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>Generating your sign...</span></div>
   </div>
 </div>
-
-<div class="rightbar">
-  <div class="slabel">Templates</div>
-  <div id="templates"></div>
-
-  <div class="slabel">Canvas size</div>
-  <select id="size-sel" onchange="changeSize()">
-    <option value="500,320">A4 Landscape</option>
-    <option value="320,320">Square 300mm</option>
-    <option value="500,500">A3 Square</option>
-    <option value="600,180">Banner</option>
-    <option value="400,400">Standard 400mm</option>
+<div class="rpanel">
+  <div class="rl">Sign type</div>
+  <div class="tgrid">
+    <button class="tbtn on" onclick="setT('p')" id="tp-p">Prohibition</button>
+    <button class="tbtn" onclick="setT('w')" id="tp-w">Warning</button>
+    <button class="tbtn" onclick="setT('m')" id="tp-m">Mandatory</button>
+    <button class="tbtn" onclick="setT('s')" id="tp-s">Safe</button>
+    <button class="tbtn" onclick="setT('f')" id="tp-f">Fire</button>
+    <button class="tbtn" onclick="setT('i')" id="tp-i">Info</button>
+  </div>
+  <div class="rl">Shape</div>
+  <div class="row3">
+    <button class="rbtn on" onclick="setSh('rect')" id="sh-rect">Rect</button>
+    <button class="rbtn" onclick="setSh('sq')" id="sh-sq">Square</button>
+    <button class="rbtn" onclick="setSh('circle')" id="sh-circle">Circle</button>
+    <button class="rbtn" onclick="setSh('tri')" id="sh-tri">Tri</button>
+  </div>
+  <div class="rl">Main text</div>
+  <input type="text" id="mt" value="NO SMOKING" oninput="render()">
+  <div class="rl">Sub text</div>
+  <input type="text" id="st" value="Strictly prohibited in this area" oninput="render()">
+  <div class="rl">Font size — <span id="fsv">20</span>px</div>
+  <input type="range" min="10" max="36" value="20" id="fs" oninput="document.getElementById('fsv').textContent=this.value;render()">
+  <div class="rl">Canvas size</div>
+  <select id="sz" onchange="chSz()">
+    <option value="560,340">A4 Landscape</option>
+    <option value="340,340">Square</option>
+    <option value="560,560">A3 Square</option>
+    <option value="660,200">Banner</option>
   </select>
-
-  <div class="slabel">Border</div>
-  <div class="shape-row">
-    <button class="shape-btn active" onclick="setBorder('solid')" id="b-solid">Solid</button>
-    <button class="shape-btn" onclick="setBorder('double')" id="b-double">Double</button>
-    <button class="shape-btn" onclick="setBorder('none')" id="b-none">None</button>
+  <div class="rl">Background</div>
+  <div class="sws" id="sws"></div>
+  <div class="rl">Border</div>
+  <div class="row3">
+    <button class="rbtn on" onclick="setBd('solid')" id="bd-solid">Solid</button>
+    <button class="rbtn" onclick="setBd('double')" id="bd-double">Double</button>
+    <button class="rbtn" onclick="setBd('none')" id="bd-none">None</button>
   </div>
-
-  <div class="slabel" style="margin-top:20px">ISO color guide</div>
-  <div style="font-size:11px;color:var(--gray-500);line-height:2">
-    <div>🔴 Red = Danger / Prohibition</div>
-    <div>🟡 Yellow = Warning / Caution</div>
-    <div>🔵 Blue = Mandatory / PPE</div>
-    <div>🟢 Green = Safe / Emergency</div>
-  </div>
-
-  <div class="slabel" style="margin-top:20px">Coming in Pro plan</div>
-  <div style="font-size:11px;color:var(--gray-400);line-height:2">
-    <div>🔜 Arabic text support</div>
-    <div>🔜 Company logo</div>
-    <div>🔜 Bulk download (50 signs)</div>
-    <div>🔜 500+ ISO symbols</div>
-    <div>🔜 Save to account</div>
-  </div>
-  <a href="mailto:hello@safetysignai.com" style="display:block;margin-top:12px;text-align:center;padding:9px;background:var(--navy);color:white;border-radius:7px;font-size:12px;font-weight:500;text-decoration:none;">Share your feedback →</a>
+  <div class="rl" style="margin-top:16px">Coming in Pro</div>
+  <div class="coming">Arabic text support<br>Company logo<br>Bulk download<br>Custom fonts<br>Save to account</div>
+  <a href="mailto:hello@safetysignai.com" class="req-btn">Request a feature</a>
 </div>
-
 </div>
-
 <script>
-const TYPES = {
-  danger:    {bg:'#C62828',tc:'#FFFFFF',bc:'#B71C1C',label:'Danger',   tag:'tag-danger'},
-  warning:   {bg:'#FDD835',tc:'#212121',bc:'#F9A825',label:'Warning',  tag:'tag-warning'},
-  mandatory: {bg:'#1565C0',tc:'#FFFFFF',bc:'#0D47A1',label:'Mandatory',tag:'tag-mandatory'},
-  safe:      {bg:'#2E7D32',tc:'#FFFFFF',bc:'#1B5E20',label:'Safe',     tag:'tag-safe'}
-};
-const SYMS = {
-  danger:    ['⚡','🔥','☢','⚠','💀','🚫','⛽','🧨','🔧','🪛'],
-  warning:   ['⚠','🔊','🌡','⚡','💧','🧪','🔩','🪜','🏗','🔨'],
-  mandatory: ['🦺','👷','🥽','🧤','👂','👁','🥾','😷','🧴','📋'],
-  safe:      ['🚪','🩹','🧯','📞','🚿','🏥','✅','⬆','🆘','♿']
-};
-const PALETTES = {
-  danger:    ['#C62828','#E53935','#FF5722','#BF360C','#4E342E','#880E4F'],
-  warning:   ['#FDD835','#F9A825','#FF8F00','#E65100','#F57F17','#795548'],
-  mandatory: ['#1565C0','#0D47A1','#283593','#1A237E','#006064','#37474F'],
-  safe:      ['#2E7D32','#1B5E20','#388E3C','#00695C','#004D40','#33691E']
-};
-const TEMPLATES = [
-  {label:'PPE Required',    type:'mandatory',sym:'🦺',main:'PPE REQUIRED',     sub:'Hard hat, vest & boots mandatory'},
-  {label:'No Entry',        type:'danger',   sym:'🚫',main:'NO ENTRY',          sub:'Authorized personnel only'},
-  {label:'Fire Exit',       type:'safe',     sym:'🚪',main:'FIRE EXIT',         sub:'Keep clear at all times'},
-  {label:'Hot Surface',     type:'warning',  sym:'🌡',main:'CAUTION',           sub:'Hot surface — do not touch'},
-  {label:'Confined Space',  type:'warning',  sym:'⚠', main:'CONFINED SPACE',   sub:'Permit required before entry'},
-  {label:'Eye Protection',  type:'mandatory',sym:'🥽',main:'EYE PROTECTION',    sub:'Must be worn in this area'},
-  {label:'High Voltage',    type:'danger',   sym:'⚡',main:'HIGH VOLTAGE',      sub:'Keep away — risk of electrocution'},
-  {label:'First Aid',       type:'safe',     sym:'🩹',main:'FIRST AID',         sub:'Emergency medical station'},
-  {label:'Hard Hat Area',   type:'mandatory',sym:'👷',main:'HARD HAT AREA',     sub:'Helmet must be worn at all times'},
-  {label:'Slippery Floor',  type:'warning',  sym:'⚠', main:'SLIPPERY SURFACE', sub:'Caution — wet floor'},
+const CATS=[
+  {id:'prohibition',label:'Prohibition'},
+  {id:'warning',label:'Warning'},
+  {id:'mandatory',label:'Mandatory'},
+  {id:'safe',label:'Safe'},
+  {id:'fire',label:'Fire'},
+  {id:'info',label:'Info'}
 ];
+const ICONS={
+  prohibition:[
+    {id:'P001',label:'No entry',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="white" stroke="#C62828" stroke-width="8"/><line x1="20" y1="50" x2="80" y2="50" stroke="#C62828" stroke-width="14" stroke-linecap="round"/></svg>'},
+    {id:'P002',label:'No smoking',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="white" stroke="#C62828" stroke-width="7"/><rect x="18" y="58" width="50" height="10" rx="3" fill="#333"/><rect x="72" y="52" width="6" height="22" rx="2" fill="#333"/><rect x="80" y="55" width="5" height="19" rx="2" fill="#333"/><line x1="20" y1="80" x2="80" y2="20" stroke="#C62828" stroke-width="7" stroke-linecap="round"/></svg>'},
+    {id:'P003',label:'No open flame',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="white" stroke="#C62828" stroke-width="7"/><path d="M50 20 Q58 30 55 40 Q65 30 60 50 Q70 42 65 58 Q62 70 50 75 Q38 70 35 58 Q30 42 40 50 Q35 30 45 40 Q42 30 50 20Z" fill="#E65100"/><line x1="20" y1="80" x2="80" y2="20" stroke="#C62828" stroke-width="7" stroke-linecap="round"/></svg>'},
+    {id:'P004',label:'No mobile',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="white" stroke="#C62828" stroke-width="7"/><rect x="38" y="25" width="24" height="50" rx="4" fill="#333"/><rect x="42" y="32" width="16" height="30" fill="white"/><circle cx="50" cy="68" r="3" fill="white"/><line x1="20" y1="80" x2="80" y2="20" stroke="#C62828" stroke-width="7" stroke-linecap="round"/></svg>'},
+    {id:'P005',label:'No water',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="white" stroke="#C62828" stroke-width="7"/><path d="M50 22 Q65 38 65 52 Q65 66 50 72 Q35 66 35 52 Q35 38 50 22Z" fill="#1565C0"/><line x1="20" y1="80" x2="80" y2="20" stroke="#C62828" stroke-width="7" stroke-linecap="round"/></svg>'},
+    {id:'P006',label:'No pedestrians',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="white" stroke="#C62828" stroke-width="7"/><circle cx="50" cy="28" r="7" fill="#333"/><path d="M44 38 L56 38 L58 55 L65 70 L58 70 L52 58 L46 70 L39 70 L44 55 Z" fill="#333"/><line x1="20" y1="80" x2="80" y2="20" stroke="#C62828" stroke-width="7" stroke-linecap="round"/></svg>'},
+    {id:'P007',label:'No alcohol',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="white" stroke="#C62828" stroke-width="7"/><path d="M40 25 L45 50 Q45 70 50 72 Q55 70 55 50 L60 25 Z" fill="#795548"/><rect x="46" y="25" width="8" height="6" fill="#555"/><line x1="20" y1="80" x2="80" y2="20" stroke="#C62828" stroke-width="7" stroke-linecap="round"/></svg>'},
+    {id:'P008',label:'No touch',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="white" stroke="#C62828" stroke-width="7"/><path d="M38 30 L38 58 L32 52 L28 56 L38 70 L62 70 L62 45 L55 45 L55 30 Z" fill="#333"/><line x1="20" y1="80" x2="80" y2="20" stroke="#C62828" stroke-width="7" stroke-linecap="round"/></svg>'},
+    {id:'P009',label:'No forklift',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="white" stroke="#C62828" stroke-width="7"/><rect x="25" y="45" width="30" height="20" rx="2" fill="#555"/><rect x="22" y="50" width="5" height="10" fill="#555"/><rect x="55" y="35" width="4" height="30" fill="#777"/><rect x="59" y="35" width="4" height="30" fill="#777"/><circle cx="32" cy="68" r="6" fill="#333" stroke="white" stroke-width="2"/><circle cx="50" cy="68" r="6" fill="#333" stroke="white" stroke-width="2"/><line x1="20" y1="80" x2="80" y2="20" stroke="#C62828" stroke-width="7" stroke-linecap="round"/></svg>'},
+  ],
+  warning:[
+    {id:'W001',label:'General warning',svg:'<svg viewBox="0 0 100 100"><polygon points="50,8 95,88 5,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><text x="50" y="80" text-anchor="middle" font-size="52" font-weight="bold" fill="#212121">!</text></svg>'},
+    {id:'W002',label:'High voltage',svg:'<svg viewBox="0 0 100 100"><polygon points="50,8 95,88 5,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><path d="M55 25 L38 55 L52 55 L45 80 L62 48 L48 48 Z" fill="#212121"/></svg>'},
+    {id:'W003',label:'Flammable',svg:'<svg viewBox="0 0 100 100"><polygon points="50,8 95,88 5,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><path d="M50 30 Q57 38 54 46 Q62 38 58 52 Q65 46 62 58 Q60 68 50 72 Q40 68 38 58 Q35 46 42 52 Q38 38 46 46 Q43 38 50 30Z" fill="#E65100"/></svg>'},
+    {id:'W004',label:'Toxic',svg:'<svg viewBox="0 0 100 100"><polygon points="50,8 95,88 5,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><circle cx="50" cy="52" r="10" fill="#212121"/><path d="M35 38 Q50 28 65 38" stroke="#212121" stroke-width="5" fill="none" stroke-linecap="round"/><line x1="35" y1="38" x2="30" y2="48" stroke="#212121" stroke-width="5" stroke-linecap="round"/><line x1="65" y1="38" x2="70" y2="48" stroke="#212121" stroke-width="5" stroke-linecap="round"/></svg>'},
+    {id:'W005',label:'Hot surface',svg:'<svg viewBox="0 0 100 100"><polygon points="50,8 95,88 5,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><path d="M36 70 Q36 55 44 48 Q40 58 48 52 Q44 62 52 55 Q48 65 56 58 Q52 68 64 70" stroke="#E65100" stroke-width="4" fill="none" stroke-linecap="round"/><rect x="32" y="68" width="36" height="6" rx="2" fill="#E65100"/></svg>'},
+    {id:'W006',label:'Radiation',svg:'<svg viewBox="0 0 100 100"><polygon points="50,8 95,88 5,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><circle cx="50" cy="58" r="8" fill="#212121"/><path d="M50 58 L50 38" stroke="#212121" stroke-width="7" stroke-linecap="round"/><path d="M50 58 L33 75" stroke="#212121" stroke-width="7" stroke-linecap="round"/><path d="M50 58 L67 75" stroke="#212121" stroke-width="7" stroke-linecap="round"/></svg>'},
+    {id:'W007',label:'Falling objects',svg:'<svg viewBox="0 0 100 100"><polygon points="50,8 95,88 5,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><rect x="30" y="30" width="40" height="8" rx="2" fill="#555"/><polygon points="44,52 50,70 56,52" fill="#212121"/></svg>'},
+    {id:'W008',label:'Confined space',svg:'<svg viewBox="0 0 100 100"><polygon points="50,8 95,88 5,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><path d="M35 72 L35 48 Q35 35 50 35 Q65 35 65 48 L65 72" stroke="#212121" stroke-width="5" fill="none" stroke-linecap="round"/></svg>'},
+    {id:'W009',label:'Biohazard',svg:'<svg viewBox="0 0 100 100"><polygon points="50,8 95,88 5,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><circle cx="50" cy="55" r="8" fill="#212121"/><path d="M50 47 Q50 35 38 32 Q30 42 38 50" stroke="#212121" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M50 47 Q62 40 68 48 Q68 60 58 60" stroke="#212121" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M42 63 Q35 70 38 78 Q50 82 58 75" stroke="#212121" stroke-width="4" fill="none" stroke-linecap="round"/></svg>'},
+  ],
+  mandatory:[
+    {id:'M001',label:'Wear helmet',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#1565C0"/><path d="M25 58 Q25 35 50 32 Q75 35 75 58 Z" fill="white"/><rect x="22" y="57" width="56" height="8" rx="3" fill="white"/><rect x="35" y="64" width="30" height="5" rx="2" fill="white"/></svg>'},
+    {id:'M002',label:'Wear gloves',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#1565C0"/><path d="M30 70 L30 45 L35 45 L35 35 L40 35 L40 42 L44 42 L44 33 L49 33 L49 42 L53 42 L53 35 L58 35 L58 45 L70 45 L70 55 L62 55 L62 70 Z" fill="white"/></svg>'},
+    {id:'M003',label:'Wear goggles',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#1565C0"/><rect x="20" y="40" width="60" height="24" rx="8" fill="white"/><circle cx="37" cy="52" r="8" fill="#1565C0"/><circle cx="63" cy="52" r="8" fill="#1565C0"/></svg>'},
+    {id:'M004',label:'Wear vest',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#1565C0"/><path d="M28 35 L40 30 L50 45 L60 30 L72 35 L68 75 L55 75 L55 55 L45 55 L45 75 L32 75 Z" fill="#FDD835"/><line x1="28" y1="55" x2="72" y2="55" stroke="#E65100" stroke-width="3"/></svg>'},
+    {id:'M005',label:'Wear boots',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#1565C0"/><path d="M32 30 L32 62 Q32 72 45 72 L68 72 L68 65 L48 65 Q42 65 42 60 L42 30 Z" fill="white"/><rect x="30" y="70" width="40" height="6" rx="2" fill="white"/></svg>'},
+    {id:'M006',label:'Wear mask',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#1565C0"/><path d="M20 45 Q20 35 50 32 Q80 35 80 45 L80 62 Q80 72 50 75 Q20 72 20 62 Z" fill="white"/></svg>'},
+    {id:'M007',label:'Ear protection',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#1565C0"/><path d="M25 45 Q25 30 50 28 Q75 30 75 45" stroke="white" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="25" cy="50" r="10" fill="white"/><circle cx="75" cy="50" r="10" fill="white"/></svg>'},
+    {id:'M008',label:'Safety harness',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#1565C0"/><circle cx="50" cy="32" r="8" fill="white"/><path d="M42 42 L32 75 L42 75 L50 55 L58 75 L68 75 L58 42 Z" fill="white"/></svg>'},
+    {id:'M009',label:'Wash hands',svg:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#1565C0"/><path d="M28 75 L28 55 Q28 45 38 40 L45 37 L45 28 Q45 24 50 24 Q55 24 55 28 L55 40 L62 43 Q72 48 72 58 L72 75 Z" fill="white"/></svg>'},
+  ],
+  safe:[
+    {id:'E001',label:'Emergency exit',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#2E7D32"/><rect x="15" y="40" width="32" height="35" rx="2" fill="white"/><polygon points="60,38 82,55 60,72" fill="white"/><rect x="15" y="30" width="70" height="8" rx="2" fill="white"/></svg>'},
+    {id:'E002',label:'First aid',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#2E7D32"/><rect x="20" y="20" width="60" height="60" rx="10" fill="white"/><rect x="42" y="30" width="16" height="40" rx="3" fill="#2E7D32"/><rect x="30" y="42" width="40" height="16" rx="3" fill="#2E7D32"/></svg>'},
+    {id:'E003',label:'Fire extinguisher',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#2E7D32"/><rect x="42" y="35" width="20" height="42" rx="6" fill="white"/><rect x="46" y="28" width="12" height="10" rx="3" fill="white"/><rect x="50" y="22" width="4" height="8" fill="white"/><path d="M54 28 Q68 25 70 18" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/></svg>'},
+    {id:'E004',label:'Emergency phone',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#2E7D32"/><path d="M30 35 Q28 25 38 22 L45 25 L40 40 Q48 48 55 52 L68 46 L74 53 Q78 63 68 67 Q45 70 30 35Z" fill="white"/></svg>'},
+    {id:'E005',label:'Assembly point',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#2E7D32"/><circle cx="35" cy="30" r="7" fill="white"/><circle cx="65" cy="30" r="7" fill="white"/><circle cx="50" cy="30" r="7" fill="white"/><polygon points="50,50 30,80 70,80" fill="white"/></svg>'},
+    {id:'E006',label:'Eye wash',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#2E7D32"/><path d="M20 50 Q35 28 50 28 Q65 28 80 50 Q65 72 50 72 Q35 72 20 50Z" fill="white"/><circle cx="50" cy="50" r="14" fill="#2E7D32"/><circle cx="50" cy="50" r="8" fill="white"/></svg>'},
+    {id:'E007',label:'Emergency shower',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#2E7D32"/><rect x="48" y="15" width="4" height="28" fill="white"/><rect x="35" y="40" width="30" height="5" rx="2" fill="white"/><path d="M38 48 Q36 58 34 68 M44 48 Q43 58 42 68 M50 48 L50 68 M56 48 Q57 58 58 68 M62 48 Q64 58 66 68" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>'},
+    {id:'E008',label:'Stretcher',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#2E7D32"/><rect x="20" y="48" width="60" height="10" rx="4" fill="white"/><rect x="22" y="42" width="8" height="22" rx="3" fill="white"/><rect x="70" y="42" width="8" height="22" rx="3" fill="white"/><ellipse cx="50" cy="40" rx="12" ry="10" fill="white"/></svg>'},
+  ],
+  fire:[
+    {id:'F001',label:'Fire extinguisher',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#C62828"/><rect x="40" y="32" width="22" height="48" rx="7" fill="white"/><rect x="44" y="24" width="14" height="11" rx="3" fill="white"/><rect x="48" y="18" width="4" height="8" fill="white"/><path d="M53 24 Q68 21 70 13" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/></svg>'},
+    {id:'F002',label:'Fire hose reel',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#C62828"/><circle cx="50" cy="52" r="24" stroke="white" stroke-width="6" fill="none"/><circle cx="50" cy="52" r="12" stroke="white" stroke-width="4" fill="none"/><rect x="46" y="22" width="8" height="16" rx="3" fill="white"/></svg>'},
+    {id:'F003',label:'Fire alarm',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#C62828"/><rect x="28" y="28" width="44" height="52" rx="6" fill="white"/><circle cx="50" cy="52" r="14" fill="#C62828"/><rect x="44" y="24" width="12" height="6" rx="3" fill="white"/><circle cx="50" cy="52" r="6" fill="white"/></svg>'},
+    {id:'F004',label:'Fire blanket',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#C62828"/><rect x="28" y="25" width="44" height="58" rx="4" fill="white"/><rect x="36" y="33" width="28" height="40" rx="3" fill="#FFCDD2"/><rect x="36" y="25" width="28" height="10" rx="2" fill="#EF9A9A"/></svg>'},
+    {id:'F005',label:'Call point',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#C62828"/><rect x="25" y="25" width="50" height="50" rx="8" fill="white"/><path d="M38 38 L38 62 L62 62 L62 50 L50 50 L50 38 Z" fill="#C62828"/></svg>'},
+    {id:'F006',label:'Fire door',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#C62828"/><rect x="25" y="20" width="50" height="68" rx="4" fill="white"/><rect x="30" y="25" width="40" height="58" rx="3" fill="#FFCDD2"/><circle cx="62" cy="54" r="4" fill="#C62828"/></svg>'},
+  ],
+  info:[
+    {id:'I001',label:'Information',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#1565C0"/><circle cx="50" cy="50" r="35" fill="white"/><text x="50" y="62" text-anchor="middle" font-size="44" font-weight="bold" fill="#1565C0">i</text></svg>'},
+    {id:'I002',label:'Parking',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#1565C0"/><text x="50" y="68" text-anchor="middle" font-size="62" font-weight="bold" fill="white">P</text></svg>'},
+    {id:'I003',label:'Toilets',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#1565C0"/><circle cx="35" cy="28" r="8" fill="white"/><path d="M25 40 L25 65 L30 65 L30 80 L40 80 L40 65 L45 65 L45 40 Z" fill="white"/><circle cx="65" cy="28" r="8" fill="white"/><path d="M55 40 L55 65 L60 65 L60 80 L70 80 L70 65 L75 65 L75 40 Z" fill="white"/></svg>'},
+    {id:'I004',label:'Drinking water',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#1565C0"/><path d="M50 20 Q65 36 65 50 Q65 66 50 72 Q35 66 35 50 Q35 36 50 20Z" fill="white"/></svg>'},
+    {id:'I005',label:'Disabled access',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#1565C0"/><circle cx="50" cy="22" r="9" fill="white"/><path d="M42 34 L42 58 L35 72 L44 72 L50 60 L56 72 L65 72 L58 57 L58 45 L68 45 L68 38 L55 38 L55 34Z" fill="white"/></svg>'},
+    {id:'I006',label:'No through road',svg:'<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#1565C0"/><rect x="42" y="20" width="16" height="60" rx="4" fill="white"/><rect x="20" y="42" width="60" height="16" rx="4" fill="white"/></svg>'},
+  ]
+};
 
-let S = {type:'danger',shape:'rect',sym:'⚡',bg:'#C62828',border:'solid',w:500,h:320,dlLeft:3};
+const TYPES={
+  p:{bg:'#C62828',tc:'#FFFFFF',bc:'#B71C1C',label:'Prohibition',tag:'tp'},
+  w:{bg:'#FDD835',tc:'#212121',bc:'#E65100',label:'Warning',tag:'tw'},
+  m:{bg:'#1565C0',tc:'#FFFFFF',bc:'#0D47A1',label:'Mandatory',tag:'tm'},
+  s:{bg:'#2E7D32',tc:'#FFFFFF',bc:'#1B5E20',label:'Safe Condition',tag:'ts'},
+  f:{bg:'#C62828',tc:'#FFFFFF',bc:'#B71C1C',label:'Fire',tag:'tf'},
+  i:{bg:'#1565C0',tc:'#FFFFFF',bc:'#0D47A1',label:'Information',tag:'ti'}
+};
+const PALS={
+  p:['#C62828','#E53935','#B71C1C','#4E342E','#880E4F','#37474F'],
+  w:['#FDD835','#F9A825','#FF8F00','#E65100','#BF360C','#795548'],
+  m:['#1565C0','#0D47A1','#283593','#1A237E','#006064','#37474F'],
+  s:['#2E7D32','#1B5E20','#388E3C','#00695C','#004D40','#33691E'],
+  f:['#C62828','#E53935','#BF360C','#E64A19','#4E342E','#212121'],
+  i:['#1565C0','#0D47A1','#283593','#006064','#00695C','#37474F']
+};
 
-function setType(t) {
-  S.type=t; S.bg=TYPES[t].bg; S.sym=SYMS[t][0];
-  document.querySelectorAll('[id^="t-"]').forEach(b=>b.classList.remove('active'));
-  document.getElementById('t-'+t).classList.add('active');
-  const tag=document.getElementById('type-tag');
-  tag.className='sign-type-tag '+TYPES[t].tag;
-  tag.textContent=TYPES[t].label;
-  buildSyms(); buildSwatches(); render();
-}
-function setShape(s) {
-  S.shape=s;
-  document.querySelectorAll('[id^="s-"]').forEach(b=>b.classList.remove('active'));
-  document.getElementById('s-'+s).classList.add('active');
-  render();
-}
-function setBorder(b) {
-  S.border=b;
-  document.querySelectorAll('[id^="b-"]').forEach(x=>x.classList.remove('active'));
-  document.getElementById('b-'+b).classList.add('active');
-  render();
-}
-function changeSize() {
-  const v=document.getElementById('size-sel').value.split(',');
-  S.w=+v[0]; S.h=+v[1];
-  const c=document.getElementById('c'); c.width=S.w; c.height=S.h; render();
-}
-function buildSyms() {
-  const g=document.getElementById('sym-grid'); g.innerHTML='';
-  SYMS[S.type].forEach(s=>{
-    const b=document.createElement('button');
-    b.className='sym-btn'+(s===S.sym?' active':'');
-    b.textContent=s; b.title=s;
-    b.onclick=()=>{S.sym=s;buildSyms();render();};
-    g.appendChild(b);
+let S={type:'p',cat:'prohibition',shape:'rect',border:'solid',iconSvg:ICONS.prohibition[0].svg,iconId:'P001',w:560,h:340};
+
+// Build category tabs
+const ctabs=document.getElementById('ctabs');
+CATS.forEach((c,idx)=>{
+  const b=document.createElement('button');
+  b.className='cat-tab'+(idx===0?' active':'');
+  b.textContent=c.label;
+  b.onclick=()=>{
+    S.cat=c.id;
+    document.querySelectorAll('.cat-tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    buildGrid();
+  };
+  ctabs.appendChild(b);
+});
+
+function buildGrid(){
+  const g=document.getElementById('sgrid');g.innerHTML='';
+  (ICONS[S.cat]||[]).forEach(ic=>{
+    const d=document.createElement('div');
+    d.className='sym-item'+(ic.id===S.iconId?' sel':'');
+    d.innerHTML=ic.svg+'<span>'+ic.label+'</span>';
+    d.onclick=()=>{
+      S.iconSvg=ic.svg;S.iconId=ic.id;
+      document.querySelectorAll('.sym-item').forEach(x=>x.classList.remove('sel'));
+      d.classList.add('sel');
+      render();
+    };
+    g.appendChild(d);
   });
 }
-function buildSwatches() {
-  const sw=document.getElementById('swatches'); sw.innerHTML='';
-  PALETTES[S.type].forEach(c=>{
+
+function setT(t){
+  S.type=t;
+  document.querySelectorAll('[id^="tp-"]').forEach(b=>b.classList.remove('on'));
+  document.getElementById('tp-'+t).classList.add('on');
+  const tag=document.getElementById('ttag');
+  tag.className='stag '+TYPES[t].tag;
+  tag.textContent=TYPES[t].label;
+  buildSws();render();
+}
+
+function setSh(s){
+  S.shape=s;
+  document.querySelectorAll('[id^="sh-"]').forEach(b=>b.classList.remove('on'));
+  document.getElementById('sh-'+s).classList.add('on');
+  render();
+}
+
+function setBd(b){
+  S.border=b;
+  document.querySelectorAll('[id^="bd-"]').forEach(x=>x.classList.remove('on'));
+  document.getElementById('bd-'+b).classList.add('on');
+  render();
+}
+
+function chSz(){
+  const v=document.getElementById('sz').value.split(',');
+  S.w=+v[0];S.h=+v[1];
+  const c=document.getElementById('cv');c.width=S.w;c.height=S.h;render();
+}
+
+function buildSws(){
+  const sw=document.getElementById('sws');sw.innerHTML='';
+  const cur=TYPES[S.type].bg;
+  PALS[S.type].forEach(c=>{
     const d=document.createElement('div');
-    d.className='swatch'+(c===S.bg?' active':'');
+    d.className='sw'+(c===cur?' on':'');
     d.style.background=c;
-    d.onclick=()=>{S.bg=c;buildSwatches();render();};
+    d.onclick=()=>{
+      TYPES[S.type].bg=c;
+      document.querySelectorAll('.sw').forEach(x=>x.classList.remove('on'));
+      d.classList.add('on');
+      render();
+    };
     sw.appendChild(d);
   });
 }
-function buildTemplates() {
-  const c=document.getElementById('templates'); c.innerHTML='';
-  TEMPLATES.forEach(t=>{
-    const b=document.createElement('button');
-    b.className='tpl-btn';
-    b.innerHTML=`<span style="font-size:16px">${t.sym}</span><span>${t.label}</span>`;
-    b.onclick=()=>applyTemplate(t);
-    c.appendChild(b);
-  });
-}
-function applyTemplate(t) {
-  setType(t.type); S.sym=t.sym;
-  document.getElementById('main-text').value=t.main;
-  document.getElementById('sub-text').value=t.sub;
-  buildSyms(); render();
+
+function svgToImg(svgStr,cb){
+  const b=new Blob([svgStr],{type:'image/svg+xml'});
+  const u=URL.createObjectURL(b);
+  const img=new Image();
+  img.onload=()=>{cb(img);URL.revokeObjectURL(u);};
+  img.src=u;
 }
 
-function render() {
-  const cv=document.getElementById('c');
+function render(){
+  const cv=document.getElementById('cv');
   const ctx=cv.getContext('2d');
   const w=cv.width,h=cv.height;
-  const main=document.getElementById('main-text').value||'SIGN TEXT';
-  const sub=document.getElementById('sub-text').value||'';
-  const fs=+document.getElementById('font-size').value;
+  const main=document.getElementById('mt').value||'SIGN TEXT';
+  const sub=document.getElementById('st').value||'';
+  const fs=+document.getElementById('fs').value;
+  const T=TYPES[S.type];
   ctx.clearRect(0,0,w,h);
 
-  if(S.shape==='tri') {
-    ctx.beginPath(); ctx.moveTo(w/2,8); ctx.lineTo(w-8,h-8); ctx.lineTo(8,h-8); ctx.closePath();
-    ctx.fillStyle=S.bg; ctx.fill();
-    if(S.border!=='none'){ctx.strokeStyle=TYPES[S.type].bc;ctx.lineWidth=S.border==='double'?6:3;ctx.stroke();}
-  } else if(S.shape==='circle') {
-    const r=Math.min(w,h)/2-8;
-    ctx.beginPath(); ctx.arc(w/2,h/2,r,0,Math.PI*2);
-    ctx.fillStyle=S.bg; ctx.fill();
-    if(S.border!=='none'){ctx.strokeStyle=TYPES[S.type].bc;ctx.lineWidth=S.border==='double'?6:3;ctx.stroke();}
-    if(S.border==='double'){ctx.beginPath();ctx.arc(w/2,h/2,r-14,0,Math.PI*2);ctx.lineWidth=2;ctx.stroke();}
-  } else {
-    ctx.beginPath(); ctx.roundRect(8,8,w-16,h-16,10);
-    ctx.fillStyle=S.bg; ctx.fill();
-    if(S.border!=='none'){ctx.strokeStyle=TYPES[S.type].bc;ctx.lineWidth=S.border==='double'?6:3;ctx.stroke();}
-    if(S.border==='double'){ctx.beginPath();ctx.roundRect(18,18,w-36,h-36,8);ctx.lineWidth=2;ctx.stroke();}
+  // Draw bg shape
+  ctx.save();
+  if(S.shape==='tri'){ctx.beginPath();ctx.moveTo(w/2,8);ctx.lineTo(w-8,h-8);ctx.lineTo(8,h-8);ctx.closePath();}
+  else if(S.shape==='circle'){const r=Math.min(w,h)/2-8;ctx.beginPath();ctx.arc(w/2,h/2,r,0,Math.PI*2);}
+  else{ctx.beginPath();ctx.roundRect(8,8,w-16,h-16,10);}
+  ctx.fillStyle=T.bg;ctx.fill();
+  if(S.border!=='none'){ctx.strokeStyle=T.bc;ctx.lineWidth=S.border==='double'?6:3;ctx.stroke();}
+  if(S.border==='double'&&S.shape!=='tri'){
+    if(S.shape==='circle'){const r=Math.min(w,h)/2-20;ctx.beginPath();ctx.arc(w/2,h/2,r,0,Math.PI*2);}
+    else{ctx.beginPath();ctx.roundRect(18,18,w-36,h-36,8);}
+    ctx.strokeStyle=T.bc;ctx.lineWidth=2;ctx.stroke();
   }
+  ctx.restore();
 
-  ctx.fillStyle=TYPES[S.type].tc;
-  ctx.textAlign='center';
-  const symSize=Math.min(h*0.26,72);
-  const symY=h*0.42;
-  ctx.font=`${symSize}px serif`;
-  ctx.fillText(S.sym,w/2,symY);
+  // Layout: icon left, text right
+  const pad=w*0.07;
+  const iconSz=Math.min(h*0.55,w*0.25,150);
+  const iconY=(h-iconSz)/2;
+  const iconX=pad;
+  const textX=iconX+iconSz+pad*0.8;
+  const textW=w-textX-pad;
 
-  ctx.font=`bold ${fs}px 'DM Sans',sans-serif`;
-  ctx.fillText(main,w/2,symY+fs*1.5);
+  svgToImg(S.iconSvg,img=>{
+    ctx.drawImage(img,iconX,iconY,iconSz,iconSz);
 
-  if(sub){
-    ctx.font=`${Math.max(fs*0.54,11)}px 'DM Sans',sans-serif`;
-    ctx.globalAlpha=0.82;
-    const words=sub.split(' ');
-    let line='',lines=[],mw=w-60;
-    words.forEach(word=>{
-      const test=line+word+' ';
-      if(ctx.measureText(test).width>mw&&line){lines.push(line.trim());line=word+' ';}
-      else line=test;
-    });
-    lines.push(line.trim());
-    lines.forEach((l,i)=>ctx.fillText(l,w/2,symY+fs*1.5+(fs*0.72)+(i*fs*0.65)));
+    ctx.fillStyle=T.tc;
+    ctx.textAlign='left';
+    ctx.textBaseline='alphabetic';
+
+    let afs=fs;
+    ctx.font='bold '+afs+'px DM Sans,sans-serif';
+    while(ctx.measureText(main).width>textW&&afs>10){afs--;ctx.font='bold '+afs+'px DM Sans,sans-serif';}
+
+    const sfs=Math.max(Math.round(afs*0.56),10);
+    const lineH=afs*1.2;
+
+    // Sub text lines
+    let lines=[];
+    if(sub){
+      ctx.font=sfs+'px DM Sans,sans-serif';
+      const words=sub.split(' ');
+      let line='';
+      words.forEach(word=>{
+        const test=line+word+' ';
+        if(ctx.measureText(test).width>textW&&line){lines.push(line.trim());line=word+' ';}
+        else line=test;
+      });
+      lines.push(line.trim());
+    }
+
+    const totalH=lineH+(lines.length?(sfs*1.35*lines.length+6):0);
+    const startY=h/2-totalH/2+afs;
+
+    ctx.font='bold '+afs+'px DM Sans,sans-serif';
+    ctx.fillText(main,textX,startY);
+
+    if(lines.length){
+      ctx.font=sfs+'px DM Sans,sans-serif';
+      ctx.globalAlpha=0.82;
+      lines.forEach((l,i)=>{ctx.fillText(l,textX,startY+lineH+(i*sfs*1.35));});
+      ctx.globalAlpha=1;
+    }
+
+    // Subtle credit
+    ctx.font='9px DM Sans,sans-serif';
+    ctx.globalAlpha=0.28;
+    ctx.fillText('ISO 7010 · safetysignai.com',pad,h-8);
     ctx.globalAlpha=1;
-  }
-
-  // no watermark during beta
-  render();
+  });
 }
 
-function download() {
-  const cv=document.getElementById('c');
-  const link=document.createElement('a');
-  link.download='safetysignai-sign.png';
-  link.href=cv.toDataURL('image/png');
-  link.click();
+function dlSign(){
+  const cv=document.getElementById('cv');
+  const a=document.createElement('a');
+  a.download='safetysignai-'+S.iconId+'.png';
+  a.href=cv.toDataURL('image/png');
+  a.click();
 }
 
-async function generateAI() {
-  const prompt=document.getElementById('ai-prompt').value.trim();
-  if(!prompt) return;
-  const btn=document.getElementById('ai-btn');
-  const loader=document.getElementById('loader');
-  btn.disabled=true; loader.classList.add('show');
-  try {
+async function genAI(){
+  const prompt=document.getElementById('aip').value.trim();
+  if(!prompt)return;
+  const btn=document.getElementById('aibtn');
+  const ld=document.getElementById('ld');
+  btn.disabled=true;ld.classList.add('on');
+  try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',
         max_tokens:300,
-        messages:[{role:'user',content:`You are an HSE signage expert following ISO 7010 standards. Based on: "${prompt}"
-Return ONLY a JSON object:
-{"type":"danger|warning|mandatory|safe","sym":"one emoji from: ⚡🔥☢⚠💀🚫⛽🧨🔊🌡💧🧪🦺👷🥽🧤👂👁🥾😷🚪🩹🧯📞🚿🏥✅⬆","main":"SHORT MAIN TEXT CAPS (max 3 words)","sub":"Descriptive subtitle max 8 words"}
-Only JSON, no markdown.`}]
+        messages:[{role:'user',content:'You are an ISO 7010 HSE expert. Based on: "'+prompt+'"\nReturn ONLY JSON: {"type":"p|w|m|s|f|i","cat":"prohibition|warning|mandatory|safe|fire|info","main":"SHORT CAPS MAX 3 WORDS","sub":"subtitle max 8 words"}\nOnly JSON no markdown.'}]
       })
     });
     const data=await res.json();
-    const parsed=JSON.parse(data.content[0].text.trim());
-    applyTemplate(parsed);
-    document.getElementById('ai-prompt').value='';
-  } catch(e) {
-    alert('AI generation failed. Please try again.');
-  }
-  btn.disabled=false; loader.classList.remove('show');
+    const p=JSON.parse(data.content[0].text.trim());
+    setT(p.type||'w');
+    S.cat=p.cat||'warning';
+    document.querySelectorAll('.cat-tab').forEach((b,i)=>{
+      b.classList[CATS[i].id===S.cat?'add':'remove']('active');
+    });
+    buildGrid();
+    const fi=ICONS[S.cat]?.[0];
+    if(fi){S.iconSvg=fi.svg;S.iconId=fi.id;}
+    document.getElementById('mt').value=p.main||'SIGN TEXT';
+    document.getElementById('st').value=p.sub||'';
+    document.getElementById('aip').value='';
+    render();
+  }catch(e){alert('AI generation failed. Please try again.');}
+  btn.disabled=false;ld.classList.remove('on');
 }
 
-buildSyms(); buildSwatches(); buildTemplates(); render();
+buildGrid();buildSws();
+setTimeout(render,100);
 </script>
 </body>
 </html>
