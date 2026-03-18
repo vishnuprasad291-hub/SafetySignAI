@@ -37,7 +37,9 @@ nav{background:white;border-bottom:1px solid var(--g100);height:50px;display:fle
 .sitem .add-badge{position:absolute;top:2px;right:2px;background:var(--orange);color:white;font-size:8px;padding:1px 4px;border-radius:3px;display:none;}
 .sitem:hover .add-badge{display:block;}
 .nores{padding:20px 10px;text-align:center;font-size:12px;color:var(--g500);line-height:1.8;}
-.center{display:flex;flex-direction:column;align-items:center;padding:12px;gap:8px;overflow:hidden;background:#ECEAE4;}
+.center{display:flex;flex-direction:column;align-items:center;padding:12px;gap:8px;overflow-y:auto;background:#ECEAE4;}
+.center::-webkit-scrollbar{width:3px;}
+.center::-webkit-scrollbar-thumb{background:var(--g300);border-radius:2px;}
 .canvas-wrap{position:relative;flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,.15);}
 #cv{display:block;cursor:default;}
 #ied{position:absolute;display:none;z-index:100;}
@@ -79,7 +81,15 @@ select{width:100%;padding:5px 7px;font-size:12px;border:1px solid var(--g200);bo
 .hr{border:none;border-top:1px solid var(--g100);margin:10px 0;}
 .soon{font-size:10px;color:var(--g300);line-height:2.1;}
 .reqbtn{display:block;margin-top:8px;text-align:center;padding:7px;background:var(--navy);color:white;border-radius:6px;font-size:11px;font-weight:500;text-decoration:none;}
-/* Icon tray */
+/* Context menu */
+.ctx-menu{position:fixed;background:white;border:1px solid var(--g200);border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);padding:4px;z-index:999;min-width:160px;display:none;}
+.ctx-menu.show{display:block;}
+.ctx-item{padding:8px 14px;font-size:12px;cursor:pointer;border-radius:5px;display:flex;align-items:center;gap:8px;color:var(--navy);}
+.ctx-item:hover{background:var(--g50);}
+.ctx-item.danger{color:#C62828;}
+.ctx-item.danger:hover{background:#FFEBEE;}
+.ctx-sep{border:none;border-top:1px solid var(--g100);margin:3px 0;}
+
 .icon-tray{width:100%;max-width:700px;background:white;border:1px solid var(--g100);border-radius:10px;padding:10px 12px;}
 .tray-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
 .tray-title{font-size:11px;font-weight:600;color:var(--navy);}
@@ -104,6 +114,15 @@ select{width:100%;padding:5px 7px;font-size:12px;border:1px solid var(--g200);bo
 </nav>
 <div class="app">
 
+<!-- RIGHT-CLICK CONTEXT MENU -->
+<div class="ctx-menu" id="ctxMenu">
+  <div class="ctx-item" onclick="ctxDuplicate()">⧉ Duplicate</div>
+  <div class="ctx-item" onclick="ctxFront()">↑ Bring to front</div>
+  <div class="ctx-item" onclick="ctxBack()">↓ Send to back</div>
+  <hr class="ctx-sep">
+  <div class="ctx-item danger" onclick="ctxDelete()">🗑 Delete</div>
+</div>
+
 <!-- LEFT: SYMBOL LIBRARY -->
 <div class="lpanel">
   <div class="searchbar">
@@ -122,18 +141,7 @@ select{width:100%;padding:5px 7px;font-size:12px;border:1px solid var(--g200);bo
     <canvas id="cv" width="620" height="380"></canvas>
     <div id="ied"><textarea id="ieta" rows="1" spellcheck="false"></textarea></div>
   </div>
-  <div class="hint">Click symbol to add to tray &nbsp;·&nbsp; <b>Double-click text to edit</b> &nbsp;·&nbsp; Drag to move &nbsp;·&nbsp; Drag ↘ corner to resize</div>
-
-  <!-- ICON TRAY -->
-  <div class="icon-tray" id="icon-tray">
-    <div class="tray-head">
-      <span class="tray-title">🗂 Symbol tray — click to add to sign, drag to remove</span>
-      <button class="tray-clear" onclick="clearTray()">Clear all</button>
-    </div>
-    <div class="tray-icons" id="tray-icons">
-      <span class="tray-empty">Click symbols from the library above to add them here</span>
-    </div>
-  </div>
+  <div class="hint">Click symbol to add &nbsp;·&nbsp; <b>Double-click text to edit</b> &nbsp;·&nbsp; Right-click to delete &nbsp;·&nbsp; Drag ↘ corner to resize</div>
 
   <div class="aicard">
     <div class="aihead">AI Generator <span class="aibadge">AI powered</span></div>
@@ -198,6 +206,16 @@ select{width:100%;padding:5px 7px;font-size:12px;border:1px solid var(--g200);bo
   <div class="rrow" style="margin-top:3px">
     <button class="rbtn" onclick="delSel()" style="color:#C62828;border-color:#FFCDD2">🗑 Delete</button>
     <button class="rbtn" onclick="dupSel()">⧉ Duplicate</button>
+  </div>
+
+  <hr class="hr">
+  <div class="rl">Symbol tray</div>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+    <span style="font-size:10px;color:var(--g500)">Click library to add symbols</span>
+    <button class="tray-clear" onclick="clearTray()">Clear all</button>
+  </div>
+  <div id="tray-icons" style="display:flex;flex-wrap:wrap;gap:5px;min-height:36px;padding:4px;background:var(--g50);border:1px solid var(--g100);border-radius:6px;">
+    <span class="tray-empty" style="font-size:10px;color:var(--g300);padding:4px 0">No symbols added yet</span>
   </div>
 
   <hr class="hr">
@@ -511,6 +529,26 @@ CV.addEventListener('mousemove',e=>{
 CV.addEventListener('mouseup',()=>{drag=false;resize=false;});
 CV.addEventListener('mouseleave',()=>{drag=false;resize=false;});
 
+// ══ RIGHT-CLICK CONTEXT MENU ══
+const ctxMenu=document.getElementById('ctxMenu');
+CV.addEventListener('contextmenu',e=>{
+  e.preventDefault();
+  const{x,y}=gp(e);
+  const hit=ht(x,y);
+  if(hit>=0){
+    selIdx=hit; render();
+    ctxMenu.style.left=e.clientX+'px';
+    ctxMenu.style.top=e.clientY+'px';
+    ctxMenu.classList.add('show');
+  }
+});
+document.addEventListener('click',()=>ctxMenu.classList.remove('show'));
+document.addEventListener('contextmenu',e=>{if(e.target!==CV)ctxMenu.classList.remove('show');});
+function ctxDelete(){if(selIdx>=0){els.splice(selIdx,1);selIdx=-1;render();}ctxMenu.classList.remove('show');}
+function ctxDuplicate(){if(selIdx>=0){const e=JSON.parse(JSON.stringify(els[selIdx]));e.x+=15;e.y+=15;els.push(e);selIdx=els.length-1;render();}ctxMenu.classList.remove('show');}
+function ctxFront(){if(selIdx>=0){const e=els.splice(selIdx,1)[0];els.push(e);selIdx=els.length-1;render();}ctxMenu.classList.remove('show');}
+function ctxBack(){if(selIdx>=0){const e=els.splice(selIdx,1)[0];els.unshift(e);selIdx=0;render();}ctxMenu.classList.remove('show');}
+
 // ══ DOUBLE-CLICK INLINE EDIT ══
 CV.addEventListener('dblclick',e=>{
   const{x,y}=gp(e);
@@ -554,34 +592,34 @@ document.getElementById('ieta').addEventListener('input',()=>{
 
 // ══ ICON TRAY ══
 function addToTray(ic){
-  if(tray.find(t=>t.id===ic.id))return; // no duplicates
-  tray.push({id:ic.id,svg:ic.svg,lbl:ic.lbl});
+  if(tray.find(t=>t.id===ic.id))return;
+  tray.push({id:ic.id,svg:ic.svg,lbl:ic.lbl,cat:ic.cat});
   rebuildTray();
 }
 function rebuildTray(){
   const container=document.getElementById('tray-icons');
   container.innerHTML='';
   if(tray.length===0){
-    container.innerHTML='<span class="tray-empty">Click symbols from the library to add them here</span>';
+    container.innerHTML='<span style="font-size:10px;color:var(--g300);padding:4px 0">No symbols added yet</span>';
     return;
   }
   tray.forEach((ic,i)=>{
     const d=document.createElement('div');
-    d.className='tray-icon'; d.title=ic.lbl;
+    d.title=ic.lbl;
+    d.style.cssText='position:relative;width:38px;height:38px;border:1.5px solid var(--g200);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;background:var(--g50);flex-shrink:0;';
     const wrap=document.createElement('div');
     wrap.innerHTML=ic.svg;
     const sv=wrap.querySelector('svg');
-    if(sv){sv.style.width='30px';sv.style.height='30px';d.appendChild(sv);}
-    // Remove button
+    if(sv){sv.style.width='26px';sv.style.height='26px';d.appendChild(sv);}
     const rm=document.createElement('div');
-    rm.className='rm'; rm.textContent='×';
-    rm.onclick=(e)=>{e.stopPropagation();tray.splice(i,1);rebuildTray();};
+    rm.style.cssText='position:absolute;top:-5px;right:-5px;background:#C62828;color:white;width:13px;height:13px;border-radius:50%;font-size:9px;display:none;align-items:center;justify-content:center;cursor:pointer;';
+    rm.textContent='×';
+    rm.onclick=(ev)=>{ev.stopPropagation();tray.splice(i,1);rebuildTray();els=els.filter(e=>e.type!=='img');if(tray.length>0)placeIconsOnCanvas();else render();};
+    d.onmouseenter=()=>{rm.style.display='flex';d.style.borderColor='#C62828';};
+    d.onmouseleave=()=>{rm.style.display='none';d.style.borderColor='var(--g200)';};
     d.appendChild(rm);
-    // Click to place on canvas
-    d.onclick=()=>placeIconsOnCanvas();
     container.appendChild(d);
   });
-  // Auto-place whenever tray changes
   placeIconsOnCanvas();
 }
 
@@ -677,14 +715,26 @@ function buildGrid(syms){
     badge.className='add-badge';badge.textContent='+add';d.appendChild(badge);
     d.onclick=()=>{
       const isFirst=tray.length===0;
-      addToTray(ic);
+      // Set background BEFORE adding to tray so first render is correct
       if(isFirst&&CAT_BG[ic.cat]){
-        bg=CAT_BG[ic.cat];buildPal();
+        bg=CAT_BG[ic.cat];
         const tc=CAT_TC[ic.cat]||'#FFFFFF';
         const headerMap={prohibition:'PROHIBITION',warning:'WARNING',mandatory:'MANDATORY',safe:'SAFE CONDITION',fire:'FIRE EQUIPMENT'};
         const subMap={prohibition:'Strictly prohibited in this area',warning:'Caution — hazard present in this area',mandatory:'Personal protective equipment required',safe:'Emergency information — keep clear',fire:'Fire equipment location'};
         if(els[0]&&els[0].type==='text'){els[0].text=headerMap[ic.cat]||'SIGN';els[0].color=tc;}
         if(els[1]&&els[1].type==='text'){els[1].text=subMap[ic.cat]||'Follow safety instructions';els[1].color=tc;}
+        buildPal();
+      }
+      addToTray(ic);
+      // After adding — if tray now has mixed categories → white bg + black text
+      if(!isFirst){
+        const cats=new Set(tray.map(t=>t.cat));
+        if(cats.size>1&&bg!=='#FFFFFF'){
+          bg='#FFFFFF';buildPal();
+          // Switch all text to black so it's visible on white
+          els.forEach(e=>{if(e.type==='text')e.color='#212121';});
+          render();
+        }
       }
     };
     g.appendChild(d);
