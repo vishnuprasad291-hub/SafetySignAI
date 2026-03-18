@@ -19,6 +19,96 @@ nav{background:white;border-bottom:1px solid var(--g100);height:50px;display:fle
 .dlbtn:hover{background:#1B5E20;}
 .app{display:grid;grid-template-columns:215px 1fr 198px;height:calc(100vh - 50px);overflow:hidden;}
 .lpanel{background:white;border-right:1px solid var(--g100);display:flex;flex-direction:column;overflow:hidden;}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  html,body{height:100%;overflow:hidden;}
+  nav{padding:0 10px;height:46px;}
+  .nbadge,.nfb{display:none;}
+  .dlbtn{padding:6px 10px;font-size:11px;}
+  .logo{font-size:16px;}
+
+  /* Full screen app layout */
+  .app{
+    display:flex;flex-direction:column;
+    height:calc(100vh - 46px);
+    overflow:hidden;
+  }
+
+  /* Canvas area — always visible at top */
+  .center{
+    order:1;flex-shrink:0;
+    padding:8px 8px 4px;
+    gap:4px;overflow:hidden;
+    background:#ECEAE4;
+  }
+  .canvas-wrap{width:100% !important;}
+  #cv{width:100% !important;height:auto !important;aspect-ratio:620/380;}
+  .hint{font-size:9px;display:none;}
+  .aicard{display:none;} /* Hide AI on mobile */
+
+  /* Scrollable panels below canvas */
+  .panels-mobile{
+    flex:1;overflow:hidden;
+    display:flex;flex-direction:column;
+  }
+
+  /* Tab bar */
+  .mob-tabs{
+    display:flex;background:white;
+    border-top:1px solid var(--g100);
+    border-bottom:1px solid var(--g100);
+    flex-shrink:0;
+  }
+  .mob-tab{
+    flex:1;padding:8px 4px 6px;
+    font-size:10px;font-weight:600;
+    text-align:center;cursor:pointer;
+    color:var(--g500);border:none;background:none;
+    font-family:'DM Sans',sans-serif;
+    border-bottom:2px solid transparent;
+  }
+  .mob-tab.on{color:var(--orange);border-bottom-color:var(--orange);}
+
+  /* Panel content */
+  .mob-panel{display:none;flex:1;overflow-y:auto;}
+  .mob-panel.on{display:block;}
+
+  /* Symbol panel */
+  .lpanel{
+    border-right:none;order:unset;
+    height:auto;flex-shrink:0;
+  }
+  .symscroll{max-height:none;padding:6px;}
+  .sgrid{grid-template-columns:repeat(5,1fr);gap:3px;}
+  .sitem{padding:4px;}
+  .sitem svg{width:28px;height:28px;}
+  .sitem .lbl{font-size:6px;}
+  .cattabs{gap:2px;padding:4px;}
+  .ctab{padding:3px 6px;font-size:9px;}
+
+  /* Settings panel */
+  .rpanel{
+    border-left:none;order:unset;
+    padding:10px;height:auto;
+  }
+  .rrow{flex-wrap:wrap;}
+  .rbtn{min-width:55px;padding:8px 4px;font-size:11px;}
+  .isopal .isw{width:28px;height:28px;}
+  select{padding:8px;font-size:13px;}
+  input[type=range]{height:20px;}
+
+  /* Hide desktop panels */
+  .lpanel-desktop,.rpanel-desktop{display:none;}
+}
+
+/* Mobile wrapper — only exists on mobile */
+.panels-mobile{display:none;}
+.mob-tabs{display:none;}
+@media(max-width:768px){
+  .panels-mobile{display:flex;}
+  .mob-tabs{display:flex;}
+}
 .searchbar{padding:8px 10px 6px;border-bottom:1px solid var(--g100);}
 .sbox{display:flex;align-items:center;gap:6px;background:var(--g50);border:1px solid var(--g200);border-radius:7px;padding:6px 10px;}
 .sbox svg{flex-shrink:0;opacity:.4;}
@@ -226,6 +316,67 @@ select{width:100%;padding:5px 7px;font-size:12px;border:1px solid var(--g200);bo
   <div class="soon">🔜 Arabic text<br>🔜 Company logo<br>🔜 Bulk download<br>🔜 Save to account</div>
   <a href="mailto:hello@safetysignai.com" class="reqbtn">Request a feature →</a>
 </div>
+</div>
+
+<!-- MOBILE BOTTOM TABS + PANELS -->
+<div class="panels-mobile">
+  <div class="mob-tabs">
+    <button class="mob-tab on" onclick="mobTab('symbols',this)">🔣 Symbols</button>
+    <button class="mob-tab" onclick="mobTab('settings',this)">🎨 Colors</button>
+    <button class="mob-tab" onclick="mobTab('actions',this)">✏️ Edit</button>
+  </div>
+  <div class="mob-panel on" id="mob-symbols">
+    <div class="searchbar">
+      <div class="sbox">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="mob-si" placeholder="Search... helmet, fire, exit" oninput="doSearchMob(this.value)">
+      </div>
+    </div>
+    <div class="cattabs" id="mob-cattabs"></div>
+    <div class="symscroll"><div class="sgrid" id="mob-sgrid"></div></div>
+  </div>
+  <div class="mob-panel" id="mob-settings" style="padding:12px;overflow-y:auto;">
+    <div class="rl">Background color</div>
+    <div class="isopal" id="mob-isopal"></div>
+    <div style="font-size:9px;color:var(--g500);line-height:1.9;margin-bottom:8px;">🔴 Prohibition &nbsp; 🟡 Warning &nbsp; 🔵 Mandatory &nbsp; 🟢 Safe</div>
+    <div class="rl">Border</div>
+    <div class="rrow" style="margin-bottom:10px;">
+      <button class="rbtn on" onclick="setBd('solid')">Solid</button>
+      <button class="rbtn" onclick="setBd('double')">Double</button>
+      <button class="rbtn" onclick="setBd('none')">None</button>
+    </div>
+    <div class="rl">Symbol tray</div>
+    <div id="mob-tray" style="display:flex;flex-wrap:wrap;gap:5px;padding:6px;background:var(--g50);border:1px solid var(--g100);border-radius:6px;min-height:40px;margin-bottom:8px;"></div>
+    <div class="rrow">
+      <button class="rbtn" onclick="clearTray()">🔄 Clear symbols</button>
+      <button class="rbtn" onclick="resetCanvas()">↺ Start fresh</button>
+    </div>
+  </div>
+  <div class="mob-panel" id="mob-actions" style="padding:12px;overflow-y:auto;">
+    <div style="font-size:11px;color:var(--g500);background:var(--g50);padding:8px;border-radius:6px;margin-bottom:10px;">👆 Tap element on canvas to select, then edit here</div>
+    <div class="rl">Font size — <span id="mob-fsv">48</span>px</div>
+    <input type="range" min="8" max="120" value="48" id="mob-elfs" style="width:100%;margin-bottom:10px;accent-color:var(--orange);" oninput="document.getElementById('mob-fsv').textContent=this.value;document.getElementById('elfs').value=this.value;updSelFont()">
+    <div class="rl">Font style</div>
+    <div class="rrow" style="margin-bottom:10px;">
+      <button class="rbtn on" onclick="setFF('bold')"><b>Bold</b></button>
+      <button class="rbtn" onclick="setFF('normal')">Normal</button>
+      <button class="rbtn" onclick="setFF('italic')"><i>Italic</i></button>
+    </div>
+    <div class="rl">Text color</div>
+    <div id="mob-tcrow" style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;"></div>
+    <div class="rl">Align</div>
+    <div class="rrow" style="margin-bottom:10px;">
+      <button class="rbtn" onclick="setAl('left')">Left</button>
+      <button class="rbtn" onclick="setAl('center')">Center</button>
+      <button class="rbtn" onclick="setAl('right')">Right</button>
+    </div>
+    <div class="rrow" style="margin-bottom:4px;">
+      <button class="rbtn" onclick="addTxt()">+ Text</button>
+      <button class="rbtn" onclick="toFront()">↑ Front</button>
+      <button class="rbtn" onclick="dupSel()">⧉ Copy</button>
+    </div>
+    <button class="rbtn" style="width:100%;margin-top:6px;color:#C62828;border-color:#FFCDD2;padding:10px;" onclick="delSel()">🗑 Delete selected</button>
+  </div>
 </div>
 
 <script>
@@ -621,8 +772,8 @@ function rebuildTray(){
     container.appendChild(d);
   });
   placeIconsOnCanvas();
+  rebuildMobTray();
 }
-
 function placeIconsOnCanvas(){
   if(tray.length===0)return;
   // Remove all existing img elements
@@ -785,10 +936,7 @@ function chSz(){
   stopEdit();
   const v=document.getElementById('sz').value.split(',');
   CV.width=+v[0];CV.height=+v[1];
-  const cw=document.querySelector('.center');
-  const aw=Math.min(700,cw.clientWidth-24);
-  CV.style.width=aw+'px';CV.style.height=(aw*(+v[1]/+v[0]))+'px';
-  // Resize text elements to fit new canvas
+  resizeCanvas();
   els.forEach(el=>{if(el.type==='text'){el.w=Math.min(el.w,CV.width-44);}});
   if(tray.length>0)placeIconsOnCanvas();
   render();
@@ -813,23 +961,13 @@ async function genAI(){
   const btn=document.getElementById('aibtn'),ld=document.getElementById('ld');
   btn.disabled=true;ld.classList.add('on');
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
+    const res=await fetch('/api/generate',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',max_tokens:600,
-        messages:[{role:'user',content:`ISO 7010 HSE sign expert. Create a professional safety sign for: "${prompt}"
-
-Available icon IDs: P001=General ban, P002=No smoking, P003=No flame, P004=No pedestrians, P005=No drinking water, P006=No forklift, P010=Do not touch, P013=No phone, P021=No dogs, P025=No swimming, P030=No alcohol, W001=General warning, W002=Flammable, W004=High voltage, W005=Radiation, W007=Falling objects, W012=Danger voltage, W014=Slippery, W017=Hot surface, W021=Trip hazard, W036=Confined space, M003=Ear protection, M004=Eye protection, M005=Helmet, M006=Gloves, M007=Clothing, M008=Respirator, M009=Harness, M011=Boots, M013=Wash hands, M015=Hi-vis, M016=Mask, E001=Exit left, E002=Exit right, E003=First aid, E004=Phone, E015=Assembly, E016=Fire exit, E017=AED, E019=Main switch, F001=Extinguisher, F002=Hose reel, F003=Fire alarm, F007=Hydrant, F008=Fire door
-
-If the request needs MULTIPLE icons (e.g. PPE area needs helmet+gloves+boots), include all relevant icons.
-
-Return ONLY this JSON:
-{"header":"DANGER|WARNING|CAUTION|MANDATORY|SAFE|NOTICE","mainText":"MAIN MESSAGE","subText":"Detail description","icons":["ID1","ID2"]}`}]
-      })
+      body:JSON.stringify({prompt})
     });
-    const data=await res.json();
-    const p=JSON.parse(data.content[0].text.trim().replace(/```json|```/g,''));
+    const p=await res.json();
+    if(!res.ok)throw new Error(p.error||'Failed');
     // Reset and rebuild
     tray=[];
     els=[];
@@ -852,14 +990,139 @@ Return ONLY this JSON:
   btn.disabled=false;ld.classList.remove('on');
 }
 
-// ══ INIT ══
-buildGrid(ALL);
+// ══ MOBILE ══
+function mobTab(tab, btn){
+  document.querySelectorAll('.mob-tab').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.mob-panel').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('mob-'+tab).classList.add('on');
+}
+function doSearchMob(q){
+  q=q.trim().toLowerCase();
+  if(!q){buildMobGrid(ALL);return;}
+  buildMobGrid(ALL.filter(s=>s.lbl.toLowerCase().includes(q)||s.id.toLowerCase().includes(q)||s.tags.some(t=>t.includes(q))));
+}
+function buildMobGrid(syms){
+  const g=document.getElementById('mob-sgrid');
+  if(!g)return;
+  g.innerHTML='';
+  if(!syms||syms.length===0){g.innerHTML='<div class="nores">No symbols found.</div>';return;}
+  syms.forEach(ic=>{
+    if(!ic.svg)return;
+    const d=document.createElement('div');
+    d.className='sitem';d.title=ic.lbl;
+    const w=document.createElement('div');w.innerHTML=ic.svg;
+    const sv=w.querySelector('svg');
+    if(sv){sv.style.width='28px';sv.style.height='28px';d.appendChild(sv);}
+    const lbl=document.createElement('div');lbl.className='lbl';lbl.textContent=ic.lbl;d.appendChild(lbl);
+    d.onclick=()=>{
+      // Same logic as desktop
+      const isFirst=tray.length===0;
+      if(isFirst&&CAT_BG[ic.cat]){
+        bg=CAT_BG[ic.cat];
+        const tc=CAT_TC[ic.cat]||'#FFFFFF';
+        const headerMap={prohibition:'PROHIBITION',warning:'WARNING',mandatory:'MANDATORY',safe:'SAFE CONDITION',fire:'FIRE EQUIPMENT'};
+        const subMap={prohibition:'Strictly prohibited in this area',warning:'Caution — hazard present in this area',mandatory:'Personal protective equipment required',safe:'Emergency information — keep clear',fire:'Fire equipment location'};
+        if(els[0]&&els[0].type==='text'){els[0].text=headerMap[ic.cat]||'SIGN';els[0].color=tc;}
+        if(els[1]&&els[1].type==='text'){els[1].text=subMap[ic.cat]||'Follow safety instructions';els[1].color=tc;}
+        buildPal();buildMobPal();
+      }
+      addToTray(ic);
+      if(!isFirst){
+        const cats=new Set(tray.map(t=>t.cat));
+        if(cats.size>1&&bg!=='#FFFFFF'){
+          bg='#FFFFFF';buildPal();buildMobPal();
+          els.forEach(e=>{if(e.type==='text')e.color='#212121';});
+          render();
+        }
+      }
+    };
+    g.appendChild(d);
+  });
+}
+function buildMobCatTabs(){
+  const el=document.getElementById('mob-cattabs');
+  if(!el)return;
+  CATS.forEach((c,i)=>{
+    const b=document.createElement('button');
+    b.className='ctab'+(i===0?' on':'');
+    if(i===0){b.style.background=c.col;b.style.borderColor=c.col;}
+    b.textContent=c.lbl;
+    b.onclick=()=>{
+      document.getElementById('mob-si').value='';
+      el.querySelectorAll('.ctab').forEach(x=>{x.classList.remove('on');x.style.background='';x.style.borderColor='';x.style.color='';});
+      b.classList.add('on');b.style.background=c.col;b.style.borderColor=c.col;b.style.color='#fff';
+      buildMobGrid(i===0?ALL:LIB[c.id]||[]);
+    };
+    el.appendChild(b);
+  });
+}
+function buildMobPal(){
+  const el=document.getElementById('mob-isopal');
+  if(!el)return;
+  el.innerHTML='';
+  ISO_PAL.forEach(c=>{
+    const d=document.createElement('div');
+    d.className='isw'+(c.hex===bg?' on':'')+(c.wh?' wh':'');
+    d.style.background=c.hex;d.style.width='32px';d.style.height='32px';
+    if(c.wh)d.style.border='1.5px solid #bbb';
+    d.title=c.lbl;d.textContent=c.hex===bg?'✓':'';
+    d.onclick=()=>{bg=c.hex;buildPal();buildMobPal();render();};
+    el.appendChild(d);
+  });
+}
+function buildMobTcRow(){
+  const el=document.getElementById('mob-tcrow');
+  if(!el)return;
+  el.innerHTML='';
+  TC_OPTS.forEach(c=>{
+    const b=document.createElement('button');
+    b.className='tcbtn';
+    b.innerHTML=`<div class="tcdot" style="background:${c.hex}"></div>${c.lbl}`;
+    b.onclick=()=>{
+      if(selIdx>=0&&els[selIdx]&&els[selIdx].type==='text'){els[selIdx].color=c.hex;render();}
+      else{els.forEach(e=>{if(e.type==='text')e.color=c.hex;});render();}
+    };
+    el.appendChild(b);
+  });
+}
+function rebuildMobTray(){
+  const el=document.getElementById('mob-tray');
+  if(!el)return;
+  el.innerHTML='';
+  if(tray.length===0){el.innerHTML='<span style="font-size:10px;color:var(--g300)">No symbols added yet</span>';return;}
+  tray.forEach((ic,i)=>{
+    const d=document.createElement('div');
+    d.style.cssText='position:relative;width:38px;height:38px;border:1.5px solid var(--g200);border-radius:6px;display:flex;align-items:center;justify-content:center;background:var(--g50);';
+    const w=document.createElement('div');w.innerHTML=ic.svg;
+    const sv=w.querySelector('svg');if(sv){sv.style.width='26px';sv.style.height='26px';d.appendChild(sv);}
+    const rm=document.createElement('div');
+    rm.style.cssText='position:absolute;top:-5px;right:-5px;background:#C62828;color:white;width:14px;height:14px;border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;';
+    rm.textContent='×';
+    rm.onclick=()=>{tray.splice(i,1);rebuildTray();rebuildMobTray();els=els.filter(e=>e.type!=='img');if(tray.length>0)placeIconsOnCanvas();else render();};
+    d.appendChild(rm);
+    el.appendChild(d);
+  });
+}
+
+// Init mobile panels
+buildMobGrid(ALL);
+buildMobCatTabs();
+buildMobPal();
+buildMobTcRow();
+rebuildMobTray();
 buildPal();
 buildTcRow();
-const cw=document.querySelector('.center');
-const aw=Math.min(700,cw.clientWidth-24);
-CV.style.width=aw+'px';
-CV.style.height=(aw*(380/620))+'px';
+// Responsive canvas sizing
+function resizeCanvas(){
+  const cw=document.querySelector('.center');
+  const isMobile=window.innerWidth<=768;
+  const aw=isMobile ? Math.min(window.innerWidth-16, 620) : Math.min(700,cw.clientWidth-24);
+  CV.style.width=aw+'px';
+  CV.style.height=(aw*(CV.height/CV.width))+'px';
+}
+resizeCanvas();
+window.addEventListener('resize',()=>{resizeCanvas();if(tray.length>0)placeIconsOnCanvas();else render();});
 render();
 </script>
 </body>
