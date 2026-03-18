@@ -3,205 +3,162 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SafetySignAI — Free ISO 7010 Safety Sign Maker</title>
-<meta name="description" content="Create professional ISO 7010 safety signs free. Download print-ready PNG instantly. Used by HSE officers in UAE and India.">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<title>SafetySignAI — Free ISO 7010 Sign Maker</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
-:root{
-  --navy:#0B1F3A; --orange:#E85D04; --ol:#FFF4EE;
-  --g50:#F8F7F4; --g100:#EDEBE5; --g200:#D8D5CE;
-  --g300:#C4C0B8; --g500:#8A8680; --g700:#4A4642;
-}
+:root{--navy:#0B1F3A;--orange:#E85D04;--ol:#FFF4EE;--g50:#F8F7F4;--g100:#EDEBE5;--g200:#D8D5CE;--g300:#C4C0B8;--g500:#8A8680;--g700:#4A4642;}
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;font-family:'DM Sans',sans-serif;color:var(--navy);background:#ECEAE4;overflow:hidden;}
-
-nav{background:white;border-bottom:1px solid var(--g100);height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;flex-shrink:0;}
-.logo{font-family:'Instrument Serif',serif;font-size:18px;color:var(--navy);text-decoration:none;letter-spacing:-.01em;}
+nav{background:white;border-bottom:1px solid var(--g100);height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;flex-shrink:0;}
+.logo{font-family:'Instrument Serif',serif;font-size:18px;color:var(--navy);text-decoration:none;}
 .logo span{color:var(--orange);}
-.nav-r{display:flex;align-items:center;gap:10px;}
+.nav-r{display:flex;align-items:center;gap:8px;}
 .nbadge{font-size:11px;background:#E8F5E9;color:#2E7D32;padding:3px 9px;border-radius:12px;font-weight:500;}
-.nfb{font-size:12px;background:var(--navy);color:white;padding:5px 13px;border-radius:6px;text-decoration:none;}
-
-.app{display:grid;grid-template-columns:230px 1fr 210px;height:calc(100vh - 50px);overflow:hidden;}
-
-/* ── LEFT PANEL ── */
+.nfb{font-size:12px;background:var(--navy);color:white;padding:5px 12px;border-radius:6px;text-decoration:none;}
+.dlbtn{padding:7px 16px;background:#2E7D32;color:white;border:none;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.dlbtn:hover{background:#1B5E20;}
+.app{display:grid;grid-template-columns:215px 1fr 198px;height:calc(100vh - 50px);overflow:hidden;}
 .lpanel{background:white;border-right:1px solid var(--g100);display:flex;flex-direction:column;overflow:hidden;}
-.searchbar{padding:9px 10px 7px;border-bottom:1px solid var(--g100);}
-.sbox{display:flex;align-items:center;gap:7px;background:var(--g50);border:1px solid var(--g200);border-radius:7px;padding:7px 10px;}
-.sbox svg{flex-shrink:0;opacity:.5;}
+.searchbar{padding:8px 10px 6px;border-bottom:1px solid var(--g100);}
+.sbox{display:flex;align-items:center;gap:6px;background:var(--g50);border:1px solid var(--g200);border-radius:7px;padding:6px 10px;}
+.sbox svg{flex-shrink:0;opacity:.4;}
 .sbox input{border:none;background:none;font-size:12px;color:var(--navy);width:100%;outline:none;font-family:'DM Sans',sans-serif;}
-.cattabs{display:flex;flex-wrap:wrap;gap:3px;padding:7px;border-bottom:1px solid var(--g100);}
-.ctab{padding:4px 8px;font-size:10px;font-weight:500;border:1px solid var(--g200);border-radius:5px;background:white;cursor:pointer;color:var(--g700);}
+.cattabs{display:flex;flex-wrap:wrap;gap:3px;padding:6px;border-bottom:1px solid var(--g100);}
+.ctab{padding:4px 7px;font-size:10px;font-weight:500;border:1px solid var(--g200);border-radius:5px;background:white;cursor:pointer;color:var(--g700);}
 .ctab.on{color:white;border-color:transparent;}
-.symscroll{flex:1;overflow-y:auto;padding:8px;}
+.symscroll{flex:1;overflow-y:auto;padding:7px;}
 .symscroll::-webkit-scrollbar{width:3px;}
 .symscroll::-webkit-scrollbar-thumb{background:var(--g200);border-radius:2px;}
-.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;}
-.sitem{border:1.5px solid var(--g100);border-radius:7px;background:var(--g50);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:5px;aspect-ratio:1;transition:all .1s;}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;}
+.sitem{border:1.5px solid var(--g100);border-radius:6px;background:var(--g50);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px;aspect-ratio:1;transition:all .1s;position:relative;}
 .sitem:hover{border-color:var(--orange);background:var(--ol);}
-.sitem.sel{border:2px solid var(--orange);background:var(--ol);}
-.sitem img{width:34px;height:34px;object-fit:contain;display:block;}
-.sitem .lbl{font-size:7.5px;color:var(--g500);text-align:center;line-height:1.2;}
-.sitem.sel .lbl{color:var(--orange);}
-.nores{padding:24px 12px;text-align:center;font-size:12px;color:var(--g500);line-height:1.8;}
-
-/* ── CENTER ── */
-.center{display:flex;flex-direction:column;align-items:center;padding:12px 16px;gap:12px;overflow-y:auto;background:#ECEAE4;}
-.center::-webkit-scrollbar{width:3px;}
-.center::-webkit-scrollbar-thumb{background:var(--g300);border-radius:2px;}
-.bbanner{width:100%;max-width:640px;background:#E8F5E9;border:1px solid #A5D6A7;border-radius:8px;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;}
-.bbanner span{font-size:12px;color:#1B5E20;font-weight:500;}
-.bbanner a{font-size:11px;color:#2E7D32;font-weight:500;text-decoration:none;}
-.ccard{background:white;border:1px solid var(--g100);border-radius:12px;padding:14px;width:100%;max-width:640px;box-shadow:0 1px 6px rgba(0,0,0,.05);}
-.ctoolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.stag{font-size:11px;font-weight:600;padding:3px 11px;border-radius:20px;}
-.tp{background:#FFEBEE;color:#C62828;}
-.tw{background:#FFFDE7;color:#E65100;}
-.tm{background:#E3F2FD;color:#1565C0;}
-.ts{background:#E8F5E9;color:#2E7D32;}
-.tf{background:#FBE9E7;color:#BF360C;}
-.dlbtn{display:flex;align-items:center;gap:6px;padding:8px 18px;background:#2E7D32;color:white;border:none;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.dlbtn:hover{background:#1B5E20;}
-#cv{display:block;max-width:100%;border-radius:6px;margin:0 auto;border:1px solid var(--g100);}
-.aicard{background:white;border:1px solid var(--g100);border-radius:12px;padding:14px;width:100%;max-width:640px;}
-.aihead{font-size:13px;font-weight:600;margin-bottom:9px;display:flex;align-items:center;gap:7px;}
-.aibadge{font-size:10px;background:#EDE7F6;color:#512DA8;padding:2px 8px;border-radius:10px;}
-.airow{display:flex;gap:8px;}
-textarea{flex:1;padding:9px 11px;font-size:13px;border:1px solid var(--g200);border-radius:8px;font-family:'DM Sans',sans-serif;color:var(--navy);resize:none;height:56px;}
-textarea:focus{outline:none;border-color:#7C4DFF;}
-.aigobtn{padding:0 16px;background:#512DA8;color:white;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.sitem svg{width:32px;height:32px;display:block;pointer-events:none;}
+.sitem .lbl{font-size:7px;color:var(--g500);text-align:center;line-height:1.2;pointer-events:none;}
+.sitem .add-badge{position:absolute;top:2px;right:2px;background:var(--orange);color:white;font-size:8px;padding:1px 4px;border-radius:3px;display:none;}
+.sitem:hover .add-badge{display:block;}
+.nores{padding:20px 10px;text-align:center;font-size:12px;color:var(--g500);line-height:1.8;}
+.center{display:flex;flex-direction:column;align-items:center;padding:12px;gap:8px;overflow:hidden;background:#ECEAE4;}
+.canvas-wrap{position:relative;flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,.15);}
+#cv{display:block;cursor:default;}
+#ied{position:absolute;display:none;z-index:100;}
+#ied textarea{background:transparent;border:none;outline:none;resize:none;overflow:hidden;padding:0;margin:0;font-family:'DM Sans',sans-serif;line-height:1.25;caret-color:white;}
+.hint{font-size:11px;color:var(--g500);text-align:center;}
+.aicard{background:white;border:1px solid var(--g100);border-radius:10px;padding:11px;width:100%;max-width:700px;}
+.aihead{font-size:12px;font-weight:600;margin-bottom:7px;display:flex;align-items:center;gap:6px;}
+.aibadge{font-size:10px;background:#EDE7F6;color:#512DA8;padding:2px 7px;border-radius:10px;}
+.airow{display:flex;gap:7px;}
+.aita{flex:1;padding:8px 10px;font-size:12px;border:1px solid var(--g200);border-radius:7px;font-family:'DM Sans',sans-serif;color:var(--navy);resize:none;height:48px;}
+.aita:focus{outline:none;border-color:#7C4DFF;}
+.aigobtn{padding:0 14px;background:#512DA8;color:white;border:none;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .aigobtn:hover{background:#311B92;}.aigobtn:disabled{opacity:.5;cursor:not-allowed;}
-.ldrow{display:none;align-items:center;gap:6px;font-size:11px;color:var(--g500);margin-top:7px;}
+.ldrow{display:none;align-items:center;gap:6px;font-size:11px;color:var(--g500);margin-top:6px;}
 .ldrow.on{display:flex;}
 .dot{width:5px;height:5px;background:#512DA8;border-radius:50%;animation:pu 1.2s ease-in-out infinite;}
 .dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
 @keyframes pu{0%,100%{opacity:.2}50%{opacity:1}}
-
-/* ── RIGHT PANEL ── */
-.rpanel{background:white;border-left:1px solid var(--g100);padding:12px;overflow-y:auto;}
+.rpanel{background:white;border-left:1px solid var(--g100);padding:11px;overflow-y:auto;}
 .rpanel::-webkit-scrollbar{width:3px;}
 .rpanel::-webkit-scrollbar-thumb{background:var(--g200);border-radius:2px;}
-.rl{font-size:10px;font-weight:600;color:var(--g500);text-transform:uppercase;letter-spacing:.07em;margin:13px 0 6px;}
+.rl{font-size:10px;font-weight:600;color:var(--g500);text-transform:uppercase;letter-spacing:.07em;margin:11px 0 5px;}
 .rl:first-child{margin-top:0;}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
-.rrow{display:flex;gap:4px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
+.rrow{display:flex;gap:3px;}
 .rbtn{flex:1;padding:6px 2px;font-size:10px;font-weight:500;border:1px solid var(--g200);border-radius:5px;background:white;cursor:pointer;text-align:center;color:var(--g700);}
 .rbtn.on{border-color:var(--orange);color:var(--orange);background:var(--ol);}
-.rinput{width:100%;padding:7px 8px;font-size:12px;border:1px solid var(--g200);border-radius:6px;background:white;color:var(--navy);font-family:'DM Sans',sans-serif;}
-.rinput:focus{outline:none;border-color:var(--orange);}
 input[type=range]{width:100%;accent-color:var(--orange);}
-select{width:100%;padding:6px 7px;font-size:12px;border:1px solid var(--g200);border-radius:6px;background:white;color:var(--navy);font-family:'DM Sans',sans-serif;}
-.isopal{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:5px;}
-.isw{width:28px;height:28px;border-radius:5px;cursor:pointer;border:2.5px solid transparent;display:flex;align-items:center;justify-content:center;font-size:13px;color:white;font-weight:bold;}
+select{width:100%;padding:5px 7px;font-size:12px;border:1px solid var(--g200);border-radius:6px;background:white;color:var(--navy);font-family:'DM Sans',sans-serif;}
+.isopal{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:4px;}
+.isw{width:24px;height:24px;border-radius:4px;cursor:pointer;border:2.5px solid transparent;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;font-weight:bold;}
 .isw.on{border-color:var(--navy);}
-.isw.wh{color:#999;}
-.isoguide{font-size:9px;color:var(--g500);line-height:2;}
-.tcrow{display:flex;gap:5px;flex-wrap:wrap;}
-.tcbtn{display:flex;align-items:center;gap:4px;padding:5px 7px;border:1px solid var(--g200);border-radius:6px;cursor:pointer;background:white;font-size:10px;font-weight:500;color:var(--g700);}
+.isw.wh{color:#888;}
+.isoguide{font-size:9px;color:var(--g500);line-height:1.9;margin-bottom:4px;}
+.tcrow{display:flex;gap:4px;flex-wrap:wrap;}
+.tcbtn{display:flex;align-items:center;gap:3px;padding:4px 6px;border:1px solid var(--g200);border-radius:5px;cursor:pointer;background:white;font-size:10px;font-weight:500;color:var(--g700);}
 .tcbtn.on{border-color:var(--orange);background:var(--ol);color:var(--orange);}
-.tcdot{width:11px;height:11px;border-radius:50%;border:1px solid rgba(0,0,0,.1);}
+.tcdot{width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,.1);}
+.hr{border:none;border-top:1px solid var(--g100);margin:10px 0;}
 .soon{font-size:10px;color:var(--g300);line-height:2.1;}
-.reqbtn{display:block;margin-top:10px;text-align:center;padding:8px;background:var(--navy);color:white;border-radius:7px;font-size:11px;font-weight:500;text-decoration:none;}
+.reqbtn{display:block;margin-top:8px;text-align:center;padding:7px;background:var(--navy);color:white;border-radius:6px;font-size:11px;font-weight:500;text-decoration:none;}
+/* Icon tray */
+.icon-tray{width:100%;max-width:700px;background:white;border:1px solid var(--g100);border-radius:10px;padding:10px 12px;}
+.tray-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.tray-title{font-size:11px;font-weight:600;color:var(--navy);}
+.tray-clear{font-size:10px;color:#C62828;cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;}
+.tray-icons{display:flex;flex-wrap:wrap;gap:6px;min-height:40px;}
+.tray-icon{position:relative;width:44px;height:44px;border:1.5px solid var(--g200);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;background:var(--g50);}
+.tray-icon:hover{border-color:#C62828;}
+.tray-icon svg{width:30px;height:30px;}
+.tray-icon .rm{position:absolute;top:-6px;right:-6px;background:#C62828;color:white;width:14px;height:14px;border-radius:50%;font-size:9px;display:none;align-items:center;justify-content:center;cursor:pointer;line-height:1;}
+.tray-icon:hover .rm{display:flex;}
+.tray-empty{font-size:11px;color:var(--g300);padding:8px 0;}
 </style>
 </head>
 <body>
-
 <nav>
   <a href="/" class="logo">SafetySign<span>AI</span></a>
   <div class="nav-r">
     <span class="nbadge">🚀 Beta — free</span>
+    <button class="dlbtn" onclick="dlSign()">⬇ Download PNG</button>
     <a href="mailto:hello@safetysignai.com" class="nfb">Feedback</a>
   </div>
 </nav>
-
 <div class="app">
 
-<!-- ══ LEFT ══ -->
+<!-- LEFT: SYMBOL LIBRARY -->
 <div class="lpanel">
   <div class="searchbar">
     <div class="sbox">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="searchinput" placeholder="Search... helmet, fire, exit, voltage" oninput="doSearch()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="si" placeholder="Search... helmet, fire, exit" oninput="doSearch()">
     </div>
   </div>
   <div class="cattabs" id="cattabs"></div>
   <div class="symscroll"><div class="sgrid" id="sgrid"></div></div>
 </div>
 
-<!-- ══ CENTER ══ -->
+<!-- CENTER: CANVAS + TRAY -->
 <div class="center">
-  <div class="bbanner">
-    <span>🚀 Beta — unlimited free downloads, no watermark</span>
-    <a href="mailto:hello@safetysignai.com">Feedback →</a>
+  <div class="canvas-wrap" id="cw">
+    <canvas id="cv" width="620" height="380"></canvas>
+    <div id="ied"><textarea id="ieta" rows="1" spellcheck="false"></textarea></div>
   </div>
-  <div class="ccard">
-    <div class="ctoolbar">
-      <span class="stag tp" id="ttag">Prohibition</span>
-      <button class="dlbtn" onclick="dlSign()">⬇ Download PNG</button>
+  <div class="hint">Click symbol to add to tray &nbsp;·&nbsp; <b>Double-click text to edit</b> &nbsp;·&nbsp; Drag to move &nbsp;·&nbsp; Drag ↘ corner to resize</div>
+
+  <!-- ICON TRAY -->
+  <div class="icon-tray" id="icon-tray">
+    <div class="tray-head">
+      <span class="tray-title">🗂 Symbol tray — click to add to sign, drag to remove</span>
+      <button class="tray-clear" onclick="clearTray()">Clear all</button>
     </div>
-    <canvas id="cv" width="560" height="340"></canvas>
+    <div class="tray-icons" id="tray-icons">
+      <span class="tray-empty">Click symbols from the library above to add them here</span>
+    </div>
   </div>
+
   <div class="aicard">
     <div class="aihead">AI Generator <span class="aibadge">AI powered</span></div>
     <div class="airow">
-      <textarea id="aip" placeholder="Describe your sign... e.g. No smoking sign for oil and gas facility UAE"></textarea>
+      <textarea class="aita" id="aip" placeholder="Describe your sign... e.g. Mandatory PPE area — helmet gloves boots required"></textarea>
       <button class="aigobtn" id="aibtn" onclick="genAI()">Generate →</button>
     </div>
-    <div class="ldrow" id="ld"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>AI is generating your sign...</span></div>
+    <div class="ldrow" id="ld"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>AI generating sign...</span></div>
   </div>
 </div>
 
-<!-- ══ RIGHT ══ -->
+<!-- RIGHT: CONTROLS -->
 <div class="rpanel">
-  <div class="rl">Sign type</div>
-  <div class="grid2" id="typebtns"></div>
-
-  <div class="rl">Shape</div>
-  <div class="rrow">
-    <button class="rbtn on" onclick="setSh('rect')" id="sh-rect">Rect</button>
-    <button class="rbtn" onclick="setSh('sq')" id="sh-sq">Square</button>
-    <button class="rbtn" onclick="setSh('circle')" id="sh-circle">Circle</button>
-    <button class="rbtn" onclick="setSh('tri')" id="sh-tri">Triangle</button>
-  </div>
-
-  <div class="rl">Main text</div>
-  <input class="rinput" type="text" id="mt" value="NO SMOKING" oninput="render()">
-
-  <div class="rl">Sub text</div>
-  <input class="rinput" type="text" id="st" value="Strictly prohibited in this area" oninput="render()">
-
-  <div class="rl">Font size — <span id="fsv">20</span>px</div>
-  <input type="range" min="10" max="38" value="20" id="fs" oninput="document.getElementById('fsv').textContent=this.value;render()">
-
-  <div class="rl">Font style</div>
-  <div class="rrow">
-    <button class="rbtn on" onclick="setFF('bold')" id="ff-bold"><b>Bold</b></button>
-    <button class="rbtn" onclick="setFF('normal')" id="ff-normal">Normal</button>
-    <button class="rbtn" onclick="setFF('italic')" id="ff-italic"><i>Italic</i></button>
-    <button class="rbtn" onclick="setFF('caps')" id="ff-caps">CAPS</button>
-  </div>
+  <div class="rl">Background color</div>
+  <div class="isopal" id="isopal"></div>
+  <div class="isoguide">🔴 Red — Prohibition/Fire<br>🟡 Yellow — Warning<br>🔵 Blue — Mandatory<br>🟢 Green — Safe/Emergency</div>
 
   <div class="rl">Canvas size</div>
   <select id="sz" onchange="chSz()">
-    <option value="560,340">A4 Landscape</option>
-    <option value="340,340">Square 300mm</option>
-    <option value="560,560">A3 Square</option>
-    <option value="660,200">Banner</option>
-    <option value="420,300">Standard 400mm</option>
+    <option value="620,380">A4 Landscape</option>
+    <option value="380,380">Square 300mm</option>
+    <option value="620,620">A3 Square</option>
+    <option value="720,220">Banner</option>
+    <option value="480,340">Standard 400mm</option>
   </select>
-
-  <div class="rl">ISO background color</div>
-  <div class="isopal" id="isopal"></div>
-  <div class="isoguide">
-    🔴 Red — Prohibition / Fire<br>
-    🟡 Yellow — Warning / Caution<br>
-    🔵 Blue — Mandatory / Info<br>
-    🟢 Green — Safe / Emergency<br>
-    ⚪ White — Neutral / General
-  </div>
-
-  <div class="rl">Text color</div>
-  <div class="tcrow" id="tcrow"></div>
 
   <div class="rl">Border</div>
   <div class="rrow">
@@ -210,531 +167,650 @@ select{width:100%;padding:6px 7px;font-size:12px;border:1px solid var(--g200);bo
     <button class="rbtn" onclick="setBd('none')" id="bd-none">None</button>
   </div>
 
-  <div class="rl" style="margin-top:16px">Coming in Pro</div>
-  <div class="soon">🔜 Arabic text support<br>🔜 Company logo on signs<br>🔜 Bulk download 50 signs<br>🔜 Save signs to account<br>🔜 Custom fonts</div>
+  <hr class="hr">
+  <div style="font-size:11px;font-weight:600;color:var(--navy);margin-bottom:5px">Selected element</div>
+
+  <div class="rl">Font size — <span id="fsv">48</span>px</div>
+  <input type="range" min="8" max="120" value="48" id="elfs" oninput="document.getElementById('fsv').textContent=this.value;updSelFont()">
+
+  <div class="rl">Font style</div>
+  <div class="rrow">
+    <button class="rbtn on" onclick="setFF('bold')" id="ff-bold"><b>Bold</b></button>
+    <button class="rbtn" onclick="setFF('normal')" id="ff-normal">Normal</button>
+    <button class="rbtn" onclick="setFF('italic')" id="ff-italic"><i>Italic</i></button>
+  </div>
+
+  <div class="rl">Text color</div>
+  <div class="tcrow" id="tcrow"></div>
+
+  <div class="rl">Text align</div>
+  <div class="rrow">
+    <button class="rbtn on" onclick="setAl('left')" id="al-left">Left</button>
+    <button class="rbtn" onclick="setAl('center')" id="al-center">Center</button>
+    <button class="rbtn" onclick="setAl('right')" id="al-right">Right</button>
+  </div>
+
+  <div class="rl">Actions</div>
+  <div class="rrow">
+    <button class="rbtn" onclick="addTxt()">+ Text box</button>
+    <button class="rbtn" onclick="toFront()">↑ Front</button>
+  </div>
+  <div class="rrow" style="margin-top:3px">
+    <button class="rbtn" onclick="delSel()" style="color:#C62828;border-color:#FFCDD2">🗑 Delete</button>
+    <button class="rbtn" onclick="dupSel()">⧉ Duplicate</button>
+  </div>
+
+  <hr class="hr">
+  <div class="rl">Reset canvas</div>
+  <button class="rbtn" style="width:100%;margin-bottom:4px" onclick="resetCanvas()">🔄 Start fresh</button>
+
+  <hr class="hr">
+  <div class="soon">🔜 Arabic text<br>🔜 Company logo<br>🔜 Bulk download<br>🔜 Save to account</div>
   <a href="mailto:hello@safetysignai.com" class="reqbtn">Request a feature →</a>
 </div>
-
 </div>
 
 <script>
-// ══════════════════════════════════════════════════════
-// CORRECT ISO 7010 SYMBOL LIBRARY
-// Codes verified from ISO 7010:2019 official standard
-// Images from Wikimedia Commons — Public Domain (PD-self)
-// URL: Special:FilePath gives direct redirect to actual file
-// ══════════════════════════════════════════════════════
-
-function wmUrl(code) {
-  // Use Wikimedia's Special:FilePath which redirects to actual CDN URL
-  return `https://upload.wikimedia.org/wikipedia/commons/thumb/ISO_7010_${code}.svg/100px-ISO_7010_${code}.svg.png`;
-}
-
-// Build symbol object
-function S(code, label, tags=[]) {
-  return { id:code, label, tags:[label.toLowerCase(), code.toLowerCase(), ...tags.map(t=>t.toLowerCase())], url:wmUrl(code) };
-}
-
-const CATS = [
-  { id:'all',         label:'All',         col:'#555555' },
-  { id:'prohibition', label:'Prohibition',  col:'#C62828' },
-  { id:'warning',     label:'Warning',      col:'#E65100' },
-  { id:'mandatory',   label:'Mandatory',    col:'#1565C0' },
-  { id:'safe',        label:'Safe',         col:'#2E7D32' },
-  { id:'fire',        label:'Fire',         col:'#BF360C' },
-];
-
-// VERIFIED ISO 7010:2019 codes and labels
-const LIB = {
-  prohibition: [
-    S('P001','General prohibition',['no','stop','ban']),
-    S('P002','No smoking',['smoke','cigarette','tobacco']),
-    S('P003','No open flame',['fire','flame','ignition','naked']),
-    S('P004','No thoroughfare',['entry','access','no entry']),
-    S('P005','Not drinking water',['water','drink','potable']),
-    S('P006','No forklift trucks',['forklift','truck','vehicle','industrial']),
-    S('P007','No cardiac implant devices',['pacemaker','cardiac','implant']),
-    S('P008','No metallic articles',['metal','watch','jewelry']),
-    S('P009','No climbing',['climb','ladder','height']),
-    S('P010','Do not touch',['touch','hands','contact','handle']),
-    S('P011','Do not extinguish with water',['water','fire','extinguish']),
-    S('P012','No heavy load',['load','weight','heavy','overhead']),
-    S('P013','No mobile phones',['phone','mobile','cell','call']),
-    S('P014','No metallic implants',['metal','implant','MRI']),
-    S('P015','No reaching in',['reach','hand','machine']),
-    S('P016','Do not spray with water',['water','spray','wet']),
-    S('P017','No pushing',['push','force']),
-    S('P018','No sitting',['sit','seat','chair']),
-    S('P019','No stepping on surface',['step','walk','surface']),
-    S('P020','No lift in fire',['lift','elevator','fire','emergency']),
-    S('P021','No dogs',['dog','pet','animal']),
-    S('P022','No eating or drinking',['eat','drink','food']),
-    S('P023','Do not obstruct',['block','obstruct','access','clear']),
-    S('P024','No diving',['dive','pool','swim','water']),
-    S('P025','No swimming',['swim','pool','water','beach']),
-    S('P026','No naked flames smoking',['flame','smoke','naked']),
-    S('P027','No photography',['camera','photo','picture','photography']),
-    S('P028','No open flame or smoking (alternative)',['flame','smoke','fire']),
-    S('P029','No photography (alternative)',['camera','photo','video']),
-    S('P030','No alcohol',['alcohol','drink','beer','wine']),
-    S('P031','No running',['run','speed','fast','jog']),
-    S('P032','No cycling',['bike','cycle','bicycle']),
-    S('P033','No parking',['park','car','vehicle','parking']),
-    S('P034','No firearms',['gun','weapon','firearm','pistol']),
-  ],
-  warning: [
-    S('W001','General warning',['caution','hazard','danger','general']),
-    S('W002','Warning explosive material',['explosive','bomb','blast','explosion']),
-    S('W003','Warning radioactive material',['radiation','radioactive','nuclear']),
-    S('W004','Warning laser beam',['laser','light','beam','optical']),
-    S('W005','Warning biological hazard',['bio','bacteria','biohazard','biological']),
-    S('W006','Warning magnetic field',['magnetic','field','MRI']),
-    S('W007','Warning corrosive substance',['acid','corrosive','chemical']),
-    S('W008','Warning toxic material',['toxic','poison','chemical','harmful']),
-    S('W009','Warning flammable material',['fire','flame','combustible','flammable']),
-    S('W010','Warning low temperature',['cold','freeze','ice','low temperature']),
-    S('W011','Warning oxidising material',['oxidise','chemical','fire','oxidising']),
-    S('W012','Warning high voltage',['electricity','electric','voltage','electrocution']),
-    S('W013','Guard dog warning',['dog','guard','security','animal']),
-    S('W014','Warning slippery surface',['slip','wet','floor','slippery']),
-    S('W015','Warning falling objects',['fall','objects','overhead','drop']),
-    S('W016','Warning forklift trucks',['forklift','truck','vehicle','industrial']),
-    S('W017','Warning hot surface',['hot','heat','burn','surface']),
-    S('W018','Warning non-ionising radiation',['radiation','electromagnetic','wifi','radio']),
-    S('W019','Warning crushing',['crush','press','machine','trapped']),
-    S('W020','Warning overhead obstacle',['overhead','head','obstacle','low']),
-    S('W021','Warning trip hazard',['trip','fall','floor','obstacle']),
-    S('W022','Warning stairs',['stairs','steps','fall']),
-    S('W023','Warning sharp elements',['sharp','blade','cut','knife']),
-    S('W024','Warning harmful material',['harmful','chemical','health','substance']),
-    S('W025','Warning high noise level',['noise','sound','loud','hearing']),
-    S('W026','Warning compressed gas',['gas','cylinder','pressure','compressed']),
-    S('W027','Warning suspended load',['crane','load','suspended','overhead']),
-    S('W028','Warning slippery surface (alt)',['slip','wet','floor']),
-    S('W029','Danger of death',['death','fatal','kill','electrocution']),
-    S('W030','Warning automatic start',['auto','machine','start','automatic']),
-    S('W031','Warning hand crushing',['hand','crush','press','machine']),
-    S('W032','Warning optical radiation',['light','optical','radiation','UV']),
-    S('W033','Warning counterrotating rollers',['roller','machine','crush','rotating']),
-    S('W034','Warning inhalation hazard',['inhale','fumes','gas','breathing']),
-    S('W035','Warning battery charging',['battery','charging','electric','acid']),
-    S('W036','Warning fragile roof',['roof','fragile','fall','ceiling']),
-    S('W037','Warning deep water',['water','deep','drown','swim']),
-    S('W038','Warning strong currents',['current','water','swim','river']),
-    S('W039','Warning thin ice',['ice','cold','water','freeze']),
-    S('W040','Warning cancerous material',['cancer','asbestos','hazard','carcinogen']),
-    S('W041','Warning low headroom',['head','height','low','clearance']),
-    S('W042','Warning sudden drop',['drop','fall','height','edge']),
-    S('W043','Warning pressurised cylinder',['cylinder','gas','pressure','tank']),
-  ],
-  mandatory: [
-    S('M001','General mandatory action',['must','required','mandatory']),
-    S('M002','Refer to instruction manual',['manual','instructions','read','booklet']),
-    S('M003','Wear ear protection',['ear','hearing','noise','earmuff','PPE']),
-    S('M004','Wear eye protection',['goggles','glasses','eye','vision','PPE']),
-    S('M005','Wear safety helmet',['helmet','hardhat','head','PPE']),
-    S('M006','Wear protective gloves',['gloves','hands','PPE']),
-    S('M007','Wear protective clothing',['clothing','suit','coverall','PPE']),
-    S('M008','Wear respiratory protection',['mask','respirator','breathing','PPE']),
-    S('M009','Wear safety harness',['harness','belt','height','fall','PPE']),
-    S('M010','Wear face shield',['face','shield','visor','PPE']),
-    S('M011','Wear protective footwear',['boots','shoes','feet','PPE']),
-    S('M012','Wear welding mask',['weld','helmet','visor','PPE']),
-    S('M013','Wash your hands',['wash','hands','hygiene','clean']),
-    S('M014','Wear head protection',['helmet','hardhat','head','PPE']),
-    S('M015','Wear high-vis jacket',['hi-vis','vest','visibility','jacket','PPE']),
-    S('M016','Wear face mask',['mask','face','COVID','PPE']),
-    S('M017','Wear respiratory protection (alt)',['mask','respirator','PPE']),
-    S('M018','Keep locked',['lock','security','access','padlock']),
-    S('M019','Guards must be used',['guard','machine','safety','barrier']),
-    S('M020','Turn off when not in use',['off','switch','power','isolate']),
-    S('M021','Stack correctly',['stack','storage','load','pile']),
-    S('M022','Lift correctly',['lift','manual','handling','back']),
-    S('M023','Keep area litter free',['litter','clean','bin','tidy']),
-    S('M024','Sound your horn',['horn','vehicle','traffic','warning']),
-    S('M025','Wear hairnet',['hair','food','hygiene','hairnet']),
-    S('M026','Lifejackets to be worn',['lifejacket','water','swim','buoyancy']),
-    S('M027','Seatbelts must be worn',['seatbelt','car','vehicle','belt']),
-    S('M028','Use hand sanitiser',['sanitiser','hands','hygiene','COVID']),
-    S('M029','Opaque eye protection',['eye','opaque','protection','PPE']),
-    S('M030','Wear safety belts',['belt','harness','safety','PPE']),
-    S('M031','Use gas detector',['gas','detector','confined','space']),
-  ],
-  safe: [
-    S('E001','Emergency exit left',['exit','escape','evacuate','door','left']),
-    S('E002','Emergency exit right',['exit','escape','evacuate','door','right']),
-    S('E003','First aid',['first aid','medical','health','cross']),
-    S('E004','Emergency telephone',['phone','call','emergency','contact']),
-    S('E007','Emergency shower',['shower','chemical','emergency','decontaminate']),
-    S('E008','Emergency eye wash',['eyewash','eye','emergency','chemical']),
-    S('E009','Emergency stop',['stop','button','emergency','machine']),
-    S('E010','Emergency exit (door)',['exit','door','escape','evacuate']),
-    S('E011','Stretcher',['stretcher','casualty','medical','carry']),
-    S('E012','Safety shower',['shower','chemical','emergency']),
-    S('E013','Eye wash station',['eyewash','eye','station','chemical']),
-    S('E014','Drinking water',['water','drink','potable','tap']),
-    S('E015','Assembly point',['assembly','muster','evacuate','gather']),
-    S('E016','Fire exit',['fire','exit','escape','door']),
-    S('E017','Defibrillator AED',['AED','defibrillator','heart','cardiac']),
-    S('E018','Doctor',['doctor','medical','health','physician']),
-    S('E019','Main switch',['switch','power','isolation','electrical']),
-    S('E020','Life buoy',['lifebuoy','rescue','water','ring']),
-    S('E021','Lifejacket location',['lifejacket','rescue','water','vest']),
-    S('E022','Break to obtain access',['break','glass','emergency','access']),
-    S('E023','Muster station',['muster','assembly','station','evacuate']),
-    S('E024','Rescue boat',['boat','rescue','water','lifeboat']),
-    S('E025','Rescue window',['window','rescue','escape','emergency']),
-  ],
-  fire: [
-    S('F001','Fire extinguisher',['extinguisher','fire','foam','CO2']),
-    S('F002','Fire hose reel',['hose','reel','fire','water']),
-    S('F003','Fire ladder',['ladder','fire','escape','roof']),
-    S('F004','Collection of firefighting equipment',['equipment','collection','fire','tools']),
-    S('F005','Fire alarm call point',['alarm','call','point','button']),
-    S('F006','Fixed fire suppression system',['suppression','sprinkler','fire','system']),
-    S('F007','Fire hydrant',['hydrant','water','fire','standpipe']),
-    S('F008','Fire door',['door','fire','compartment','barrier']),
-    S('F009','Fire telephone',['phone','call','fire','emergency']),
-    S('F010','Fire blanket',['blanket','fire','smother','kitchen']),
-  ],
+// ══════════════════════════════════════════════════
+// SVG SYMBOL LIBRARY
+// ══════════════════════════════════════════════════
+const S={
+'P001':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="white" stroke="#C62828" stroke-width="7"/><line x1="19" y1="81" x2="81" y2="19" stroke="#C62828" stroke-width="7" stroke-linecap="round"/></svg>`,
+'P002':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="white" stroke="#C62828" stroke-width="6"/><rect x="16" y="56" width="52" height="12" rx="3" fill="#333"/><rect x="70" y="49" width="8" height="25" rx="2" fill="#333"/><rect x="79" y="52" width="6" height="22" rx="2" fill="#333"/><path d="M65 44Q70 32 76 37" stroke="#555" stroke-width="3" fill="none" stroke-linecap="round"/><line x1="18" y1="82" x2="82" y2="18" stroke="#C62828" stroke-width="6" stroke-linecap="round"/></svg>`,
+'P003':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="white" stroke="#C62828" stroke-width="6"/><path d="M50 18Q60 30 56 42Q68 28 62 50Q74 40 68 58Q65 72 50 77Q35 72 32 58Q26 40 38 50Q32 28 44 42Q40 30 50 18Z" fill="#E65100"/><line x1="18" y1="82" x2="82" y2="18" stroke="#C62828" stroke-width="6" stroke-linecap="round"/></svg>`,
+'P004':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="white" stroke="#C62828" stroke-width="6"/><circle cx="50" cy="27" r="9" fill="#333"/><path d="M42 38L58 38L61 55L68 71L59 71L52 57L45 71L36 71L42 55Z" fill="#333"/><line x1="18" y1="82" x2="82" y2="18" stroke="#C62828" stroke-width="6" stroke-linecap="round"/></svg>`,
+'P005':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="white" stroke="#C62828" stroke-width="6"/><path d="M50 20Q66 37 66 52Q66 68 50 74Q34 68 34 52Q34 37 50 20Z" fill="#1565C0"/><line x1="18" y1="82" x2="82" y2="18" stroke="#C62828" stroke-width="6" stroke-linecap="round"/></svg>`,
+'P006':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="white" stroke="#C62828" stroke-width="6"/><rect x="20" y="46" width="35" height="22" rx="2" fill="#555"/><rect x="17" y="52" width="7" height="11" fill="#555"/><rect x="55" y="34" width="5" height="34" fill="#666"/><rect x="61" y="34" width="5" height="34" fill="#777"/><circle cx="30" cy="70" r="6" fill="#333" stroke="white" stroke-width="2"/><circle cx="50" cy="70" r="6" fill="#333" stroke="white" stroke-width="2"/><line x1="18" y1="82" x2="82" y2="18" stroke="#C62828" stroke-width="6" stroke-linecap="round"/></svg>`,
+'P010':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="white" stroke="#C62828" stroke-width="6"/><path d="M36 28L36 60L29 54L24 59L37 73L65 73L65 44L57 44L57 28Z" fill="#333"/><line x1="18" y1="82" x2="82" y2="18" stroke="#C62828" stroke-width="6" stroke-linecap="round"/></svg>`,
+'P013':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="white" stroke="#C62828" stroke-width="6"/><rect x="37" y="22" width="26" height="56" rx="5" fill="#333"/><rect x="41" y="29" width="18" height="34" fill="#87CEEB"/><circle cx="50" cy="71" r="4" fill="white"/><line x1="18" y1="82" x2="82" y2="18" stroke="#C62828" stroke-width="6" stroke-linecap="round"/></svg>`,
+'P021':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="white" stroke="#C62828" stroke-width="6"/><ellipse cx="40" cy="55" rx="12" ry="14" fill="#795548"/><circle cx="40" cy="38" r="8" fill="#FFCCBC"/><path d="M60 42Q74 37 80 48Q74 59 60 55" fill="none" stroke="#333" stroke-width="5" stroke-linecap="round"/><path d="M60 46Q70 43 70 48Q70 53 60 51" fill="#555"/><line x1="18" y1="82" x2="82" y2="18" stroke="#C62828" stroke-width="6" stroke-linecap="round"/></svg>`,
+'P025':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="white" stroke="#C62828" stroke-width="6"/><circle cx="50" cy="27" r="8" fill="#333"/><path d="M38 39Q30 54 35 70L40 70L45 54L50 69L58 49L65 69L70 69Q72 54 62 39Z" fill="#333"/><rect x="28" y="72" width="44" height="7" rx="3" fill="#1565C0" opacity="0.4"/><line x1="18" y1="82" x2="82" y2="18" stroke="#C62828" stroke-width="6" stroke-linecap="round"/></svg>`,
+'P027':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="white" stroke="#C62828" stroke-width="6"/><rect x="24" y="31" width="52" height="40" rx="5" fill="#444"/><rect x="28" y="35" width="44" height="32" rx="3" fill="#87CEEB"/><circle cx="50" cy="51" r="9" fill="#1A1A1A"/><circle cx="50" cy="51" r="5" fill="#333"/><line x1="18" y1="82" x2="82" y2="18" stroke="#C62828" stroke-width="6" stroke-linecap="round"/></svg>`,
+'P030':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="white" stroke="#C62828" stroke-width="6"/><path d="M38 24L44 55Q44 73 50 75Q56 73 56 55L62 24Z" fill="#C8860A"/><rect x="44" y="23" width="12" height="8" rx="2" fill="#666"/><line x1="18" y1="82" x2="82" y2="18" stroke="#C62828" stroke-width="6" stroke-linecap="round"/></svg>`,
+'P032':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="white" stroke="#C62828" stroke-width="6"/><ellipse cx="50" cy="60" rx="20" ry="10" fill="none" stroke="#333" stroke-width="5"/><ellipse cx="50" cy="48" rx="18" ry="8" fill="none" stroke="#333" stroke-width="4"/><circle cx="50" cy="37" r="6" fill="#333"/><circle cx="34" cy="60" r="7" fill="#555"/><circle cx="66" cy="60" r="7" fill="#555"/><line x1="18" y1="82" x2="82" y2="18" stroke="#C62828" stroke-width="6" stroke-linecap="round"/></svg>`,
+'P034':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="white" stroke="#C62828" stroke-width="6"/><path d="M28 66L28 50Q28 38 38 36L55 33L68 38L73 50L64 50L64 36L38 36L38 66Z" fill="#555"/><rect x="25" y="63" width="22" height="7" rx="2" fill="#333"/><line x1="18" y1="82" x2="82" y2="18" stroke="#C62828" stroke-width="6" stroke-linecap="round"/></svg>`,
+'W001':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,7 94,88 6,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><text x="50" y="82" text-anchor="middle" font-size="54" font-weight="bold" fill="#212121" font-family="sans-serif">!</text></svg>`,
+'W002':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,7 94,88 6,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><path d="M50 26Q58 36 55 45Q65 33 61 51Q70 43 66 60Q63 71 50 75Q37 71 34 60Q30 43 39 51Q35 33 45 45Q42 36 50 26Z" fill="#E65100"/></svg>`,
+'W004':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,7 94,88 6,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><polygon points="57,20 35,56 52,56 43,84 65,46 48,46" fill="#212121"/></svg>`,
+'W005':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,7 94,88 6,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><circle cx="50" cy="58" r="9" fill="#212121"/><line x1="50" y1="49" x2="50" y2="30" stroke="#212121" stroke-width="8" stroke-linecap="round"/><line x1="50" y1="58" x2="33" y2="76" stroke="#212121" stroke-width="8" stroke-linecap="round"/><line x1="50" y1="58" x2="67" y2="76" stroke="#212121" stroke-width="8" stroke-linecap="round"/></svg>`,
+'W006':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,7 94,88 6,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><path d="M50 55Q46 48 42 44Q40 56 46 60Q38 58 34 66Q40 76 50 76Q60 76 66 66Q62 58 54 60Q60 56 58 44Q54 48 50 55Z" fill="#212121"/></svg>`,
+'W007':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,7 94,88 6,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><rect x="28" y="28" width="44" height="9" rx="2" fill="#555"/><rect x="44" y="37" width="6" height="20" fill="#888"/><polygon points="40,57 50,76 60,57" fill="#212121"/></svg>`,
+'W008':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,7 94,88 6,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><circle cx="50" cy="55" r="9" fill="#212121"/><path d="M50 46Q50 33 37 29Q28 41 37 52" stroke="#212121" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M50 46Q63 39 70 48Q70 62 59 62" stroke="#212121" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M41 63Q34 71 37 79Q50 84 59 76" stroke="#212121" stroke-width="5" fill="none" stroke-linecap="round"/></svg>`,
+'W012':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,7 94,88 6,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><polygon points="58,19 34,58 52,58 43,84 66,43 48,43" fill="#212121"/></svg>`,
+'W014':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,7 94,88 6,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><circle cx="47" cy="38" r="8" fill="#212121"/><path d="M39 48L31 65L37 65L41 56L46 73L53 73L47 55L55 65L61 65L53 50Z" fill="#212121"/></svg>`,
+'W017':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,7 94,88 6,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><path d="M33 74Q33 60 42 52Q39 62 47 56Q43 66 51 60Q47 70 56 63Q52 73 65 74" stroke="#E65100" stroke-width="5" fill="none" stroke-linecap="round"/><rect x="30" y="72" width="40" height="6" rx="2" fill="#E65100"/></svg>`,
+'W021':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,7 94,88 6,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><circle cx="47" cy="37" r="8" fill="#212121"/><path d="M39 48L31 65L37 65L41 55L46 72L53 72L47 54L55 65L61 65L53 50Z" fill="#212121"/></svg>`,
+'W025':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,7 94,88 6,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><path d="M28 54Q28 33 50 30Q72 33 72 54" stroke="#212121" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="28" cy="58" r="12" fill="#212121"/><circle cx="72" cy="58" r="12" fill="#212121"/></svg>`,
+'W026':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,7 94,88 6,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><rect x="38" y="32" width="24" height="42" rx="8" fill="#555"/><rect x="44" y="24" width="12" height="11" rx="3" fill="#666"/><rect x="34" y="70" width="32" height="6" rx="2" fill="#444"/></svg>`,
+'W036':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,7 94,88 6,88" fill="#FDD835" stroke="#E65100" stroke-width="4" stroke-linejoin="round"/><path d="M26 73L26 50Q26 35 50 31Q74 35 74 50L74 73" stroke="#212121" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="50" cy="28" r="7" fill="#212121"/></svg>`,
+'M003':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#1565C0"/><path d="M22 47Q22 26 50 23Q78 26 78 47" stroke="white" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="22" cy="53" r="12" fill="white"/><circle cx="78" cy="53" r="12" fill="white"/></svg>`,
+'M004':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#1565C0"/><rect x="15" y="37" width="70" height="28" rx="10" fill="white"/><circle cx="35" cy="51" r="10" fill="#1565C0"/><circle cx="65" cy="51" r="10" fill="#1565C0"/><rect x="15" y="45" width="8" height="12" fill="white"/><rect x="77" y="45" width="8" height="12" fill="white"/></svg>`,
+'M005':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#1565C0"/><path d="M22 61Q22 32 50 28Q78 32 78 61Z" fill="white"/><rect x="20" y="59" width="60" height="10" rx="4" fill="white"/><rect x="32" y="68" width="36" height="6" rx="3" fill="white"/></svg>`,
+'M006':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#1565C0"/><path d="M27 73L27 43L33 43L33 32L40 32L40 41L45 41L45 30L51 30L51 41L56 41L56 32L63 32L63 43L77 43L77 57L66 57L66 73Z" fill="white"/></svg>`,
+'M007':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#1565C0"/><path d="M24 34L38 27L50 46L62 27L76 34L70 79L56 79L56 55L44 55L44 79L30 79Z" fill="white"/></svg>`,
+'M008':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#1565C0"/><path d="M16 44Q16 31 50 28Q84 31 84 44L84 64Q84 77 50 80Q16 77 16 64Z" fill="white"/><path d="M16 46Q9 46 9 54Q9 62 16 62" fill="white"/><path d="M84 46Q91 46 91 54Q91 62 84 62" fill="white"/></svg>`,
+'M009':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#1565C0"/><circle cx="50" cy="27" r="9" fill="white"/><path d="M40 40L27 79L40 79L50 55L60 79L73 79L60 40Z" fill="white"/><path d="M30 56L50 50L70 56" stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/></svg>`,
+'M011':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#1565C0"/><path d="M29 27L29 63Q29 75 44 75L73 75L73 66L48 66Q42 66 42 61L42 27Z" fill="white"/><rect x="27" y="73" width="48" height="7" rx="3" fill="white"/></svg>`,
+'M013':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#1565C0"/><path d="M25 79L25 57Q25 44 37 37L44 34L44 24Q44 19 50 19Q56 19 56 24L56 37L64 42Q75 49 75 61L75 79Z" fill="white"/></svg>`,
+'M015':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#1565C0"/><path d="M24 32L38 25L50 44L62 25L76 32L70 77L56 77L56 54L44 54L44 77L30 77Z" fill="#FDD835"/><rect x="24" y="53" width="52" height="6" fill="#E65100"/></svg>`,
+'M016':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#1565C0"/><path d="M17 43Q17 30 50 27Q83 30 83 43L83 63Q83 76 50 79Q17 76 17 63Z" fill="white"/><path d="M17 46Q10 46 10 54Q10 62 17 62" fill="white"/><path d="M83 46Q90 46 90 54Q90 62 83 62" fill="white"/></svg>`,
+'E001':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#2E7D32"/><circle cx="38" cy="30" r="8" fill="white"/><path d="M28 43L28 67L34 67L34 79L42 79L42 67L48 67L48 43Z" fill="white"/><polygon points="56,37 83,56 56,75" fill="white"/><rect x="56" y="27" width="29" height="8" rx="2" fill="white"/></svg>`,
+'E002':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#2E7D32"/><circle cx="62" cy="30" r="8" fill="white"/><path d="M72 43L72 67L66 67L66 79L58 79L58 67L52 67L52 43Z" fill="white"/><polygon points="44,37 17,56 44,75" fill="white"/><rect x="15" y="27" width="29" height="8" rx="2" fill="white"/></svg>`,
+'E003':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#2E7D32"/><rect x="18" y="18" width="64" height="64" rx="10" fill="white"/><rect x="40" y="27" width="20" height="46" rx="4" fill="#2E7D32"/><rect x="27" y="39" width="46" height="22" rx="4" fill="#2E7D32"/></svg>`,
+'E004':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#2E7D32"/><path d="M25 33Q23 20 37 17L46 21L40 40Q50 51 57 55L71 47L78 56Q83 68 70 73Q43 77 25 33Z" fill="white"/></svg>`,
+'E007':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#2E7D32"/><rect x="47" y="9" width="6" height="30" fill="white"/><rect x="32" y="37" width="36" height="6" rx="2" fill="white"/><path d="M35 47Q33 58 31 70M42 47Q41 58 40 70M50 47L50 70M58 47Q59 58 60 70M65 47Q67 58 69 70" stroke="white" stroke-width="3.5" fill="none" stroke-linecap="round"/><circle cx="50" cy="83" r="6" fill="white"/></svg>`,
+'E008':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#2E7D32"/><path d="M13 50Q31 23 50 23Q69 23 87 50Q69 77 50 77Q31 77 13 50Z" fill="white"/><circle cx="50" cy="50" r="17" fill="#2E7D32"/><circle cx="50" cy="50" r="9" fill="white"/></svg>`,
+'E015':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#2E7D32"/><circle cx="30" cy="27" r="8" fill="white"/><circle cx="50" cy="27" r="8" fill="white"/><circle cx="70" cy="27" r="8" fill="white"/><polygon points="50,47 25,86 75,86" fill="white"/><rect x="36" y="84" width="28" height="7" rx="2" fill="white"/></svg>`,
+'E016':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#2E7D32"/><circle cx="38" cy="30" r="8" fill="white"/><path d="M28 42L28 66L34 66L34 78L42 78L42 66L48 66L48 42Z" fill="white"/><polygon points="56,36 83,55 56,74" fill="white"/><path d="M50 23Q56 31 60 27Q58 17 50 15Q42 17 40 27Q44 31 50 23Z" fill="#E65100"/></svg>`,
+'E017':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#2E7D32"/><rect x="20" y="28" width="60" height="46" rx="8" fill="white"/><polygon points="50,40 44,57 49,57 44,74 56,52 51,52" fill="#2E7D32"/><rect x="38" y="24" width="24" height="8" rx="2" fill="white"/></svg>`,
+'E019':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#2E7D32"/><rect x="22" y="26" width="56" height="48" rx="6" fill="white"/><circle cx="50" cy="50" r="15" fill="none" stroke="#2E7D32" stroke-width="5"/><line x1="50" y1="21" x2="50" y2="30" stroke="white" stroke-width="5" stroke-linecap="round"/><circle cx="50" cy="50" r="6" fill="#2E7D32"/></svg>`,
+'E020':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#2E7D32"/><circle cx="50" cy="55" r="28" stroke="white" stroke-width="8" fill="none"/><circle cx="50" cy="55" r="14" stroke="white" stroke-width="6" fill="none"/><line x1="50" y1="17" x2="50" y2="30" stroke="white" stroke-width="6" stroke-linecap="round"/></svg>`,
+'F001':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#C62828"/><rect x="40" y="31" width="22" height="50" rx="7" fill="white"/><rect x="44" y="21" width="14" height="13" rx="4" fill="white"/><rect x="49" y="15" width="5" height="8" fill="white"/><path d="M54 23Q71 19 73 11" stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/><rect x="42" y="57" width="18" height="6" rx="2" fill="#C62828"/></svg>`,
+'F002':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#C62828"/><circle cx="50" cy="56" r="27" stroke="white" stroke-width="8" fill="none"/><circle cx="50" cy="56" r="13" stroke="white" stroke-width="6" fill="none"/><rect x="45" y="18" width="10" height="22" rx="4" fill="white"/></svg>`,
+'F003':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#C62828"/><rect x="23" y="23" width="54" height="60" rx="8" fill="white"/><circle cx="50" cy="54" r="18" fill="#C62828"/><rect x="42" y="19" width="16" height="8" rx="3" fill="white"/><circle cx="50" cy="54" r="9" fill="white"/></svg>`,
+'F005':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#C62828"/><rect x="21" y="21" width="58" height="58" rx="10" fill="white"/><path d="M35 35L35 65L65 65L65 50L50 50L50 35Z" fill="#C62828"/></svg>`,
+'F007':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#C62828"/><rect x="35" y="16" width="30" height="46" rx="7" fill="white"/><rect x="29" y="58" width="42" height="11" rx="3" fill="white"/><rect x="37" y="67" width="26" height="20" rx="3" fill="white"/><rect x="44" y="11" width="12" height="8" rx="2" fill="white"/></svg>`,
+'F008':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#C62828"/><rect x="21" y="14" width="58" height="76" rx="5" fill="white"/><rect x="27" y="20" width="46" height="64" rx="3" fill="#FFCDD2"/><circle cx="67" cy="57" r="5" fill="#C62828"/></svg>`,
+'F010':`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="6" fill="#C62828"/><rect x="23" y="21" width="54" height="65" rx="6" fill="white"/><rect x="31" y="31" width="38" height="47" rx="4" fill="#FFCDD2"/><rect x="31" y="21" width="38" height="13" rx="3" fill="#EF9A9A"/></svg>`,
 };
 
-// All symbols flat list for search
-const ALL = Object.entries(LIB).flatMap(([cat,syms]) => syms.map(s=>({...s,cat})));
-
-// ══ COLORS ══
-const ISO_PAL = [
-  {hex:'#C62828',name:'ISO Red'},
-  {hex:'#FDD835',name:'ISO Yellow'},
-  {hex:'#1565C0',name:'ISO Blue'},
-  {hex:'#2E7D32',name:'ISO Green'},
-  {hex:'#FFFFFF',name:'White',wh:true},
-  {hex:'#E65100',name:'ISO Orange'},
-  {hex:'#212121',name:'Black'},
-  {hex:'#EEEEEE',name:'Light Grey',wh:true},
-];
-const TC_OPTIONS = [
-  {hex:'#FFFFFF',lbl:'White'},
-  {hex:'#212121',lbl:'Black'},
-  {hex:'#C62828',lbl:'Red'},
-  {hex:'#FDD835',lbl:'Yellow'},
-  {hex:'#1565C0',lbl:'Blue'},
-];
-const TYPE_CFG = {
-  p:{bg:'#C62828',tc:'#FFFFFF',lbl:'Prohibition',tag:'tp'},
-  w:{bg:'#FDD835',tc:'#212121',lbl:'Warning',    tag:'tw'},
-  m:{bg:'#1565C0',tc:'#FFFFFF',lbl:'Mandatory',  tag:'tm'},
-  s:{bg:'#2E7D32',tc:'#FFFFFF',lbl:'Safe',       tag:'ts'},
-  f:{bg:'#C62828',tc:'#FFFFFF',lbl:'Fire',       tag:'tf'},
+function mk(id,lbl,cat,tags=[]){return{id,lbl,cat,tags:[lbl.toLowerCase(),id.toLowerCase(),cat,...tags],svg:S[id]};}
+const LIB={
+  prohibition:[
+    mk('P001','General prohibition','prohibition',['no','ban']),
+    mk('P002','No smoking','prohibition',['smoke','cigarette','tobacco']),
+    mk('P003','No open flame','prohibition',['fire','flame']),
+    mk('P004','No pedestrians','prohibition',['walk','people']),
+    mk('P005','Not drinking water','prohibition',['water','drink']),
+    mk('P006','No forklift trucks','prohibition',['forklift','truck']),
+    mk('P010','Do not touch','prohibition',['touch','hands']),
+    mk('P013','No mobile phones','prohibition',['phone','mobile']),
+    mk('P021','No dogs','prohibition',['dog','pet','animal']),
+    mk('P025','No swimming','prohibition',['swim','pool','water']),
+    mk('P027','No photography','prohibition',['camera','photo']),
+    mk('P030','No alcohol','prohibition',['alcohol','beer']),
+    mk('P032','No cycling','prohibition',['bike','cycle']),
+    mk('P034','No firearms','prohibition',['gun','weapon']),
+  ],
+  warning:[
+    mk('W001','General warning','warning',['caution','hazard','danger']),
+    mk('W002','Flammable material','warning',['fire','flame','combustible']),
+    mk('W004','High voltage','warning',['electricity','electric','voltage']),
+    mk('W005','Radiation hazard','warning',['radiation','radioactive']),
+    mk('W006','Corrosive substance','warning',['acid','corrosive','chemical']),
+    mk('W007','Falling objects','warning',['fall','objects','overhead']),
+    mk('W008','Biological hazard','warning',['bio','bacteria','biohazard']),
+    mk('W012','Danger high voltage','warning',['electricity','voltage','death']),
+    mk('W014','Slippery surface','warning',['slip','wet','floor']),
+    mk('W017','Hot surface','warning',['hot','heat','burn']),
+    mk('W021','Trip hazard','warning',['trip','fall','floor']),
+    mk('W025','High noise level','warning',['noise','sound','loud']),
+    mk('W026','Compressed gas','warning',['gas','cylinder','pressure']),
+    mk('W036','Confined space','warning',['confined','space','entry','permit']),
+  ],
+  mandatory:[
+    mk('M003','Wear ear protection','mandatory',['ear','hearing','PPE']),
+    mk('M004','Wear eye protection','mandatory',['goggles','eye','PPE']),
+    mk('M005','Wear safety helmet','mandatory',['helmet','hardhat','head','PPE']),
+    mk('M006','Wear protective gloves','mandatory',['gloves','hands','PPE']),
+    mk('M007','Wear protective clothing','mandatory',['clothing','suit','PPE']),
+    mk('M008','Wear respiratory protection','mandatory',['mask','respirator','PPE']),
+    mk('M009','Wear safety harness','mandatory',['harness','belt','height','PPE']),
+    mk('M011','Wear protective footwear','mandatory',['boots','shoes','PPE']),
+    mk('M013','Wash your hands','mandatory',['wash','hands','hygiene']),
+    mk('M015','Wear hi-vis jacket','mandatory',['hi-vis','vest','visibility','PPE']),
+    mk('M016','Wear face mask','mandatory',['mask','face','PPE']),
+  ],
+  safe:[
+    mk('E001','Emergency exit left','safe',['exit','escape','door']),
+    mk('E002','Emergency exit right','safe',['exit','escape','door']),
+    mk('E003','First aid','safe',['first aid','medical','cross']),
+    mk('E004','Emergency telephone','safe',['phone','call','emergency']),
+    mk('E007','Emergency shower','safe',['shower','chemical']),
+    mk('E008','Eye wash station','safe',['eyewash','eye','chemical']),
+    mk('E015','Assembly point','safe',['assembly','muster']),
+    mk('E016','Fire exit','safe',['fire','exit','escape']),
+    mk('E017','Defibrillator AED','safe',['AED','defibrillator','heart']),
+    mk('E019','Main switch','safe',['switch','power','isolation']),
+    mk('E020','Life buoy','safe',['lifebuoy','rescue','water']),
+  ],
+  fire:[
+    mk('F001','Fire extinguisher','fire',['extinguisher','CO2']),
+    mk('F002','Fire hose reel','fire',['hose','reel']),
+    mk('F003','Fire alarm','fire',['alarm','call','point']),
+    mk('F005','Fire call point','fire',['call','point','break','glass']),
+    mk('F007','Fire hydrant','fire',['hydrant','water']),
+    mk('F008','Fire door','fire',['door','fire']),
+    mk('F010','Fire blanket','fire',['blanket','smother']),
+  ],
 };
+const ALL=Object.values(LIB).flat();
+const CATS=[
+  {id:'all',lbl:'All',col:'#555'},
+  {id:'prohibition',lbl:'Prohibition',col:'#C62828'},
+  {id:'warning',lbl:'Warning',col:'#E65100'},
+  {id:'mandatory',lbl:'Mandatory',col:'#1565C0'},
+  {id:'safe',lbl:'Safe',col:'#2E7D32'},
+  {id:'fire',lbl:'Fire',col:'#BF360C'},
+];
+const ISO_PAL=[
+  {hex:'#C62828',lbl:'ISO Red'},{hex:'#FDD835',lbl:'ISO Yellow'},
+  {hex:'#1565C0',lbl:'ISO Blue'},{hex:'#2E7D32',lbl:'ISO Green'},
+  {hex:'#FFFFFF',lbl:'White',wh:true},{hex:'#E65100',lbl:'ISO Orange'},
+  {hex:'#212121',lbl:'Black'},{hex:'#EEEEEE',lbl:'Light Grey',wh:true},
+];
+const TC_OPTS=[
+  {hex:'#FFFFFF',lbl:'White'},{hex:'#212121',lbl:'Black'},
+  {hex:'#C62828',lbl:'Red'},{hex:'#FDD835',lbl:'Yellow'},{hex:'#1565C0',lbl:'Blue'},
+];
+const CAT_BG={prohibition:'#C62828',warning:'#FDD835',mandatory:'#1565C0',safe:'#2E7D32',fire:'#C62828'};
+const CAT_TC={prohibition:'#FFFFFF',warning:'#212121',mandatory:'#FFFFFF',safe:'#FFFFFF',fire:'#FFFFFF'};
 
 // ══ STATE ══
-const ST = {
-  type:'p', shape:'rect', border:'solid', fstyle:'bold',
-  bg:'#C62828', tc:'#FFFFFF',
-  iconUrl: LIB.prohibition[0].url,
-  iconId:  LIB.prohibition[0].id,
-  w:560, h:340,
-};
+const CV=document.getElementById('cv');
+const CTX=CV.getContext('2d');
+let bg='#C62828', border='solid';
+let els=[], selIdx=-1, editIdx=-1;
+let drag=false, resize=false;
+let dox=0,doy=0, rsx=0,rsy=0,rsw=0,rsh=0;
+let tray=[]; // [{id, svg, lbl}] — icon tray
 
-// ══ BUILD CATEGORY TABS ══
-const ctabsEl = document.getElementById('cattabs');
-CATS.forEach((c,i) => {
-  const b = document.createElement('button');
-  b.className = 'ctab' + (i===0?' on':'');
-  if(i===0){ b.style.background=c.col; b.style.borderColor=c.col; }
-  b.textContent = c.label;
-  b.onclick = () => {
-    document.getElementById('searchinput').value = '';
+// Default text elements
+els=[
+  {type:'text',x:22,y:18,w:580,h:76,text:'DANGER',color:'#FFFFFF',fs:56,fw:'bold',al:'left'},
+  {type:'text',x:22,y:96,w:580,h:46,text:'Click a symbol from the library to start',color:'#FFFFFF',fs:20,fw:'normal',al:'left'},
+];
+
+// ══ IMAGE CACHE ══
+const IC={};
+function s2i(svg,id){
+  if(IC[id]&&IC[id].complete&&IC[id].naturalWidth>0)return Promise.resolve(IC[id]);
+  return new Promise((res,rej)=>{
+    const b64=btoa(unescape(encodeURIComponent(svg)));
+    const img=new Image();
+    img.onload=()=>{IC[id]=img;res(img);};
+    img.onerror=rej;
+    img.src='data:image/svg+xml;base64,'+b64;
+  });
+}
+function dk(hex,a=40){
+  const r=parseInt(hex.slice(1,3),16)||0,g=parseInt(hex.slice(3,5),16)||0,b=parseInt(hex.slice(5,7),16)||0;
+  return `rgb(${Math.max(0,r-a)},${Math.max(0,g-a)},${Math.max(0,b-a)})`;
+}
+
+// ══ RENDER ══
+async function render(){
+  const w=CV.width,h=CV.height;
+  CTX.clearRect(0,0,w,h);
+  // Background
+  const p=new Path2D(); p.roundRect(4,4,w-8,h-8,8);
+  CTX.fillStyle=bg; CTX.fill(p);
+  if(border!=='none'){
+    const bc=dk(bg,bg==='#FFFFFF'||bg==='#EEEEEE'?80:45);
+    CTX.strokeStyle=bc; CTX.lineWidth=border==='double'?8:4; CTX.stroke(p);
+    if(border==='double'){const p2=new Path2D();p2.roundRect(16,16,w-32,h-32,6);CTX.lineWidth=2;CTX.stroke(p2);}
+  }
+  // Elements
+  for(let i=0;i<els.length;i++){
+    const el=els[i];
+    if(el.type==='img'&&el.svg){
+      try{const img=await s2i(el.svg,el.id);CTX.drawImage(img,el.x,el.y,el.w,el.h);}catch(e){}
+    } else if(el.type==='text'&&i!==editIdx){
+      const fi=el.fw==='italic'?'italic ':'', fw=el.fw==='bold'?'bold ':'';
+      CTX.font=fi+fw+el.fs+'px DM Sans,sans-serif';
+      CTX.fillStyle=el.color||'#FFF';
+      CTX.textAlign=el.al||'left'; CTX.textBaseline='top';
+      const tx=el.al==='center'?el.x+el.w/2:el.al==='right'?el.x+el.w:el.x;
+      const words=el.text.split(' ');let line='',lines=[];
+      words.forEach(word=>{const t=line+word+' ';if(CTX.measureText(t).width>el.w&&line){lines.push(line.trim());line=word+' ';}else line=t;});
+      lines.push(line.trim());
+      lines.forEach((l,j)=>CTX.fillText(l,tx,el.y+j*(el.fs*1.25)));
+    }
+    // Selection box — always visible regardless of background
+    if(i===selIdx&&i!==editIdx){
+      CTX.save();
+      // Outer shadow effect for visibility on any background
+      CTX.shadowColor='rgba(0,0,0,0.5)';
+      CTX.shadowBlur=4;
+      CTX.strokeStyle='#FF6D00'; CTX.lineWidth=2.5;
+      CTX.setLineDash([6,4]); CTX.strokeRect(el.x-4,el.y-4,el.w+8,el.h+8);
+      CTX.setLineDash([]);
+      CTX.shadowBlur=0;
+      // White inner line for contrast
+      CTX.strokeStyle='rgba(255,255,255,0.8)'; CTX.lineWidth=1;
+      CTX.strokeRect(el.x-6,el.y-6,el.w+12,el.h+12);
+      // Resize handle bottom-right
+      CTX.fillStyle='#FF6D00';
+      CTX.beginPath(); CTX.arc(el.x+el.w+4,el.y+el.h+4,7,0,Math.PI*2); CTX.fill();
+      CTX.strokeStyle='white'; CTX.lineWidth=1.5; CTX.stroke();
+      // Small label above selection
+      CTX.font='bold 10px DM Sans,sans-serif';
+      CTX.fillStyle='#FF6D00';
+      CTX.textAlign='left'; CTX.textBaseline='bottom';
+      const lbl=el.type==='text'?'✎ Double-click to edit':'↔ Drag · ↘ Resize';
+      CTX.fillText(lbl, el.x, Math.max(12, el.y-8));
+      // Floating action bar
+      const hint = el.type==='text'
+        ? '✎ Double-click to edit  ·  ↔ Drag  ·  ↘ Corner to resize'
+        : '↔ Drag to move  ·  ↘ Drag corner to resize';
+      CTX.font='11px DM Sans,sans-serif';
+      const bw=Math.min(CTX.measureText(hint).width+24, CV.width-20);
+      const bx=Math.max(6, Math.min(el.x, CV.width-bw-6));
+      const by=el.y>36 ? el.y-32 : el.y+el.h+8;
+      const sby=Math.max(4, Math.min(by, CV.height-28));
+      CTX.shadowColor='rgba(0,0,0,0.35)'; CTX.shadowBlur=5;
+      CTX.fillStyle='#0B1F3A';
+      CTX.beginPath(); CTX.roundRect(bx,sby,bw,24,5); CTX.fill();
+      CTX.shadowBlur=0;
+      CTX.fillStyle='white'; CTX.textAlign='left'; CTX.textBaseline='middle';
+      CTX.fillText(hint,bx+12,sby+12);
+      CTX.restore();
+    }
+  }
+  // Credit
+  CTX.font='9px DM Sans,sans-serif'; CTX.globalAlpha=0.18;
+  CTX.fillStyle=bg==='#FFFFFF'||bg==='#EEEEEE'?'#333':'#fff';
+  CTX.textAlign='right'; CTX.textBaseline='bottom';
+  CTX.fillText('safetysignai.com',w-6,h-4);
+  CTX.globalAlpha=1; CTX.textAlign='left';
+}
+
+// ══ MOUSE ══
+function gp(e){
+  const r=CV.getBoundingClientRect(),sx=CV.width/r.width,sy=CV.height/r.height;
+  const c=e.touches?e.touches[0]:e;
+  return{x:(c.clientX-r.left)*sx,y:(c.clientY-r.top)*sy};
+}
+function ht(mx,my){for(let i=els.length-1;i>=0;i--){const el=els[i];if(mx>=el.x-6&&mx<=el.x+el.w+6&&my>=el.y-6&&my<=el.y+el.h+6)return i;}return -1;}
+function orh(mx,my,el){const bx=el.x+el.w,by=el.y+el.h;return mx>=bx-10&&mx<=bx+10&&my>=by-10&&my<=by+10;}
+
+CV.addEventListener('mousedown',e=>{
+  if(editIdx>=0)return;
+  const{x,y}=gp(e);
+  if(selIdx>=0&&orh(x,y,els[selIdx])){resize=true;rsx=x;rsy=y;rsw=els[selIdx].w;rsh=els[selIdx].h;return;}
+  const hit=ht(x,y);
+  selIdx=hit; drag=hit>=0;
+  if(hit>=0){dox=x-els[hit].x;doy=y-els[hit].y;updRP();}
+  else updRP();
+  render();
+});
+CV.addEventListener('mousemove',e=>{
+  if(editIdx>=0)return;
+  const{x,y}=gp(e);
+  if(resize&&selIdx>=0){els[selIdx].w=Math.max(30,rsw+(x-rsx));els[selIdx].h=Math.max(16,rsh+(y-rsy));render();}
+  else if(drag&&selIdx>=0){
+    els[selIdx].x=Math.max(0,Math.min(CV.width-20,x-dox));
+    els[selIdx].y=Math.max(0,Math.min(CV.height-20,y-doy));
+    render();
+  } else {
+    const hit=ht(x,y);
+    if(selIdx>=0&&orh(x,y,els[selIdx]))CV.style.cursor='se-resize';
+    else CV.style.cursor=hit>=0?'move':'default';
+  }
+});
+CV.addEventListener('mouseup',()=>{drag=false;resize=false;});
+CV.addEventListener('mouseleave',()=>{drag=false;resize=false;});
+
+// ══ DOUBLE-CLICK INLINE EDIT ══
+CV.addEventListener('dblclick',e=>{
+  const{x,y}=gp(e);
+  const hit=ht(x,y);
+  if(hit>=0&&els[hit].type==='text')startEdit(hit);
+});
+
+function startEdit(idx){
+  editIdx=idx; selIdx=idx;
+  const el=els[idx];
+  const wrap=document.getElementById('cw');
+  const wr=wrap.getBoundingClientRect();
+  const sx=wr.width/CV.width, sy=wr.height/CV.height;
+  const ied=document.getElementById('ied');
+  const ta=document.getElementById('ieta');
+  const fi=el.fw==='italic'?'italic':'normal', fw=el.fw==='bold'?'700':'400';
+  ied.style.left=(el.x*sx)+'px'; ied.style.top=(el.y*sy)+'px';
+  ied.style.width=(el.w*sx)+'px'; ied.style.minHeight=(el.fs*sy*1.4)+'px';
+  ied.style.display='block';
+  ta.style.width='100%'; ta.style.minHeight=(el.fs*sy*1.4)+'px';
+  ta.style.fontSize=(el.fs*sy)+'px';
+  ta.style.fontWeight=fw; ta.style.fontStyle=fi;
+  ta.style.color=el.color; ta.style.textAlign=el.al||'left';
+  ta.value=el.text; ta.focus(); ta.select();
+  render();
+}
+function stopEdit(){
+  if(editIdx<0)return;
+  els[editIdx].text=document.getElementById('ieta').value;
+  document.getElementById('ied').style.display='none';
+  editIdx=-1; render();
+}
+document.getElementById('ieta').addEventListener('keydown',e=>{
+  if(e.key==='Escape'){stopEdit();e.preventDefault();}
+  if(e.key==='Enter'&&!e.shiftKey&&els[editIdx]&&els[editIdx].fs>30){stopEdit();e.preventDefault();}
+});
+document.getElementById('ieta').addEventListener('blur',stopEdit);
+document.getElementById('ieta').addEventListener('input',()=>{
+  if(editIdx>=0){els[editIdx].text=document.getElementById('ieta').value;render();}
+});
+
+// ══ ICON TRAY ══
+function addToTray(ic){
+  if(tray.find(t=>t.id===ic.id))return; // no duplicates
+  tray.push({id:ic.id,svg:ic.svg,lbl:ic.lbl});
+  rebuildTray();
+}
+function rebuildTray(){
+  const container=document.getElementById('tray-icons');
+  container.innerHTML='';
+  if(tray.length===0){
+    container.innerHTML='<span class="tray-empty">Click symbols from the library to add them here</span>';
+    return;
+  }
+  tray.forEach((ic,i)=>{
+    const d=document.createElement('div');
+    d.className='tray-icon'; d.title=ic.lbl;
+    const wrap=document.createElement('div');
+    wrap.innerHTML=ic.svg;
+    const sv=wrap.querySelector('svg');
+    if(sv){sv.style.width='30px';sv.style.height='30px';d.appendChild(sv);}
+    // Remove button
+    const rm=document.createElement('div');
+    rm.className='rm'; rm.textContent='×';
+    rm.onclick=(e)=>{e.stopPropagation();tray.splice(i,1);rebuildTray();};
+    d.appendChild(rm);
+    // Click to place on canvas
+    d.onclick=()=>placeIconsOnCanvas();
+    container.appendChild(d);
+  });
+  // Auto-place whenever tray changes
+  placeIconsOnCanvas();
+}
+
+function placeIconsOnCanvas(){
+  if(tray.length===0)return;
+  // Remove all existing img elements
+  els=els.filter(e=>e.type!=='img');
+  const w=CV.width, h=CV.height;
+  const n=tray.length;
+  // Icons go in bottom half of canvas
+  const maxSz=Math.min(h*0.42, w*0.16, 120);
+  const iconSz=Math.min(maxSz, (w-60)/(n+0.3));
+  const totalW=n*iconSz+(n-1)*10;
+  const startX=(w-totalW)/2; // center horizontally
+  const iconY=h-iconSz-20;   // bottom of canvas with padding
+  tray.forEach((ic,i)=>{
+    els.push({type:'img',id:ic.id,svg:ic.svg,x:startX+i*(iconSz+10),y:iconY,w:iconSz,h:iconSz});
+  });
+  render();
+}
+
+function clearTray(){tray=[];rebuildTray();els=els.filter(e=>e.type!=='img');render();}
+
+// ══ RIGHT PANEL ══
+function updRP(){
+  if(selIdx<0||!els[selIdx])return;
+  const el=els[selIdx];
+  if(el.type==='text'){
+    document.getElementById('elfs').value=el.fs;
+    document.getElementById('fsv').textContent=el.fs;
+    document.querySelectorAll('[id^="ff-"]').forEach(b=>b.classList.remove('on'));
+    const ffEl=document.getElementById('ff-'+(el.fw||'normal'));
+    if(ffEl)ffEl.classList.add('on');
+    document.querySelectorAll('[id^="al-"]').forEach(b=>b.classList.remove('on'));
+    const alEl=document.getElementById('al-'+(el.al||'left'));
+    if(alEl)alEl.classList.add('on');
+  }
+}
+function updSelFont(){if(selIdx>=0&&els[selIdx].type==='text'){els[selIdx].fs=+document.getElementById('elfs').value;render();}}
+function setFF(f){document.querySelectorAll('[id^="ff-"]').forEach(b=>b.classList.remove('on'));document.getElementById('ff-'+f).classList.add('on');if(selIdx>=0&&els[selIdx].type==='text'){els[selIdx].fw=f;render();}}
+function setAl(a){document.querySelectorAll('[id^="al-"]').forEach(b=>b.classList.remove('on'));document.getElementById('al-'+a).classList.add('on');if(selIdx>=0&&els[selIdx].type==='text'){els[selIdx].al=a;render();}}
+function delSel(){if(selIdx<0)return;els.splice(selIdx,1);selIdx=-1;render();}
+function toFront(){if(selIdx<0)return;const e=els.splice(selIdx,1)[0];els.push(e);selIdx=els.length-1;render();}
+function dupSel(){if(selIdx<0)return;const e=JSON.parse(JSON.stringify(els[selIdx]));e.x+=15;e.y+=15;els.push(e);selIdx=els.length-1;render();}
+function addTxt(){
+  const tc=CAT_TC[Object.keys(CAT_BG).find(k=>CAT_BG[k]===bg)]||'#FFFFFF';
+  els.push({type:'text',x:20,y:20,w:CV.width-40,h:50,text:'Double-click to edit',color:tc,fs:28,fw:'bold',al:'left'});
+  selIdx=els.length-1;render();
+}
+
+// ══ RESET ══
+function resetCanvas(){
+  tray=[];rebuildTray();
+  bg='#C62828';border='solid';
+  els=[
+    {type:'text',x:22,y:18,w:CV.width-44,h:76,text:'DANGER',color:'#FFFFFF',fs:56,fw:'bold',al:'left'},
+    {type:'text',x:22,y:96,w:CV.width-44,h:46,text:'Click a symbol from the library to start',color:'#FFFFFF',fs:20,fw:'normal',al:'left'},
+  ];
+  selIdx=-1;editIdx=-1;
+  buildPal();render();
+}
+
+// ══ CATEGORY TABS ══
+const ctabsEl=document.getElementById('cattabs');
+CATS.forEach((c,i)=>{
+  const b=document.createElement('button');
+  b.className='ctab'+(i===0?' on':'');
+  if(i===0){b.style.background=c.col;b.style.borderColor=c.col;}
+  b.textContent=c.lbl;
+  b.onclick=()=>{
+    document.getElementById('si').value='';
     document.querySelectorAll('.ctab').forEach(x=>{x.classList.remove('on');x.style.background='';x.style.borderColor='';x.style.color='';});
-    b.classList.add('on'); b.style.background=c.col; b.style.borderColor=c.col; b.style.color='#fff';
-    if(i===0) buildGrid(ALL);
-    else buildGrid(LIB[c.id]?.map(s=>({...s,cat:c.id}))||[]);
+    b.classList.add('on');b.style.background=c.col;b.style.borderColor=c.col;b.style.color='#fff';
+    buildGrid(i===0?ALL:LIB[c.id]||[]);
   };
   ctabsEl.appendChild(b);
 });
 
-// ══ BUILD TYPE BUTTONS ══
-const typebEl = document.getElementById('typebtns');
-Object.entries(TYPE_CFG).forEach(([key,cfg]) => {
-  const b = document.createElement('button');
-  b.id='tp-'+key; b.className='rbtn'+(key==='p'?' on':'');
-  b.textContent = cfg.lbl;
-  b.onclick = () => setT(key);
-  typebEl.appendChild(b);
-});
-
-// ══ SYMBOL GRID ══
-function buildGrid(syms) {
-  const g = document.getElementById('sgrid');
-  g.innerHTML = '';
-  if(!syms||syms.length===0){
-    g.innerHTML='<div class="nores">No symbols found.<br>Try another keyword.</div>';
-    return;
-  }
-  syms.forEach(ic => {
-    const d = document.createElement('div');
-    d.className = 'sitem'+(ic.id===ST.iconId?' sel':'');
-    d.title = ic.id + ' — ' + ic.label;
-    const img = document.createElement('img');
-    img.loading = 'lazy';
-    img.alt = ic.label;
-    // Use a fallback chain for image loading
-    img.src = ic.url;
-    img.onerror = function(){
-      // Try alternative Wikimedia URL format
-      this.onerror=null;
-      this.src=`https://upload.wikimedia.org/wikipedia/commons/ISO_7010_${ic.id}.svg`;
-    };
-    const lbl = document.createElement('div');
-    lbl.className='lbl'; lbl.textContent=ic.label;
-    d.appendChild(img); d.appendChild(lbl);
-    d.onclick = () => {
-      ST.iconUrl = ic.url;
-      ST.iconId = ic.id;
-      document.querySelectorAll('.sitem').forEach(x=>x.classList.remove('sel'));
-      d.classList.add('sel');
-      render();
+function buildGrid(syms){
+  const g=document.getElementById('sgrid');g.innerHTML='';
+  if(!syms||syms.length===0){g.innerHTML='<div class="nores">No symbols found.</div>';return;}
+  syms.forEach(ic=>{
+    if(!ic.svg)return;
+    const d=document.createElement('div');
+    d.className='sitem'; d.title=ic.lbl;
+    const w=document.createElement('div');
+    w.innerHTML=ic.svg;
+    const sv=w.querySelector('svg');
+    if(sv){sv.style.width='32px';sv.style.height='32px';d.appendChild(sv);}
+    const lbl=document.createElement('div');
+    lbl.className='lbl';lbl.textContent=ic.lbl;d.appendChild(lbl);
+    const badge=document.createElement('div');
+    badge.className='add-badge';badge.textContent='+add';d.appendChild(badge);
+    d.onclick=()=>{
+      const isFirst=tray.length===0;
+      addToTray(ic);
+      if(isFirst&&CAT_BG[ic.cat]){
+        bg=CAT_BG[ic.cat];buildPal();
+        const tc=CAT_TC[ic.cat]||'#FFFFFF';
+        const headerMap={prohibition:'PROHIBITION',warning:'WARNING',mandatory:'MANDATORY',safe:'SAFE CONDITION',fire:'FIRE EQUIPMENT'};
+        const subMap={prohibition:'Strictly prohibited in this area',warning:'Caution — hazard present in this area',mandatory:'Personal protective equipment required',safe:'Emergency information — keep clear',fire:'Fire equipment location'};
+        if(els[0]&&els[0].type==='text'){els[0].text=headerMap[ic.cat]||'SIGN';els[0].color=tc;}
+        if(els[1]&&els[1].type==='text'){els[1].text=subMap[ic.cat]||'Follow safety instructions';els[1].color=tc;}
+      }
     };
     g.appendChild(d);
   });
 }
 
-// ══ SEARCH ══
-function doSearch() {
-  const q = document.getElementById('searchinput').value.trim().toLowerCase();
-  if(!q){ buildGrid(ALL); return; }
-  buildGrid(ALL.filter(s => s.label.toLowerCase().includes(q) || s.id.toLowerCase().includes(q) || s.tags.some(t=>t.includes(q))));
+function doSearch(){
+  const q=document.getElementById('si').value.trim().toLowerCase();
+  if(!q){buildGrid(ALL);return;}
+  buildGrid(ALL.filter(s=>s.lbl.toLowerCase().includes(q)||s.id.toLowerCase().includes(q)||s.tags.some(t=>t.includes(q))));
 }
 
 // ══ PALETTE ══
-function buildPal() {
-  const el=document.getElementById('isopal'); el.innerHTML='';
+function buildPal(){
+  const el=document.getElementById('isopal');el.innerHTML='';
   ISO_PAL.forEach(c=>{
     const d=document.createElement('div');
-    d.className='isw'+(c.hex===ST.bg?' on':'')+(c.wh?' wh':'');
+    d.className='isw'+(c.hex===bg?' on':'')+(c.wh?' wh':'');
     d.style.background=c.hex;
-    if(c.wh) d.style.border='1.5px solid #bbb';
-    d.title=c.name; d.textContent=c.hex===ST.bg?'✓':'';
-    d.onclick=()=>{ ST.bg=c.hex; buildPal(); render(); };
+    if(c.wh)d.style.border='1.5px solid #bbb';
+    d.title=c.lbl;d.textContent=c.hex===bg?'✓':'';
+    d.onclick=()=>{bg=c.hex;buildPal();render();};
     el.appendChild(d);
   });
 }
-
-// ══ TEXT COLOR ══
-function buildTc() {
-  const el=document.getElementById('tcrow'); el.innerHTML='';
-  TC_OPTIONS.forEach(c=>{
+function buildTcRow(){
+  const el=document.getElementById('tcrow');el.innerHTML='';
+  TC_OPTS.forEach(c=>{
     const b=document.createElement('button');
-    b.className='tcbtn'+(c.hex===ST.tc?' on':'');
+    b.className='tcbtn';
     b.innerHTML=`<div class="tcdot" style="background:${c.hex}"></div>${c.lbl}`;
-    b.onclick=()=>{ ST.tc=c.hex; buildTc(); render(); };
+    b.onclick=()=>{
+      // Apply to selected element OR all text elements if nothing selected
+      if(selIdx>=0&&els[selIdx]&&els[selIdx].type==='text'){
+        els[selIdx].color=c.hex;
+      } else {
+        // Apply to all text elements
+        els.forEach(e=>{if(e.type==='text')e.color=c.hex;});
+      }
+      render();
+    };
     el.appendChild(b);
   });
 }
 
-// ══ SETTERS ══
-function setT(t){
-  ST.type=t; ST.bg=TYPE_CFG[t].bg; ST.tc=TYPE_CFG[t].tc;
-  document.querySelectorAll('[id^="tp-"]').forEach(b=>b.classList.remove('on'));
-  document.getElementById('tp-'+t).classList.add('on');
-  const tag=document.getElementById('ttag');
-  tag.className='stag '+TYPE_CFG[t].tag; tag.textContent=TYPE_CFG[t].lbl;
-  buildPal(); buildTc(); render();
-}
-function setSh(s){ ST.shape=s; document.querySelectorAll('[id^="sh-"]').forEach(b=>b.classList.remove('on')); document.getElementById('sh-'+s).classList.add('on'); render(); }
-function setBd(b){ ST.border=b; document.querySelectorAll('[id^="bd-"]').forEach(x=>x.classList.remove('on')); document.getElementById('bd-'+b).classList.add('on'); render(); }
-function setFF(f){ ST.fstyle=f; document.querySelectorAll('[id^="ff-"]').forEach(x=>x.classList.remove('on')); document.getElementById('ff-'+f).classList.add('on'); render(); }
-function chSz(){ const v=document.getElementById('sz').value.split(','); ST.w=+v[0]; ST.h=+v[1]; const c=document.getElementById('cv'); c.width=ST.w; c.height=ST.h; render(); }
-
-// ══ RENDER ══
-let renderTimer = null;
-function render() {
-  // Debounce slightly but always render
-  if(renderTimer) clearTimeout(renderTimer);
-  renderTimer = setTimeout(doRender, 30);
-}
-
-async function doRender() {
-  const cv = document.getElementById('cv');
-  const ctx = cv.getContext('2d');
-  const w=cv.width, h=cv.height;
-
-  let mainTxt = document.getElementById('mt').value || 'SIGN TEXT';
-  if(ST.fstyle==='caps') mainTxt=mainTxt.toUpperCase();
-  const subTxt = document.getElementById('st').value || '';
-  const fs = +document.getElementById('fs').value;
-  const bc = darken(ST.bg, ST.bg==='#FFFFFF'||ST.bg==='#EEEEEE' ? 80 : 40);
-
-  ctx.clearRect(0,0,w,h);
-
-  // Draw background shape
-  ctx.save();
-  const p = new Path2D();
-  if(ST.shape==='tri'){ p.moveTo(w/2,8); p.lineTo(w-8,h-8); p.lineTo(8,h-8); p.closePath(); }
-  else if(ST.shape==='circle'){ const r=Math.min(w,h)/2-8; p.arc(w/2,h/2,r,0,Math.PI*2); }
-  else { p.roundRect(8,8,w-16,h-16,10); }
-  ctx.fillStyle=ST.bg; ctx.fill(p);
-  if(ST.border!=='none'){
-    ctx.strokeStyle=bc; ctx.lineWidth=ST.border==='double'?7:3.5; ctx.stroke(p);
-  }
-  if(ST.border==='double'&&ST.shape!=='tri'){
-    const p2=new Path2D();
-    if(ST.shape==='circle'){const r=Math.min(w,h)/2-20;p2.arc(w/2,h/2,r,0,Math.PI*2);}
-    else{p2.roundRect(18,18,w-36,h-36,8);}
-    ctx.strokeStyle=bc; ctx.lineWidth=2; ctx.stroke(p2);
-  }
-  ctx.restore();
-
-  // Icon + text layout
-  const padX=w*0.07;
-  const iconSz=Math.min(h*0.55,w*0.26,155);
-  const iconX=padX, iconY=(h-iconSz)/2;
-  const textX=iconX+iconSz+padX*0.7, textW=w-textX-padX;
-
-  // Draw icon image
-  try {
-    const img = await loadImage(ST.iconUrl);
-    ctx.drawImage(img, iconX, iconY, iconSz, iconSz);
-  } catch {
-    // Placeholder box
-    ctx.fillStyle='rgba(255,255,255,0.25)';
-    ctx.fillRect(iconX,iconY,iconSz,iconSz);
-    ctx.fillStyle=ST.tc; ctx.textAlign='center'; ctx.font=`${iconSz*0.28}px sans-serif`;
-    ctx.fillText('?',iconX+iconSz/2,iconY+iconSz*0.62); ctx.textAlign='left';
-  }
-
-  // Text
-  ctx.fillStyle=ST.tc; ctx.textAlign='left'; ctx.textBaseline='alphabetic';
-  const fi = ST.fstyle==='italic' ? 'italic ' : '';
-  const fw = ST.fstyle==='bold' ? 'bold ' : '';
-  const ff = fi+fw;
-
-  let mfs=fs;
-  ctx.font=ff+mfs+'px DM Sans,sans-serif';
-  while(ctx.measureText(mainTxt).width>textW&&mfs>10){ mfs--; ctx.font=ff+mfs+'px DM Sans,sans-serif'; }
-  const sfs=Math.max(Math.round(mfs*0.55),10);
-
-  // Word-wrap sub text
-  let subLines=[];
-  if(subTxt){
-    ctx.font=ff+sfs+'px DM Sans,sans-serif';
-    const words=subTxt.split(' '); let line='';
-    words.forEach(word=>{ const t=line+word+' '; if(ctx.measureText(t).width>textW&&line){subLines.push(line.trim());line=word+' ';}else line=t; });
-    if(line.trim()) subLines.push(line.trim());
-  }
-
-  const lineH=mfs*1.2;
-  const totalH=lineH+(subLines.length?sfs*1.35*subLines.length+8:0);
-  const startY=h/2-totalH/2+mfs;
-
-  ctx.font=ff+mfs+'px DM Sans,sans-serif';
-  ctx.fillText(mainTxt, textX, startY);
-
-  if(subTxt&&subLines.length){
-    // Divider
-    ctx.globalAlpha=0.18; ctx.strokeStyle=ST.tc; ctx.lineWidth=1;
-    ctx.beginPath(); ctx.moveTo(textX,startY+6); ctx.lineTo(textX+Math.min(ctx.measureText(mainTxt).width,textW),startY+6); ctx.stroke();
-    ctx.globalAlpha=1;
-    // Sub lines
-    ctx.font=ff+sfs+'px DM Sans,sans-serif'; ctx.globalAlpha=0.82;
-    subLines.forEach((l,i)=>ctx.fillText(l,textX,startY+lineH+(i*sfs*1.35)));
-    ctx.globalAlpha=1;
-  }
-
-  // Tiny credit
-  ctx.font='9px DM Sans,sans-serif'; ctx.globalAlpha=0.2;
-  ctx.textAlign='right'; ctx.fillText('safetysignai.com',w-padX,h-8);
-  ctx.textAlign='left'; ctx.globalAlpha=1;
-}
-
-// Image cache to prevent reloading same image
-const imgCache = {};
-function loadImage(url) {
-  if(imgCache[url] && imgCache[url].complete && imgCache[url].naturalWidth) return Promise.resolve(imgCache[url]);
-  return new Promise((res,rej)=>{
-    const img=new Image(); img.crossOrigin='anonymous';
-    img.onload=()=>{ imgCache[url]=img; res(img); };
-    img.onerror=()=>rej(new Error('img load failed'));
-    img.src=url;
-  });
-}
-
-function darken(hex,amt=40){
-  let r=parseInt(hex.slice(1,3),16)||255, g=parseInt(hex.slice(3,5),16)||255, b=parseInt(hex.slice(5,7),16)||255;
-  return `rgb(${Math.max(0,r-amt)},${Math.max(0,g-amt)},${Math.max(0,b-amt)})`;
+function setBd(b){border=b;document.querySelectorAll('[id^="bd-"]').forEach(x=>x.classList.remove('on'));document.getElementById('bd-'+b).classList.add('on');render();}
+function chSz(){
+  stopEdit();
+  const v=document.getElementById('sz').value.split(',');
+  CV.width=+v[0];CV.height=+v[1];
+  const cw=document.querySelector('.center');
+  const aw=Math.min(700,cw.clientWidth-24);
+  CV.style.width=aw+'px';CV.style.height=(aw*(+v[1]/+v[0]))+'px';
+  // Resize text elements to fit new canvas
+  els.forEach(el=>{if(el.type==='text'){el.w=Math.min(el.w,CV.width-44);}});
+  if(tray.length>0)placeIconsOnCanvas();
+  render();
 }
 
 // ══ DOWNLOAD ══
-function dlSign(){
-  const cv=document.getElementById('cv');
+async function dlSign(){
+  const ps=selIdx,pe=editIdx;
+  selIdx=-1;editIdx=-1;
+  document.getElementById('ied').style.display='none';
+  await render();
   const a=document.createElement('a');
-  a.download='SafetySignAI-'+ST.iconId+'.png';
-  a.href=cv.toDataURL('image/png'); a.click();
+  a.download='SafetySignAI.png';
+  a.href=CV.toDataURL('image/png');a.click();
+  selIdx=ps;editIdx=pe;render();
 }
 
 // ══ AI GENERATOR ══
 async function genAI(){
   const prompt=document.getElementById('aip').value.trim();
   if(!prompt)return;
-  const btn=document.getElementById('aibtn'), ld=document.getElementById('ld');
-  btn.disabled=true; ld.classList.add('on');
+  const btn=document.getElementById('aibtn'),ld=document.getElementById('ld');
+  btn.disabled=true;ld.classList.add('on');
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:400,
-        messages:[{role:'user',content:`You are an ISO 7010 HSE expert. Based on: "${prompt}"
+        model:'claude-sonnet-4-20250514',max_tokens:600,
+        messages:[{role:'user',content:`ISO 7010 HSE sign expert. Create a professional safety sign for: "${prompt}"
 
-Choose the most appropriate sign. Return ONLY a JSON object.
+Available icon IDs: P001=General ban, P002=No smoking, P003=No flame, P004=No pedestrians, P005=No drinking water, P006=No forklift, P010=Do not touch, P013=No phone, P021=No dogs, P025=No swimming, P030=No alcohol, W001=General warning, W002=Flammable, W004=High voltage, W005=Radiation, W007=Falling objects, W012=Danger voltage, W014=Slippery, W017=Hot surface, W021=Trip hazard, W036=Confined space, M003=Ear protection, M004=Eye protection, M005=Helmet, M006=Gloves, M007=Clothing, M008=Respirator, M009=Harness, M011=Boots, M013=Wash hands, M015=Hi-vis, M016=Mask, E001=Exit left, E002=Exit right, E003=First aid, E004=Phone, E015=Assembly, E016=Fire exit, E017=AED, E019=Main switch, F001=Extinguisher, F002=Hose reel, F003=Fire alarm, F007=Hydrant, F008=Fire door
 
-Available codes:
-PROHIBITION (type=p): P001=General, P002=No smoking, P003=No flame, P004=No thoroughfare, P005=Not drinking water, P006=No forklift, P010=Do not touch, P011=No water on fire, P013=No mobile phones, P022=No eating/drinking, P025=No swimming, P027=No photography, P030=No alcohol, P032=No cycling, P034=No firearms
-WARNING (type=w): W001=General warning, W002=Explosive, W003=Radioactive, W005=Biohazard, W007=Corrosive, W008=Toxic, W009=Flammable, W012=High voltage, W014=Slippery, W015=Falling objects, W017=Hot surface, W021=Trip hazard, W025=High noise, W026=Compressed gas, W029=Danger of death
-MANDATORY (type=m): M001=General, M003=Wear ear protection, M004=Wear eye protection, M005=Wear helmet, M006=Wear gloves, M007=Wear clothing, M008=Wear respirator, M009=Wear harness, M011=Wear boots, M013=Wash hands, M015=Hi-vis, M016=Wear mask, M020=Turn off, M026=Lifejacket, M027=Sanitise, M028=Use sanitiser
-SAFE (type=s): E001=Exit left, E002=Exit right, E003=First aid, E004=Emergency phone, E007=Emergency shower, E008=Eye wash, E010=Emergency exit door, E015=Assembly point, E016=Fire exit, E017=AED defibrillator, E018=Doctor, E019=Main switch, E020=Life buoy
-FIRE (type=f): F001=Extinguisher, F002=Hose reel, F003=Ladder, F005=Alarm call point, F007=Hydrant, F008=Fire door, F010=Fire blanket
+If the request needs MULTIPLE icons (e.g. PPE area needs helmet+gloves+boots), include all relevant icons.
 
-Return: {"type":"p|w|m|s|f","iconId":"CODE","main":"CAPS 3 WORDS MAX","sub":"Subtitle max 8 words"}
-ONLY JSON.`}]
+Return ONLY this JSON:
+{"header":"DANGER|WARNING|CAUTION|MANDATORY|SAFE|NOTICE","mainText":"MAIN MESSAGE","subText":"Detail description","icons":["ID1","ID2"]}`}]
       })
     });
     const data=await res.json();
     const p=JSON.parse(data.content[0].text.trim().replace(/```json|```/g,''));
-
-    // Apply type
-    if(p.type&&TYPE_CFG[p.type]) setT(p.type);
-
-    // Find icon
-    const found=ALL.find(s=>s.id===p.iconId);
-    if(found){
-      ST.iconUrl=found.url; ST.iconId=found.id;
-      // Switch cat tab
-      const catMap={p:'prohibition',w:'warning',m:'mandatory',s:'safe',f:'fire'};
-      const tc=catMap[p.type]||'prohibition';
-      document.querySelectorAll('.ctab').forEach((b,i)=>{
-        const match=CATS[i].id===tc;
-        b.classList[match?'add':'remove']('on');
-        b.style.background=match?CATS[i].col:''; b.style.borderColor=match?CATS[i].col:''; b.style.color=match?'#fff':'';
-      });
-      buildGrid(LIB[tc]?.map(s=>({...s,cat:tc}))||[]);
-    }
-
-    if(p.main) document.getElementById('mt').value=p.main;
-    if(p.sub) document.getElementById('st').value=p.sub;
+    // Reset and rebuild
+    tray=[];
+    els=[];
+    // Pick bg based on first icon's category
+    const firstIcon=ALL.find(s=>s.id===p.icons[0]);
+    if(firstIcon&&CAT_BG[firstIcon.cat]){bg=CAT_BG[firstIcon.cat];buildPal();}
+    const tc=firstIcon?CAT_TC[firstIcon.cat]:'#FFFFFF';
+    // Add text
+    els.push({type:'text',x:22,y:18,w:CV.width-44,h:80,text:p.header||'DANGER',color:tc,fs:56,fw:'bold',al:'left'});
+    els.push({type:'text',x:22,y:100,w:CV.width*0.65,h:50,text:p.mainText||'',color:tc,fs:22,fw:'bold',al:'left'});
+    if(p.subText)els.push({type:'text',x:22,y:150,w:CV.width*0.65,h:80,text:p.subText,color:tc,fs:16,fw:'normal',al:'left'});
+    // Add icons to tray and canvas
+    (p.icons||[]).forEach(id=>{
+      const found=ALL.find(s=>s.id===id);
+      if(found)tray.push({id:found.id,svg:found.svg,lbl:found.lbl});
+    });
+    rebuildTray();
     document.getElementById('aip').value='';
-    setTimeout(render,100);
-  }catch(e){ alert('AI generation failed. Please try again.'); }
-  btn.disabled=false; ld.classList.remove('on');
+  }catch(e){alert('AI generation failed. Note: AI works on the live website, not when opened as a local file.');}
+  btn.disabled=false;ld.classList.remove('on');
 }
 
 // ══ INIT ══
-buildGrid(LIB.prohibition.map(s=>({...s,cat:'prohibition'})));
+buildGrid(ALL);
 buildPal();
-buildTc();
-setTimeout(render,200);
+buildTcRow();
+const cw=document.querySelector('.center');
+const aw=Math.min(700,cw.clientWidth-24);
+CV.style.width=aw+'px';
+CV.style.height=(aw*(380/620))+'px';
+render();
 </script>
 </body>
 </html>
